@@ -3,7 +3,22 @@
 /// c_stunted
 /// c_underweight
 
-* c_height and c_weight
+if inlist(country_name,"Belarus2019") {
+	gen c_height = .
+	gen c_weight = .
+	gen c_haz = .
+	gen c_stunted = .
+	gen c_stunted_sev = .
+	gen c_waz = .
+	gen c_underweight = .
+	gen c_underweight_sev = .
+	gen c_whz = .
+	gen c_wasted = .
+	gen c_wasted_sev = .
+}
+
+if ~inlist(country_name,"Belarus2019") {
+	* c_height and c_weight
 		gen c_height = .
 		gen c_weight = .
 		replace c_height = an11
@@ -38,3 +53,4 @@
 		replace c_wasted = whz2 < -2						// stunted if child is more than 2 SDs below WAZ reference
 		replace c_wasted_sev = whz2 < -3						// stunted if child is more than 2 SDs below WAZ reference
 		for var c_wasted c_wasted_sev c_whz: replace X = . if inlist(whzflag,.,1)	// missing if weight or age flagged
+}

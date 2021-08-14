@@ -48,8 +48,7 @@
 				replace w_CPR = 1 if w_CPR == 0 & `var' != "" & `var' != "?"		// 1 for modern method
 				replace w_CPR = . if `var'== "?"                          // missing for DK/missing if no other modern method used
 			}			
-		
-		
+			
 
 // postpartum amenorrheic: if she had a birth in last two years and is not currently pregnant, and her menstrual period has not returned since the birth of the last child
 		gen pregPPA = .
@@ -72,11 +71,11 @@
 		replace infec = 0 if inrange(wb4,15,49) & mstatus == 1 
 		replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & ((un14u == 3 & un14n > 6) | un14u == 4 | inrange(un14n,93,95) | un12b == "B" | un12c == "C" | un12d == "D" | un12e == "E" | un7 == 3 | un8n == 94)
 
-		if ~inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018") {		
+		if ~inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","Belarus2019") {		
 			replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & cp3 != 1 & wm6y-bh4y_last > 5 & inlist(ma1,1,2) & (ma7 == 1 & (wm6y - ma8y > 5 | wb4 - ma11 > 5))
 		}  
 
-		if inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018") {		
+		if inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","Belarus2019") {		
 			replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & cp3 != 1 & wdoi - wdoblc > 60 & inlist(ma1,1,2) & (ma7 == 1 & (wm6y - ma8y > 5 | wb4 - ma11 > 5))
 		}   
 		replace infec = .  if cp1 == 9 | cp3 == 9 | un14n == 99 | un12b == "?" | un12c == "?" | un12d == "?" | un12e == "?" | un7 == 9 | un8n == 99
@@ -112,7 +111,6 @@
 		replace unmet_lim = 1 if unmet_lim == 0 & cp2 != 1 & pregPPA == 1 & db2 == 2
 		replace unmet_lim = . if cp1 == 9 | cp2 == 9 | un7 == 9 | un4 == 9 | db2 == 9
 
-	
 		
 * w_unmet: Unmet need for contraception, percentage of fecund women who are married or in union and are not using any method of contraception, but who wish to postpone the next birth (spacing) or who wish to stop childbearing altogether (limiting).
 
