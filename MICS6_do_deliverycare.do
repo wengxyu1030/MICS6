@@ -82,7 +82,7 @@ c_del_eff2_q
 		}	
 		if inlist(country_name,"Lesotho2018","Zimbabwe2019") {
 			replace c_facdel = 0 if mn20 != .
-			replace c_facdel = 1 if inrange(mn20,21,23)	| inrange(mn20,41,43)	// 1 for public health facility
+			replace c_facdel = 1 if inrange(mn20,21,24)	| inrange(mn20,41,43)	// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,33)	    // 1 for private health facility
 		}	
 		if inlist(country_name,"Georgia2018") {
