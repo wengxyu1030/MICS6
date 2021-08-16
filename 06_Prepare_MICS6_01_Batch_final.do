@@ -179,6 +179,9 @@ clear
 		if inlist(country_name,"Iraq2017","KyrgyzRepublic2018","Mongolia2018","Suriname2018","Tunisia2018","Lesotho2018","Georgia2018","Bangladesh2019","Montenegro2018") {
 			gen c_ITN = .
 		}
+		if inlist(country_name,"Belarus2019") {
+			gen c_ITN = .
+		}
 		
 		
 		* Child gender
@@ -234,7 +237,7 @@ clear
 		}
 
 	* Add data from birth history for mortality rate computation
-		if ~inlist("`name'","Georgia2018","Montenegro2018") {						// there is no birth history dataset
+		if ~inlist("`name'","Georgia2018","Montenegro2018","Belarus2019") {						// there is no birth history dataset
 		
 			use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'bh.dta", clear
 			gen mor_dob = bh4c						// child date of birth
@@ -289,7 +292,7 @@ clear
 			save ``name'childbh'	
 		}
 		
-  		if inlist("`name'","Georgia2018","Montenegro2018") {		// creates mortality variables for survey's without the data for dofile to run smoothly
+  		if inlist("`name'","Georgia2018","Montenegro2018","Belarus2019") {		// creates mortality variables for survey's without the data for dofile to run smoothly
 			foreach var in mor_dob mor_wln mor_ali mor_ade mor_afl mor_doi mor_wdob mor_male mor_bord mor_int hm_live mor_wght {
 				gen `var' = .
 			} 
@@ -361,7 +364,7 @@ clear
 		    recode hm_stay (7/9 = .)
 		    recode hm_stay (2 = 0)
 		}
-		if inlist("`name'","Iraq2017","KyrgyzRepublic2018","Mongolia2018","Suriname2018","Tunisia2018","Georgia2018","Bangladesh2019","Montenegro2018") {
+		if inlist("`name'","Iraq2017","KyrgyzRepublic2018","Mongolia2018","Suriname2018","Tunisia2018","Georgia2018","Bangladesh2019","Montenegro2018","Belarus2019") {
 	        gen hm_stay = .
 		}
 		
@@ -430,7 +433,8 @@ clear
 			country_name == "Ghana2017" |
 			country_name == "Togo2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018"|
+			country_name == "Belarus2019"  {;
 	    #delimit cr 
 			gen WB_cname = substr("`name'",1,length("`name'")-4)  // creates country name -- check if same as WB_cname in CountryCode file, if not, create country name accordingly
 		}
@@ -587,7 +591,8 @@ clear
         label var gl_adm1_code "Global Administrative Unit Layers(GAUL) Code"
 		label var gl_adm0_code "Global Administrative Unit Layers(GAUL) Country Code"
 		
-		
+	rename (c_del_eff1 c_del_eff1_q c_del_eff2 c_del_eff2_q w_unmet c_measles_vacc c_mateduc ind_sampleweight mor_wdob mor_doi)(c_sba_eff1 c_sba_eff1_q c_sba_eff2 c_sba_eff2_q w_unmet_fp c_measles c_mateduc w_sampleweight hm_dob hm_doi)
+
 	* Drop observations with missings on all outcomes
 		// missings dropvars c_* w_* , force
 		
