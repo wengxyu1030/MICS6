@@ -236,6 +236,35 @@ clear
 			save ``name'child1'
 		}
 
+		if inlist("`name'","Chad2019") {
+		
+			use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta", clear
+			
+			** generate a name variable to be reused in each do-file
+				
+				gen country_name = "`name'"
+		
+			/// c_ITN: Child under 5 - use of insecticide-treated bed nets (ITN)
+			do "${root}/STATA/DO/SC/06_Prepare_MICS/06_Prepare_MICS6/MICS6_do_c_ITN.do"
+		
+			* Drop the name variable
+			drop country_name
+			
+			* Save
+			tempfile `name'tn
+			save ``name'tn'
+		
+			* Merge with child
+			merge 1:1 hh1 hh2 ln using ``name'child'
+			
+			tab _merge
+			drop _merge
+
+			* Save final
+			tempfile `name'child1
+			save ``name'child1'
+		}
+
 	* Add data from birth history for mortality rate computation
 		if ~inlist("`name'","Georgia2018","Montenegro2018","Belarus2019") {						// there is no birth history dataset
 		
@@ -280,6 +309,11 @@ clear
 			}
 			
 			if inlist("`name'","LaoPDR2017","SierraLeone2017","Gambia2018","Madagascar2018","Zimbabwe2019","Congodr2017","Ghana2017","Togo2017","Kiribati2018") {
+				merge 1:1 hh1 hh2 ln using ``name'child1'
+				drop _merge
+			}
+			//still the expression too long problem
+			if inlist("`name'","Chad2019") {
 				merge 1:1 hh1 hh2 ln using ``name'child1'
 				drop _merge
 			}
@@ -358,7 +392,8 @@ clear
 			country_name == "Congodr2017" |
 			country_name == "Ghana2017" |
 			country_name == "Togo2017" |
-			country_name == "Kiribati2018" {;
+			country_name == "Kiribati2018"|
+			country_name == "Chad2019" {;
 	    #delimit cr	
 		    gen hm_stay = hl7
 		    recode hm_stay (7/9 = .)
@@ -434,7 +469,8 @@ clear
 			country_name == "Togo2017" |
 			country_name == "Kiribati2018" |
 			country_name == "Montenegro2018"|
-			country_name == "Belarus2019"  {;
+			country_name == "Belarus2019"|
+			country_name == "Chad2019"  {;
 	    #delimit cr 
 			gen WB_cname = substr("`name'",1,length("`name'")-4)  // creates country name -- check if same as WB_cname in CountryCode file, if not, create country name accordingly
 		}
