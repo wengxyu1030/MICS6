@@ -9,10 +9,10 @@ c_skin2skin
 c_sba
 c_sba_q
 c_caesarean
-c_del_eff1
-c_del_eff1_q
-c_del_eff2
-c_del_eff2_q
+c_sba_eff1
+c_sba_eff1_q
+c_sba_eff2
+c_sba_eff2_q
 */
 
 
@@ -201,36 +201,36 @@ c_del_eff2_q
 			replace onedayfac = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 		
-* c_del_eff1: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth)
-		gen c_del_eff1 = .
+* c_sba_eff1: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth)
+		gen c_sba_eff1 = .
 		if ~inlist(country_name,"Georgia2018") {
-			replace c_del_eff1 = 0 if bl2 == 1
-			replace c_del_eff1 = 1 if c_sba == 1 & c_facdel == 1 & c_earlybreast == 1 & onedayfac == 1
-			replace c_del_eff1 = . if c_sba == . | c_facdel == . | c_earlybreast == . | onedayfac == .
-			replace c_del_eff1 = . if bl2 != 1 | ~inrange(wb4,15,49)
+			replace c_sba_eff1 = 0 if bl2 == 1
+			replace c_sba_eff1 = 1 if c_sba == 1 & c_facdel == 1 & c_earlybreast == 1 & onedayfac == 1
+			replace c_sba_eff1 = . if c_sba == . | c_facdel == . | c_earlybreast == . | onedayfac == .
+			replace c_sba_eff1 = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 		
-* c_del_eff1_q: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth) among those with any SBA
-		gen c_del_eff1_q = c_del_eff1
+* c_sba_eff1_q: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth) among those with any SBA
+		gen c_sba_eff1_q = c_sba_eff1
 		if ~inlist(country_name,"Georgia2018") {
-			replace c_del_eff1_q = . if c_sba == 0 | c_sba == .
-			replace c_del_eff1_q = . if bl2 != 1 | ~inrange(wb4,15,49)
+			replace c_sba_eff1_q = . if c_sba == 0 | c_sba == .
+			replace c_sba_eff1_q = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 		
-* c_del_eff2: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth, skin2skin contact)
-		gen c_del_eff2 = .
+* c_sba_eff2: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth, skin2skin contact)
+		gen c_sba_eff2 = .
 		if ~inlist(country_name,"Georgia2018") {
-			replace c_del_eff2 = 0 if bl2 == 1
-			replace c_del_eff2 = 1 if c_sba == 1 & c_facdel == 1 & c_earlybreast == 1 & onedayfac == 1 & c_skin2skin == 1
-			replace c_del_eff2 = . if c_sba == . | c_facdel == . | c_earlybreast == . | onedayfac == . | c_skin2skin == .
-			replace c_del_eff2 = . if bl2 != 1 | ~inrange(wb4,15,49)
+			replace c_sba_eff2 = 0 if bl2 == 1
+			replace c_sba_eff2 = 1 if c_sba == 1 & c_facdel == 1 & c_earlybreast == 1 & onedayfac == 1 & c_skin2skin == 1
+			replace c_sba_eff2 = . if c_sba == . | c_facdel == . | c_earlybreast == . | onedayfac == . | c_skin2skin == .
+			replace c_sba_eff2 = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 		
-* c_del_eff2_q: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth, skin2skin contact) among those with any SBA
-		gen c_del_eff2_q = c_del_eff2
+* c_sba_eff2_q: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth, skin2skin contact) among those with any SBA
+		gen c_sba_eff2_q = c_sba_eff2
 		if ~inlist(country_name,"Georgia2018") {
-			replace c_del_eff2_q = . if c_sba == 0 | c_sba == .
-			replace c_del_eff2_q = . if bl2 != 1 | ~inrange(wb4,15,49)
+			replace c_sba_eff2_q = . if c_sba == 0 | c_sba == .
+			replace c_sba_eff2_q = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 
 drop onedayfac

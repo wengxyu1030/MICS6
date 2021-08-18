@@ -2,7 +2,7 @@
 //Do-file for the indicator:
 /// w_condom_conc
 /// w_CPR
-/// w_unmet
+/// w_unmet_fp
 /// w_need_fp
 /// w_metany_fp
 /// w_metmod_fp
@@ -114,13 +114,13 @@
 
 	
 		
-* w_unmet: Unmet need for contraception, percentage of fecund women who are married or in union and are not using any method of contraception, but who wish to postpone the next birth (spacing) or who wish to stop childbearing altogether (limiting).
+* w_unmet_fp: Unmet need for contraception, percentage of fecund women who are married or in union and are not using any method of contraception, but who wish to postpone the next birth (spacing) or who wish to stop childbearing altogether (limiting).
 
-		gen w_unmet = .
+		gen w_unmet_fp = .
 		
-		replace w_unmet = 0 if inrange(wb4,15,49) & mstatus == 1
-		replace w_unmet = 1 if w_unmet == 0 & (unmet_spc == 1 | unmet_lim == 1)
-		replace w_unmet = . if unmet_spc == . | unmet_lim == .
+		replace w_unmet_fp = 0 if inrange(wb4,15,49) & mstatus == 1
+		replace w_unmet_fp = 1 if w_unmet_fp == 0 & (unmet_spc == 1 | unmet_lim == 1)
+		replace w_unmet_fp = . if unmet_spc == . | unmet_lim == .
 		
 	
 
@@ -155,8 +155,8 @@
 		gen w_need_fp = .
 		
 		replace w_need_fp = 0 if inrange(wb4,15,49) & mstatus == 1
-		replace w_need_fp = 1 if w_need_fp == 0 & (w_unmet == 1 | met == 1)
-		replace w_need_fp = . if w_unmet == . | met == .
+		replace w_need_fp = 1 if w_need_fp == 0 & (w_unmet_fp == 1 | met == 1)
+		replace w_need_fp = . if w_unmet_fp == . | met == .
 
 
 * w_metany_fp: 15-49y married or in union with need for family planning using any contraceptives (1/0)
@@ -188,7 +188,7 @@
 		
 		
 		if inlist(country_name,"Zimbabwe2019") {
-			foreach var in w_unmet w_need_fp w_metany_fp w_metmod_fp w_metany_fp_q {
+			foreach var in w_unmet_fp w_need_fp w_metany_fp w_metmod_fp w_metany_fp_q {
 				cap gen `var'=.
 			}
 		}

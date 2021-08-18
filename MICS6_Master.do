@@ -38,7 +38,7 @@ macro drop _all
 	*if `pc' != 0 global DO ""
 
 * Define the country names (in globals) by recode version
-	global MICS6countries "Zimbabwe2019"
+	global MICS6countries "Bangladesh2019"
 
 foreach name in $MICS6countries {	
 	clear 
@@ -64,8 +64,8 @@ foreach name in $MICS6countries {
 	gen hm_male = 0 // Gender variable
 	gen hm_educ = welevel // Educational level
 	gen hm_age_yrs = wb4 // Age in years
-	gen ind_sampleweight = . // Woman's sample weight
-	replace ind_sampleweight = wmweight
+	gen w_sampleweight = . // Woman's sample weight
+	replace w_sampleweight = wmweight
 
 	save `wm', replace
 	
@@ -89,7 +89,7 @@ foreach name in $MICS6countries {
 
 	gen hm_age_yrs = ub2 // Child's age in years
 	gen hm_age_mon = cage // Child's age in months
-	gen ind_sampleweight = chweight // Child's sample weight
+	gen w_sampleweight = chweight // Child's sample weight
 		
 	save `ch', replace
 	
@@ -134,7 +134,7 @@ foreach name in $MICS6countries {
 	}
 
 	else{
-	foreach var in mor_dob mor_wln mor_ali mor_ade mor_afl mor_doi mor_wdob mor_male mor_bord mor_int hm_live mor_wght {
+	foreach var in mor_dob mor_wln mor_ali mor_ade mor_afl hm_doi hm_dob mor_male mor_bord mor_int hm_live mor_wght {
 		gen `var' = .
 		}
 	}
@@ -172,14 +172,13 @@ foreach name in $MICS6countries {
 	drop _merge
 
 * merge with women
-	
 	mmerge hh1 hh2 ln using `wm'
 	drop _merge
 	
 	do "${DO}/19_child_maternal_edu.do"
 
 * Housekeeping
-	keep hh1 hh2 hh7 ln c_* w_* mor_* ind_* hm_* 	
+	keep hh1 hh2 hh7 ln c_* w_* mor_* hm_* 	
 	rename ln hl1
 	
 ***********************************
@@ -209,7 +208,7 @@ foreach name in $MICS6countries {
 		gen hm_stay = .
 	}
 	
-	keep hh1 hh2 ln c_* w_* mor_* ind_* hm_*
+	keep hh1 hh2 ln c_* w_* mor_*  hm_*
 	
 ***********************************
 *****      Merge with hh         **
@@ -224,7 +223,7 @@ foreach name in $MICS6countries {
 	do "${DO}/21_subnational_regions.do"
 
 * Housekeeping
-	keep hh1 hh2 ln hh_* c_* w_* mor_* ind_* hm_* gl_adm1_code gl_adm0_code
+	keep hh1 hh2 ln hh_* c_* w_* mor_*  hm_* gl_adm1_code gl_adm0_code
 
 ***********************************
 *****      Merge with iso        **
@@ -257,8 +256,13 @@ foreach name in $MICS6countries {
 	do "${DO}/Lab_var.do"
 	
 * Save micro-dataset
-	order survey year country hh1 hh2 ln  c_* w_* mor_* ind_* ln hm_* hh_*
+	order survey year country hh1 hh2 ln  c_* w_* mor_* ln hm_* hh_*
 	saveold "${OUT}/MICS6-`name'Adept.dta", replace
 
+***********************************
+*****      Quality Control       **
+***********************************	
+	do "${DO}/Quality_control.do" 
+	save "${INTER}/Indicator_`name'.dta", replace  
 }
 

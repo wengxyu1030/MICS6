@@ -32,9 +32,9 @@ mor_ali
 	recode hm_live (2 = 0)
 
 * housekeeping
-	gen mor_doi = wdoi
+	gen hm_doi = wdoi
 	
-	gen mor_wdob = wdob
+	gen hm_dob = wdob
 	
 	gen mor_male = 1 if bh3 == 1
 	replace mor_male = 0 if bh3 == 2
@@ -46,6 +46,6 @@ mor_ali
 	
 	gen mor_wght = wmweight
 	
-	gen ind_sampleweight = wmweight			// sample weight
+	gen w_sampleweight = wmweight			// sample weight
 	
-	keep mor_doi mor_dob mor_wln mor_ali mor_ade mor_afl mor_doi mor_wdob mor_male mor_bord mor_int hh1 hh2 bh8 bhln hm_live wm3 mor_wght
+	keep mor_dob hm_dob mor_wln mor_ali mor_ade mor_afl hm_doi hm_dob mor_male mor_bord mor_int hh1 hh2 bh8 bhln hm_live wm3 mor_wght
