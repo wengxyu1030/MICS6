@@ -148,7 +148,11 @@ foreach name in $MICS6countries {
 	use `bh', clear
 	
 	// Give each birth unique line number - consistent with hh line number
-	rename bh8 ln
+	capture confirm var bh8
+	if !_rc{
+		rename bh8 ln
+		}
+		
 	replace ln = 100 if (ln == 0 | ln == .)
 	
 	by hh1 hh2 ln, sort: gen check = _n
