@@ -33,7 +33,8 @@ c_sba_eff2_q
 			country_name == "Ghana2017" |
 			country_name == "Togo2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018" |
+			country_name == "CostaRica2018"{;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31)		// 1 for private/public hospital
@@ -104,6 +105,11 @@ c_sba_eff2_q
 			replace c_facdel = 1 if inrange(mn20,21,24)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,35)	    // 1 for private health facility
 		}	
+		if inlist(country_name,"CostaRica2018") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
+			replace c_facdel = 1 if inrange(mn20,31,32)	    // 1 for private health facility
+		}
 		
 		replace c_facdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 // Not taking into account "Others"
@@ -164,6 +170,9 @@ c_sba_eff2_q
 			if inlist(country_name,"Togo2017") {	
 				global mn19 "mn19a mn19b mn19c mn19d"
 			}
+			if inlist(country_name,"CostaRica2018") {	
+				global mn19 "mn19a mn19b mn19i"
+			} 
 			foreach var in $mn19 {
 				replace `var' = "" if `var' == " "
 				replace c_sba = 1 if c_sba == 0 & `var' != "" & `var' != "?"	// 1 for Govt. and private doctor/nurse/midwife incl. auxiliary

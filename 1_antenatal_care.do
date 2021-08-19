@@ -48,7 +48,8 @@
 			country_name == "Congodr2017" |
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018" |
+			country_name == "CostaRica2018" { ;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -106,6 +107,9 @@
 			if inlist(country_name,"Togo2017") {	
 				global mn3 "mn3a mn3b mn3c mn3d"
 			}
+			if inlist(country_name,"CostaRica2018") {	
+				global mn3 "mn3a mn3b mn3i"
+			} 
 			foreach var in $mn3 {
 				replace `var' = "" if `var' == " "
 				replace c_anc_eff = 1 if mn5 > 3 & mn5 < 98 & `var' != "" & `var' != "?" & mn6a == 1 & mn6b == 1 & mn6c == 1		// 1 for 4+ anc visits, doctor/nurse/midwife incl. auxiliary, blood pressure, blood and urine samples
