@@ -42,7 +42,7 @@
     }
 	
 	***for variables generated from 11_child_other
-	foreach var of var w_mateduc c_ITN{
+	foreach var of var c_mateduc c_ITN{
 	egen pop_`var' = wtmean(`var'),weight(hh_sampleweight)
 	}
 	

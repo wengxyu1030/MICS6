@@ -595,7 +595,7 @@ clear
         label var gl_adm1_code "Global Administrative Unit Layers(GAUL) Code"
 		label var gl_adm0_code "Global Administrative Unit Layers(GAUL) Country Code"
 		
-	rename (c_del_eff1 c_del_eff1_q c_del_eff2 c_del_eff2_q w_unmet c_measles_vacc c_mateduc ind_sampleweight mor_wdob mor_doi)(c_sba_eff1 c_sba_eff1_q c_sba_eff2 c_sba_eff2_q w_unmet_fp c_measles w_mateduc w_sampleweight hm_dob hm_doi)
+	rename (c_del_eff1 c_del_eff1_q c_del_eff2 c_del_eff2_q w_unmet c_measles_vacc c_mateduc ind_sampleweight mor_wdob mor_doi)(c_sba_eff1 c_sba_eff1_q c_sba_eff2 c_sba_eff2_q w_unmet_fp c_measles c_mateduc w_sampleweight hm_dob hm_doi)
 
 	* Drop observations with missings on all outcomes
 		// missings dropvars c_* w_* , force
