@@ -503,13 +503,13 @@ clear
 		label var c_illtreat "Child: 0-4 with diarrhea, rapid breathing and/or fever in L2W seen by formal healthcare provider"
 		label var c_stunted "Child: 0-4y HfA <-2 std.dev. from median (WHO) (1/0)"
 		label var c_stunted_sev "Child: 0-4y HfA <-3 std.dev. from median (WHO) (1/0)"
-		label var c_haz "Child: 0-4y HfA std.dev. from median (WHO)"
+		label var c_hfa "Child: 0-4y HfA std.dev. from median (WHO)"
 		label var c_underweight "Child: 0-4y WfA <-2 std.dev. from median (WHO) (1/0)"
 		label var c_underweight_sev "Child: 0-4y WfA <-3 std.dev. from median (WHO) (1/0)"
-		label var c_waz "Child: 0-4y WfA std.dev. from median (WHO)"
+		label var c_wfa "Child: 0-4y WfA std.dev. from median (WHO)"
 		label var c_wasted "Child: 0-4y WfH <-2 std.dev. from median (WHO) (1/0)"
 		label var c_wasted_sev "Child: 0-4y WfH <-3 std.dev. from median (WHO) (1/0)"
-		label var c_whz "Child: 0-4y WfH std.dev. from median (WHO)"	
+		label var c_wfh "Child: 0-4y WfH std.dev. from median (WHO)"	
 		label var c_height "Child:  0-4y height in cm"
 		label var c_weight "Child: 0-4y weight in kg"
 		label var c_treatARI "Child: 0-4y with ARI in L2W seen by formal provider (1/0)"
@@ -595,7 +595,7 @@ clear
         label var gl_adm1_code "Global Administrative Unit Layers(GAUL) Code"
 		label var gl_adm0_code "Global Administrative Unit Layers(GAUL) Country Code"
 		
-	rename (c_del_eff1 c_del_eff1_q c_del_eff2 c_del_eff2_q w_unmet c_measles_vacc c_mateduc ind_sampleweight mor_wdob mor_doi)(c_sba_eff1 c_sba_eff1_q c_sba_eff2 c_sba_eff2_q w_unmet_fp c_measles c_mateduc w_sampleweight hm_dob hm_doi)
+	rename (c_del_eff1 c_del_eff1_q c_del_eff2 c_del_eff2_q w_unmet c_measles_vacc c_mateduc ind_sampleweight mor_wdob mor_doi)(c_sba_eff1 c_sba_eff1_q c_sba_eff2 c_sba_eff2_q w_unmet_fp c_measles w_mateduc w_sampleweight hm_dob hm_doi)
 
 	* Drop observations with missings on all outcomes
 		// missings dropvars c_* w_* , force
@@ -603,6 +603,12 @@ clear
 	* Save micro-dataset
 	 
 	saveold "${OUT}/ADePT READY/MICS/New/MICS6-`name'Adept.dta", replace
+
+***********************************
+*****      Quality Control       **
+***********************************	
+	do "${root}/STATA/DO/SC/06_Prepare_MICS/06_Prepare_MICS6/Quality_control.do" 
+	save "${INTER}/Indicator_`name'.dta", replace 
 			
 }		
 
