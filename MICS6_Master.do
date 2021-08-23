@@ -34,11 +34,11 @@ macro drop _all
 	global INTER "${root}/INTER"
 
 * Define path for do-files
-	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_local"
+	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_github/MICS6"
 	*if `pc' != 0 global DO ""
 
 * Define the country names (in globals) by recode version
-	global MICS6countries "Bangladesh2019"
+	global MICS6countries "CostaRica2018"
 
 foreach name in $MICS6countries {	
 	clear 
@@ -152,7 +152,7 @@ foreach name in $MICS6countries {
 	if !_rc{
 		rename bh8 ln
 		}
-		
+
 	replace ln = 100 if (ln == 0 | ln == .)
 	
 	by hh1 hh2 ln, sort: gen check = _n
@@ -243,6 +243,7 @@ foreach name in $MICS6countries {
 	replace WB_cname = "Kyrgyz Republic" if WB_cname == "KyrgyzRepublic"
 	replace WB_cname = "The Gambia" if WB_cname == "Gambia"
 	replace WB_cname = "Dem. Rep. Congo" if WB_cname == "Congodr"
+	replace WB_cname = "Costa Rica" if WB_cname == "CostaRica"
 	
 	// Merges with country code data
 	mmerge WB_cname using "${SOURCE}/CountryCodes.dta", ukeep(iso3c iso2c WB_cname WB_region) 

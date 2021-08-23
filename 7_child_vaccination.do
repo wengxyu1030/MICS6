@@ -20,7 +20,7 @@
 */
 
 	
-	*c_measles: Child age 15-23 immunized against measles
+	*c_measles: Child age 15-23 immunized against measles/MMR
 		foreach var in im6my im26 im2 im5 im11 {		// create empty variables for surveys without immunization modules
 			cap gen `var' = .
 		}
@@ -46,7 +46,7 @@
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m1y,6667,9999) | inrange(im6m1d,97,98) | inrange(hf12m1y,6667,9999) | inlist(hf12m1d,0,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
 		}		
        //  need to combine with FORM FOR VACCINATION RECORDS AT HEALTH FACILITY	   
-		if inlist(country_name,"Suriname2018","Gambia2018","Zimbabwe2019","Kiribati2018") {
+		if inlist(country_name,"Suriname2018","Gambia2018","Zimbabwe2019","Kiribati2018", "CostaRica2018") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6m1y,2000,6666) | inlist(im6m1d,44,66))			// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m1y,6667,9999) | inrange(im6m1d,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
@@ -93,7 +93,8 @@
 			country_name == "Zimbabwe2019" |
 			country_name == "Ghana2017" |
 			country_name == "Togo2017" |
-			country_name == "Kiribati2018" {;
+			country_name == "Kiribati2018" |
+			country_name == "CostaRica2018" {;
 	    #delimit cr		
 		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im6by,2000,6666) | inlist(im6bd,44,66))
 			replace c_bcg = 1 if c_bcg == 0 & im14 == 1                             // BCG from memory
@@ -128,7 +129,8 @@
 			country_name == "Zimbabwe2019" |
 			country_name == "Ghana2017" |
 			country_name == "Togo2017" |
-			country_name == "Kiribati2018" {;
+			country_name == "Kiribati2018" |
+			country_name == "CostaRica2018" {;
 	    #delimit cr		
 			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6penta`x'y,2000,6666) | inlist(im6penta`x'd,44,66))
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im20 == 1 & inrange(im21,`x',7)               // dpt1-3 from memory
@@ -152,14 +154,14 @@
 	   }
 	   
 	   
-	
 	* c_polio1: Child age 15-23M received polio1/OPV1 vaccination
 	* c_polio2: Child age 15-23M received polio2/OPV2 vaccination
 	* c_polio3: Child age 15-23M received polio3/OPV3 vaccination
 	// first two week after birth = at birth
-        if inlist(country_name,"Suriname2018") {
-		    gen im6p1y = im6i1y
-			gen im6p1d = im6i1d
+        if inlist(country_name,"Suriname2018", "CostaRica2018") {
+		    rename im6i*d im6p*d
+			rename im6i*m im6p*m
+			rename im6i*y im6p*y
 		}
 		forvalues x = 1 2 to 3 {
 			gen c_polio`x' = . 
@@ -186,7 +188,12 @@
 			    replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6vpo`x'y,2000,6666) | inlist(im6vpo`x'd,44,66)) // count opv1-3 as polio1-3
 				replace c_polio`x' = 1 if c_polio`x' == 0 & ((im16 == 1 & inrange(im18,`x',7)) | (impp16 == 1 & inrange(impp18,`x',7)))         // polio1-3 from memory
 				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6vpo`x'y,6667,9999) | inrange(im6vpo`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im18,8,9) | inlist(impp16,8,9) | inlist(impp18,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory
-		    }		   
+		    }	
+			if inlist(country_name,"CostaRica2018") {
+			    replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
+				replace c_polio`x' = 1 if c_polio`x' == 0 & im19 == 1       // polio1-3 from memory
+				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & inlist(im19,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory
+		   }
 		}
 			
 

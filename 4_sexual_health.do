@@ -17,10 +17,11 @@
 
 * w_CPR: Use of modern contraceptive methods of women age 15(!)-49 married or living in union
 		gen w_CPR = .
+		
 		if ~inlist(country_name,"Zimbabwe2019") {
 			replace w_CPR = 0 if inrange(wb4,15,49) & mstatus == 1            	     // women age 15-49 married or in union
 		
-			if inlist(country_name,"LaoPDR2017","Suriname2018","Lesotho2018","Georgia2018","Montenegro2018") {
+			if inlist(country_name,"LaoPDR2017","Suriname2018","Lesotho2018","Georgia2018","Montenegro2018","CostaRica2018") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j"
 			}
 			#delimit ;
@@ -72,11 +73,11 @@
 		replace infec = 0 if inrange(wb4,15,49) & mstatus == 1 
 		replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & ((un14u == 3 & un14n > 6) | un14u == 4 | inrange(un14n,93,95) | un12b == "B" | un12c == "C" | un12d == "D" | un12e == "E" | un7 == 3 | un8n == 94)
 
-		if ~inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018") {		
+		if ~inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","CostaRica2018") {		
 			replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & cp3 != 1 & wm6y-bh4y_last > 5 & inlist(ma1,1,2) & (ma7 == 1 & (wm6y - ma8y > 5 | wb4 - ma11 > 5))
 		}  
 
-		if inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018") {		
+		else {		
 			replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & cp3 != 1 & wdoi - wdoblc > 60 & inlist(ma1,1,2) & (ma7 == 1 & (wm6y - ma8y > 5 | wb4 - ma11 > 5))
 		}   
 		replace infec = .  if cp1 == 9 | cp3 == 9 | un14n == 99 | un12b == "?" | un12c == "?" | un12d == "?" | un12e == "?" | un7 == 9 | un8n == 99
@@ -185,7 +186,6 @@
 		replace w_metany_fp_q = 1 if w_metany_fp_q == 0 & w_CPR == 1
 		replace w_metany_fp_q = . if w_metany_fp == . | w_CPR == .
 }
-		
 		
 		if inlist(country_name,"Zimbabwe2019") {
 			foreach var in w_unmet_fp w_need_fp w_metany_fp w_metmod_fp w_metany_fp_q {
