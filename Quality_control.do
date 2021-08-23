@@ -58,5 +58,7 @@
 keep pop_* survey country iso3c iso2c year
 keep if _n == 1
 
+reshape long pop_,i(survey country iso3c iso2c year) j(varname) string
+rename pop_ value
 
 

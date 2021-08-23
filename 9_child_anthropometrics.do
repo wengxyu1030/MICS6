@@ -17,7 +17,7 @@ if inlist(country_name,"Belarus2019") {
 	gen c_wasted_sev = .
 }
 
-if ~inlist(country_name,"Belarus2019") {
+else {
 	* c_height and c_weight
 		gen c_height = .
 		gen c_weight = .

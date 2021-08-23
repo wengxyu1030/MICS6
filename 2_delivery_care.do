@@ -1,4 +1,4 @@
-///// Batch MICS6-dofiles
+///MICS6-dofiles
 // Delivery care
 // Do-file for the indicators:
 /*
@@ -9,10 +9,10 @@ c_skin2skin
 c_sba
 c_sba_q
 c_caesarean
-c_del_eff1
-c_del_eff1_q
-c_del_eff2
-c_del_eff2_q
+c_sba_eff1
+c_sba_eff1_q
+c_sba_eff2
+c_sba_eff2_q
 */
 
 
@@ -33,7 +33,8 @@ c_del_eff2_q
 			country_name == "Ghana2017" |
 			country_name == "Togo2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018" |
+			country_name == "CostaRica2018"{;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31)		// 1 for private/public hospital
@@ -82,7 +83,7 @@ c_del_eff2_q
 		}	
 		if inlist(country_name,"Lesotho2018","Zimbabwe2019") {
 			replace c_facdel = 0 if mn20 != .
-			replace c_facdel = 1 if inrange(mn20,21,24)	| inrange(mn20,41,43)	// 1 for public health facility
+			replace c_facdel = 1 if inrange(mn20,21,23)	| inrange(mn20,41,43)	// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,33)	    // 1 for private health facility
 		}	
 		if inlist(country_name,"Georgia2018") {
@@ -104,6 +105,11 @@ c_del_eff2_q
 			replace c_facdel = 1 if inrange(mn20,21,24)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,35)	    // 1 for private health facility
 		}	
+		if inlist(country_name,"CostaRica2018") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
+			replace c_facdel = 1 if inrange(mn20,31,32)	    // 1 for private health facility
+		}
 		
 		replace c_facdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 // Not taking into account "Others"
@@ -164,6 +170,9 @@ c_del_eff2_q
 			if inlist(country_name,"Togo2017") {	
 				global mn19 "mn19a mn19b mn19c mn19d"
 			}
+			if inlist(country_name,"CostaRica2018") {	
+				global mn19 "mn19a mn19b mn19i"
+			} 
 			foreach var in $mn19 {
 				replace `var' = "" if `var' == " "
 				replace c_sba = 1 if c_sba == 0 & `var' != "" & `var' != "?"	// 1 for Govt. and private doctor/nurse/midwife incl. auxiliary
@@ -201,35 +210,36 @@ c_del_eff2_q
 			replace onedayfac = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 		
-* c_del_eff1: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth)
-		gen c_del_eff1 = .
+* c_sba_eff1: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth)
+		gen c_sba_eff1 = .
 		if ~inlist(country_name,"Georgia2018") {
-			replace c_del_eff1 = 0 if bl2 == 1
-			replace c_del_eff1 = 1 if c_sba == 1 & c_facdel == 1 & c_earlybreast == 1 & onedayfac == 1
-			replace c_del_eff1 = . if c_sba == . | c_facdel == . | c_earlybreast == . | onedayfac == .
-			replace c_del_eff1 = . if bl2 != 1 | ~inrange(wb4,15,49)
+			replace c_sba_eff1 = 0 if bl2 == 1
+			replace c_sba_eff1 = 1 if c_sba == 1 & c_facdel == 1 & c_earlybreast == 1 & onedayfac == 1
+			replace c_sba_eff1 = . if c_sba == . | c_facdel == . | c_earlybreast == . | onedayfac == .
+			replace c_sba_eff1 = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 		
-* c_del_eff1_q: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth) among those with any SBA
-		gen c_del_eff1_q = c_del_eff1
+* c_sba_eff1_q: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth) among those with any SBA
+		gen c_sba_eff1_q = c_sba_eff1
 		if ~inlist(country_name,"Georgia2018") {
-			replace c_del_eff1_q = . if c_sba == 0 | c_sba == .
-			replace c_del_eff1_q = . if bl2 != 1 | ~inrange(wb4,15,49)
+			replace c_sba_eff1_q = . if c_sba == 0 | c_sba == .
+			replace c_sba_eff1_q = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 		
-* c_del_eff2: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth, skin2skin contact)
-		gen c_del_eff2 = .
+* c_sba_eff2: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth, skin2skin contact)
+		gen c_sba_eff2 = .
 		if ~inlist(country_name,"Georgia2018") {
-			replace c_del_eff2 = 0 if bl2 == 1
-			replace c_del_eff2 = 1 if c_sba == 1 & c_facdel == 1 & c_earlybreast == 1 & onedayfac == 1 & c_skin2skin == 1
-			replace c_del_eff2 = . if c_sba == . | c_facdel == . | c_earlybreast == . | onedayfac == . | c_skin2skin == .
-			replace c_del_eff2 = . if bl2 != 1 | ~inrange(wb4,15,49)
+			replace c_sba_eff2 = 0 if bl2 == 1
+			replace c_sba_eff2 = 1 if c_sba == 1 & c_facdel == 1 & c_earlybreast == 1 & onedayfac == 1 & c_skin2skin == 1
+			replace c_sba_eff2 = . if c_sba == . | c_facdel == . | c_earlybreast == . | onedayfac == . | c_skin2skin == .
+			replace c_sba_eff2 = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 		
-* c_del_eff2_q: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth, skin2skin contact) among those with any SBA
-		gen c_del_eff2_q = c_del_eff2
+* c_sba_eff2_q: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth, skin2skin contact) among those with any SBA
+		gen c_sba_eff2_q = c_sba_eff2
 		if ~inlist(country_name,"Georgia2018") {
-			replace c_del_eff2_q = . if c_sba == 0 | c_sba == .
-			replace c_del_eff2_q = . if bl2 != 1 | ~inrange(wb4,15,49)
+			replace c_sba_eff2_q = . if c_sba == 0 | c_sba == .
+			replace c_sba_eff2_q = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
 
+drop onedayfac

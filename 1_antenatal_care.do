@@ -1,30 +1,6 @@
-///// Batch MICS6-dofiles
-// Antenatal care
-// Do-file for the indicators:
-/*
-c_anc
-c_anc_any
-c_anc_ear
-c_anc_ear_q
-c_anc_eff
-c_anc_eff_q
-c_anc_ski
-c_anc_ski_q
-c_anc_bp
-c_anc_bp_q
-c_anc_bs
-c_anc_bs_q
-c_anc_ur
-c_anc_ur_q
-c_anc_ir
-c_anc_ir_q
-c_anc_tet
-c_anc_tet_q
-c_anc_eff2
-c_anc_eff2_q
-c_anc_eff3
-c_anc_eff3_q
-*/
+******************************
+*** Antenatal care *********** 
+******************************   
 
 * c_anc: 4+ antenatal care visits of births in last 2 years
 		gen c_anc = .
@@ -71,7 +47,8 @@ c_anc_eff3_q
 			country_name == "Congodr2017" |
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018" |
+			country_name == "CostaRica2018" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -128,6 +105,9 @@ c_anc_eff3_q
 			}
 			if inlist(country_name,"Togo2017") {	
 				global mn3 "mn3a mn3b mn3c mn3d"
+			}
+			if inlist(country_name,"CostaRica2018") {	
+				global mn3 "mn3a mn3b mn3i"
 			}
 			foreach var in $mn3 {
 				replace `var' = "" if `var' == " "

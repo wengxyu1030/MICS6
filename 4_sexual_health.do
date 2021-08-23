@@ -2,7 +2,7 @@
 //Do-file for the indicator:
 /// w_condom_conc
 /// w_CPR
-/// w_unmet
+/// w_unmet_fp
 /// w_need_fp
 /// w_metany_fp
 /// w_metmod_fp
@@ -17,10 +17,11 @@
 
 * w_CPR: Use of modern contraceptive methods of women age 15(!)-49 married or living in union
 		gen w_CPR = .
+		
 		if ~inlist(country_name,"Zimbabwe2019") {
 			replace w_CPR = 0 if inrange(wb4,15,49) & mstatus == 1            	     // women age 15-49 married or in union
 		
-			if inlist(country_name,"LaoPDR2017","Suriname2018","Lesotho2018","Georgia2018","Montenegro2018") {
+			if inlist(country_name,"LaoPDR2017","Suriname2018","Lesotho2018","Georgia2018","Montenegro2018","CostaRica2018") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j"
 			}
 			#delimit ;
@@ -71,11 +72,11 @@
 		replace infec = 0 if inrange(wb4,15,49) & mstatus == 1 
 		replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & ((un14u == 3 & un14n > 6) | un14u == 4 | inrange(un14n,93,95) | un12b == "B" | un12c == "C" | un12d == "D" | un12e == "E" | un7 == 3 | un8n == 94)
 
-		if ~inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","Belarus2019") {		
+		if ~inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","Belarus2019","CostaRica2018") {		
 			replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & cp3 != 1 & wm6y-bh4y_last > 5 & inlist(ma1,1,2) & (ma7 == 1 & (wm6y - ma8y > 5 | wb4 - ma11 > 5))
 		}  
 
-		if inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","Belarus2019") {		
+		else {		
 			replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & cp3 != 1 & wdoi - wdoblc > 60 & inlist(ma1,1,2) & (ma7 == 1 & (wm6y - ma8y > 5 | wb4 - ma11 > 5))
 		}   
 		replace infec = .  if cp1 == 9 | cp3 == 9 | un14n == 99 | un12b == "?" | un12c == "?" | un12d == "?" | un12e == "?" | un7 == 9 | un8n == 99
@@ -112,14 +113,13 @@
 		replace unmet_lim = . if cp1 == 9 | cp2 == 9 | un7 == 9 | un4 == 9 | db2 == 9
 
 		
-* w_unmet: Unmet need for contraception, percentage of fecund women who are married or in union and are not using any method of contraception, but who wish to postpone the next birth (spacing) or who wish to stop childbearing altogether (limiting).
+* w_unmet_fp: Unmet need for contraception, percentage of fecund women who are married or in union and are not using any method of contraception, but who wish to postpone the next birth (spacing) or who wish to stop childbearing altogether (limiting).
 
-		gen w_unmet = .
+		gen w_unmet_fp = .
 		
-		replace w_unmet = 0 if inrange(wb4,15,49) & mstatus == 1
-		replace w_unmet = 1 if w_unmet == 0 & (unmet_spc == 1 | unmet_lim == 1)
-		replace w_unmet = . if unmet_spc == . | unmet_lim == .
-		
+		replace w_unmet_fp = 0 if inrange(wb4,15,49) & mstatus == 1
+		replace w_unmet_fp = 1 if w_unmet_fp == 0 & (unmet_spc == 1 | unmet_lim == 1)
+		replace w_unmet_fp = . if unmet_spc == . | unmet_lim == .
 	
 
 		
@@ -153,8 +153,8 @@
 		gen w_need_fp = .
 		
 		replace w_need_fp = 0 if inrange(wb4,15,49) & mstatus == 1
-		replace w_need_fp = 1 if w_need_fp == 0 & (w_unmet == 1 | met == 1)
-		replace w_need_fp = . if w_unmet == . | met == .
+		replace w_need_fp = 1 if w_need_fp == 0 & (w_unmet_fp == 1 | met == 1)
+		replace w_need_fp = . if w_unmet_fp == . | met == .
 
 
 * w_metany_fp: 15-49y married or in union with need for family planning using any contraceptives (1/0)
@@ -186,7 +186,7 @@
 		
 		
 		if inlist(country_name,"Zimbabwe2019") {
-			foreach var in w_unmet w_need_fp w_metany_fp w_metmod_fp w_metany_fp_q {
+			foreach var in w_unmet_fp w_need_fp w_metany_fp w_metmod_fp w_metany_fp_q {
 				cap gen `var'=.
 			}
 		}
