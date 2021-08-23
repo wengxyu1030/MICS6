@@ -152,7 +152,7 @@ foreach name in $MICS6countries {
 	if !_rc{
 		rename bh8 ln
 		}
-	
+
 	replace ln = 100 if (ln == 0 | ln == .)
 	
 	by hh1 hh2 ln, sort: gen check = _n
