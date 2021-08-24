@@ -57,7 +57,7 @@ c_sba_eff2_q
 		
 		
 * c_facdel: Child born in formal health facility of births in last 2 years
-		gen c_facdel = .
+		gen c_facdel = . 
 		
 		#delimit ;
 		if 	country_name == "LaoPDR2017" | 
@@ -110,6 +110,10 @@ c_sba_eff2_q
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,32)	    // 1 for private health facility
 		}
+		if inlist(country_name,"Turkmenistan2019") {
+		    replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,23)		// 1 for public health facility
+		}
 		
 		replace c_facdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 // Not taking into account "Others"
@@ -136,7 +140,7 @@ c_sba_eff2_q
 		
 		
 * c_sba: Skilled birth attendance of births in last 2 years: go to report to verify how "skilled is defined"
-		gen c_sba = .
+		gen c_sba = . 
 		if ~inlist(country_name,"Georgia2018") {
 			replace c_sba = 0 if mn20 != .
 		#delimit ;
@@ -173,6 +177,9 @@ c_sba_eff2_q
 			if inlist(country_name,"CostaRica2018") {	
 				global mn19 "mn19a mn19b mn19i"
 			} 
+			if inlist(country_name,"Turkmenistan2019") {
+			    global mn19 "mn19a mn19b mn19c"
+			}
 			foreach var in $mn19 {
 				replace `var' = "" if `var' == " "
 				replace c_sba = 1 if c_sba == 0 & `var' != "" & `var' != "?"	// 1 for Govt. and private doctor/nurse/midwife incl. auxiliary

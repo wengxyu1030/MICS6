@@ -72,7 +72,7 @@
 		
 * c_anc_eff: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples) of births in last 2 years
 		// always look up definition for skilled provider for different countries in the report
-		gen c_anc_eff = .
+		gen c_anc_eff = . 
 		if ~inlist(country_name,"Georgia2018") {
 			replace c_anc_eff = 0 if mn2 != .
 		#delimit ;
@@ -109,6 +109,9 @@
 			if inlist(country_name,"CostaRica2018") {	
 				global mn3 "mn3a mn3b mn3i"
 			}
+			if inlist(country_name,"Turkmenistan2019") {
+			    global mn3 "mn3a mn3b mn3c"
+			}
 			foreach var in $mn3 {
 				replace `var' = "" if `var' == " "
 				replace c_anc_eff = 1 if mn5 > 3 & mn5 < 98 & `var' != "" & `var' != "?" & mn6a == 1 & mn6b == 1 & mn6c == 1		// 1 for 4+ anc visits, doctor/nurse/midwife incl. auxiliary, blood pressure, blood and urine samples
@@ -130,7 +133,7 @@
 		
 
 * c_anc_ski: antenatal care visit with skilled provider for pregnancy of births in last 2 years
-		gen c_anc_ski = .
+		gen c_anc_ski = . 
 		if ~inlist(country_name,"Georgia2018") {
 			replace c_anc_ski = 0 if mn2 != .
 		
