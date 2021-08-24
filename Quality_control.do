@@ -55,10 +55,14 @@
 
 *Please add the sample size for the variables too.
 
-keep pop_* survey country iso3c iso2c year
+    foreach var of var c_* w_* mor_* hm_* { 
+	egen sd_`var' = sd(`var') //the standard deviation
+    }
+
+keep pop_* sd_* survey country iso3c iso2c year
 keep if _n == 1
 
-reshape long pop_,i(survey country iso3c iso2c year) j(varname) string
-rename pop_ value
+reshape long pop_ sd_ ,i(survey country iso3c iso2c year) j(varname) string
+rename (pop_ sd_) (value sd)
 
 
