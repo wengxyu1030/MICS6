@@ -72,7 +72,7 @@
 		replace infec = 0 if inrange(wb4,15,49) & mstatus == 1 
 		replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & ((un14u == 3 & un14n > 6) | un14u == 4 | inrange(un14n,93,95) | un12b == "B" | un12c == "C" | un12d == "D" | un12e == "E" | un7 == 3 | un8n == 94)
 
-		if ~inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","Belarus2019","CostaRica2018") {		
+		if ~inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","Belarus2019","CostaRica2018","Thailand2019") {		
 			replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & cp3 != 1 & wm6y-bh4y_last > 5 & inlist(ma1,1,2) & (ma7 == 1 & (wm6y - ma8y > 5 | wb4 - ma11 > 5))
 		}  
 
