@@ -54,7 +54,7 @@ c_sba_eff2_q
 		replace c_hospdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 
 		
-		
+	
 		
 * c_facdel: Child born in formal health facility of births in last 2 years
 		gen c_facdel = .
@@ -70,7 +70,8 @@ c_sba_eff2_q
 			country_name == "Madagascar2018" |
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018" |
+			country_name == "Thailand2019" {;
 	    #delimit cr		
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,23)		// 1 for public health facility
@@ -148,7 +149,8 @@ c_sba_eff2_q
 			country_name == "Madagascar2018" |
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018" |
+			country_name == "Thailand2019" {;
 	    #delimit cr	
 				global mn19 "mn19a mn19b mn19c"
 			}

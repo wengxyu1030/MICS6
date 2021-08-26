@@ -22,8 +22,6 @@
 			replace c_anc_any = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months ago
 		}
 		
-
-		
 * c_anc_ear: First antenatal care visit in first trimester of pregnancy of births in last 2 years
 		gen c_anc_ear = .
 		replace c_anc_ear = 0 if mn2 != .
@@ -84,7 +82,8 @@
 			country_name == "Madagascar2018" |
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018" |
+			country_name == "Thailand2019" {;
 	    #delimit cr		
 				global mn3 "mn3a mn3b mn3c"
 			}
@@ -109,6 +108,7 @@
 			if inlist(country_name,"CostaRica2018") {	
 				global mn3 "mn3a mn3b mn3i"
 			}
+	
 			foreach var in $mn3 {
 				replace `var' = "" if `var' == " "
 				replace c_anc_eff = 1 if mn5 > 3 & mn5 < 98 & `var' != "" & `var' != "?" & mn6a == 1 & mn6b == 1 & mn6c == 1		// 1 for 4+ anc visits, doctor/nurse/midwife incl. auxiliary, blood pressure, blood and urine samples

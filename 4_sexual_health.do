@@ -44,6 +44,9 @@
 			if inlist(country_name,"Kiribati2018") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4n cp4p"
 			}
+			if inlist(country_name,"Thailand2019") {
+				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4n cp4j cp4o"
+			}			
 			foreach var in $cp4 {
 				replace `var' = "" if `var' == " "
 				replace w_CPR = 1 if w_CPR == 0 & `var' != "" & `var' != "?"		// 1 for modern method
@@ -68,6 +71,7 @@
 		***(3) She declares she cannot get pregnant when asked about desire for future birth (UN7 = 3 or UN8 = 994)
 		***(4) She has not had a birth in the preceding 5 years (WM6-BH4 (most recent birth)>5 years), never used contraception (CP3<>1) and is currently married/in union and was continuously married/in union during the last 5 years (MA1=1 or 2 and MA7=1 and WM6-MA8>5 years or WB2-MA11>5). This condition can only be checked for women married/in union only once, as the Marriage Module only allows computation of period since first marriage/union.
 
+		
 		gen infec = .
 		replace infec = 0 if inrange(wb4,15,49) & mstatus == 1 
 		replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & ((un14u == 3 & un14n > 6) | un14u == 4 | inrange(un14n,93,95) | un12b == "B" | un12c == "C" | un12d == "D" | un12e == "E" | un7 == 3 | un8n == 94)
