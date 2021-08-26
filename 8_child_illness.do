@@ -20,7 +20,7 @@ c_treatARI
 c_illtreat
 */
 
-	if ~inlist(country_name,"Montenegro2018","Thailand2019") {	
+	if ~inlist(country_name,"Montenegro2018","Thailand2019","Turkmenistan2019") {	
 
 * c_diarrhea: Child under 5 with diarrhea
 		gen c_diarrhea = .
@@ -452,7 +452,7 @@ c_illtreat
 }		
 
 		
-		if inlist(country_name,"Montenegro2018","Thailand2019") {
+		else {
 			foreach var in c_diarrhea c_ari c_illness c_treatdiarrhea c_diarrhea_hmf c_diarrhea_med c_diarrhea_medfor c_diarrhea_pro c_diarrheaact c_diarrheaact_q c_diarrhea_mof c_sevdiarrhea c_sevdiarrheatreat c_sevdiarrheatreat_q c_treatARI c_illtreat{
 				cap gen `var'=.
 			}

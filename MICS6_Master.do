@@ -57,7 +57,7 @@ foreach name in $newMICS6countries {
 ***** Domains using WOMEN DATA*
 *******************************
 
-	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'wm.dta", clear	
+	use "${SOURCE}\MICS\MICS6-`name'\MICS6-`name'wm.dta", clear	
 
 * Prepare
 	gen country_name = "`name'"
@@ -101,13 +101,13 @@ foreach name in $newMICS6countries {
 	gen w_sampleweight = chweight // Child's sample weight
 		
 	save `ch', replace
-	
+
 *******************************
 ***** Domains using ITN DATA*
 *******************************	
 
 	capture confirm file "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta"
-	if !_rc{
+	if !_rc {
 	
 	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta", clear	
 	
@@ -116,6 +116,7 @@ foreach name in $newMICS6countries {
 	
 * Run do file
 	do "${DO}/18_child_ITN.do"
+	}
 
 * Housekeeping
 	drop country_name
@@ -123,7 +124,7 @@ foreach name in $newMICS6countries {
 * Merge with child_temp
 	merge 1:1 hh1 hh2 ln using `ch'
 	drop _merge
-	}
+	
 
 	else{
 	gen c_ITN = .
@@ -151,7 +152,7 @@ foreach name in $newMICS6countries {
 	
 	save `bh', replace
 	
-	
+
 ***********************************
 ***** Merge bh + ch + wm         **
 ***********************************	

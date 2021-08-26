@@ -70,7 +70,7 @@
 		
 * c_anc_eff: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples) of births in last 2 years
 		// always look up definition for skilled provider for different countries in the report
-		gen c_anc_eff = .
+		gen c_anc_eff = . 
 		if ~inlist(country_name,"Georgia2018") {
 			replace c_anc_eff = 0 if mn2 != .
 		#delimit ;
@@ -83,7 +83,8 @@
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
 			country_name == "Montenegro2018" |
-			country_name == "Thailand2019" {;
+			country_name == "Thailand2019" |
+      country_name == "Turkmenistan2019" {;
 	    #delimit cr		
 				global mn3 "mn3a mn3b mn3c"
 			}
@@ -108,7 +109,7 @@
 			if inlist(country_name,"CostaRica2018") {	
 				global mn3 "mn3a mn3b mn3i"
 			}
-	
+
 			foreach var in $mn3 {
 				replace `var' = "" if `var' == " "
 				replace c_anc_eff = 1 if mn5 > 3 & mn5 < 98 & `var' != "" & `var' != "?" & mn6a == 1 & mn6b == 1 & mn6c == 1		// 1 for 4+ anc visits, doctor/nurse/midwife incl. auxiliary, blood pressure, blood and urine samples
@@ -130,7 +131,7 @@
 		
 
 * c_anc_ski: antenatal care visit with skilled provider for pregnancy of births in last 2 years
-		gen c_anc_ski = .
+		gen c_anc_ski = . 
 		if ~inlist(country_name,"Georgia2018") {
 			replace c_anc_ski = 0 if mn2 != .
 		
@@ -238,7 +239,7 @@
 		
 * c_anc_tet: pregnant women vaccinated against tetanus during pregnancy of births in last 2 years
 		gen c_anc_tet = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019") {
 		     replace c_anc_tet = 0 if mn7 != .				// immunization question
 		     
 			 replace c_anc_tet = 1 if c_anc_tet == 0 & inlist(mn8,2,8) & inrange(mn12,5,7)		// No/DK injections during pregrancy for last child but 5+ before (woman is then protected for the childbearing years period)
