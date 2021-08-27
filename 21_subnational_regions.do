@@ -218,6 +218,7 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
 			replace gl_adm1_code = 2973 if hh_region_num == 2
 			replace gl_adm1_code = 2974 if hh_region_num == 5
 		}
+
 		// no region Lome Commune (6) and Golfe Urbain (7) in gaul codes
 		if inlist(country_name,"Kiribati2018") {
 		    replace gl_adm0_code = 135
@@ -227,6 +228,8 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
 		    replace gl_adm0_code = 2647
             replace gl_adm1_code = -9 		
         }	
+		
+		
 		
 		
 		

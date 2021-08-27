@@ -21,27 +21,32 @@ macro drop _all
 * Define root depend on the stata user. 
 	if "`c(username)'" == "zetianyuwang" local pc = 0
 	if "`c(username)'" == "xweng"     local pc = 1
+	if "`c(username)'" == "rwang"     local pc = 2
 	
 	if `pc' == 0 global root "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Data/MICS"
 	if `pc' == 1 global root "C:/Users/XWeng/OneDrive - WBG/MEASURE UHC DATA - Sven Neelsen's files"
-
+	if `pc' == 2 global root "D:/MEASURE UHC DATA"
+	
 * Define path for data sources
     global SOURCE "${root}/RAW DATA"
 
 * Define path for output data
 	if `pc' == 0 global OUT "${root}/FINAL"
 	if `pc' == 1 global OUT "${root}/STATA/DATA/SC/ADePT READY/MICS/New"
+	if `pc' == 2 global OUT "${root}/STATA/DATA/SC/FINAL"
 
 * Define path for INTERMEDIATE
 	if `pc' == 0 global INTER "${root}/INTER"
 	if `pc' == 1 global INTER "${root}/STATA/DATA/SC/ADePT READY/MICS/Inter"
+	if `pc' == 2 global INTER "${root}/STATA/DATA/SC/INTER"
 
 * Define path for do-files
 	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_github/MICS6"
 	if `pc' == 1 global DO "${root}/STATA/DO/SC/06_Prepare_MICS6/MICS6_DW"
+	if `pc' == 2 global DO "${root}/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Turkmenistan2019"
+	global newMICS6countries "Thailand2019"
 
 
 foreach name in $newMICS6countries {
