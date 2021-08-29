@@ -64,7 +64,9 @@ c_illtreat
 			country_name == "Congodr2017" |
 			country_name == "Togo2017" |
 			country_name == "Kiribati2018" |
-			country_name == "CostaRica2018" {;
+			country_name == "CostaRica2018"|
+			country_name == "Belarus2019"|
+			country_name == "Chad2019"  {;
 	    #delimit cr 
 			replace c_treatdiarrhea = 0 if ca1 == 1						// children with diarrhea in last 2 weeks
 			replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (ca7a == 1 | ca7b == 1)	// received ORS
@@ -119,7 +121,8 @@ c_illtreat
 			country_name == "Zimbabwe2019" |
 			country_name == "Georgia2018" |
 			country_name == "Togo2017" |
-			country_name == "Kiribati2018" {;
+			country_name == "Kiribati2018"|
+			country_name == "Belarus2019" {;
 	    #delimit cr 
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  ca7c == 1 
 			replace c_diarrhea_med = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
@@ -143,7 +146,11 @@ c_illtreat
 		if inlist(country_name,"CostaRica2018") {
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7d == 1)
 			replace c_diarrhea_med = . if inlist(ca7c,8,9)  | inlist(ca7d,8,9)
-		}		
+		}	
+		if inlist(country_name,"Chad2019") {
+			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7e == 1 | ca7f == 1 | ca7g == 1 | ca7h == 1)
+			replace c_diarrhea_med = . if inlist(ca7c,8,9) | inlist(ca7e, 8, 9) | inlist(ca7f, 8, 9) | inlist(ca7g, 8, 9) | inlist(ca7h, 8, 9)      // OR treatment/consultation variable missing
+		}	
 		replace c_diarrhea_med = 1 if  c_diarrhea_med == 0 & (ca13a == "A" | ca13b == "B" | ca13g == "G"| ca13h == "H" | ca13l == "L" | ca13m == "M" | ca13n == "N" | ca13o == "O" | ca13q == "Q" | ca13x == "X")
 		replace c_diarrhea_med = . if  ca13a == "?" | ca13b == "?" | ca13g == "?"| ca13h == "?" | ca13l == "?" | ca13m == "?" | ca13n == "?" | ca13o == "?" | ca13q == "?" | ca13x == "?"
 		replace c_diarrhea_med = . if cage == . | ca1 != 1           // Child age missing OR diarrhea variable missing 
@@ -167,7 +174,8 @@ c_illtreat
 			country_name == "Zimbabwe2019" |
 			country_name == "Georgia2018" |
 			country_name == "Togo2017" |
-			country_name == "Kiribati2018" {;
+			country_name == "Kiribati2018"|
+			country_name == "Belarus2019" {;
 	    #delimit cr 
 			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  ca7c == 1 
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
@@ -191,6 +199,10 @@ c_illtreat
 		if inlist(country_name,"CostaRica2018") {
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7d == 1)
 			replace c_diarrhea_med = . if inlist(ca7c,8,9)  | inlist(ca7d,8,9)
+		}
+		if inlist(country_name,"Chad2019") {
+			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  (ca7c == 1 | ca7e == 1 | ca7f == 1 | ca7g == 1 | ca7h == 1)
+			replace c_diarrhea_medfor = . if inlist(ca7c,8,9) | inlist(ca7e, 8, 9) | inlist(ca7f, 8, 9) | inlist(ca7g, 8, 9) | inlist(ca7h, 8, 9)    // OR treatment/consultation variable missing
 		}
 		replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 & (ca13a == "A" | ca13b == "B" | ca13g == "G"| ca13h == "H" | ca13l == "L" | ca13m == "M" | ca13n == "N" | ca13o == "O")
 		replace c_diarrhea_medfor = . if ca13a == "?" | ca13b == "?" | ca13g == "?"| ca13h == "?" | ca13l == "?" | ca13m == "?" | ca13n == "?" | ca13o == "?"
