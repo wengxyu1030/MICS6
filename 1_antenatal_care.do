@@ -21,7 +21,7 @@
 			replace c_anc_any = . if mn2 == 9  			// missing for DK and missing
 			replace c_anc_any = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months ago
 		}
-		
+
 * c_anc_ear: First antenatal care visit in first trimester of pregnancy of births in last 2 years
 		gen c_anc_ear = .
 		replace c_anc_ear = 0 if mn2 != .
@@ -46,7 +46,8 @@
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
 			country_name == "Montenegro2018" |
-			country_name == "CostaRica2018" {;
+			country_name == "CostaRica2018" |
+			country_name == "Guinea-Bissau2018" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -84,7 +85,7 @@
 			country_name == "Kiribati2018" |
 			country_name == "Montenegro2018" |
 			country_name == "Thailand2019" |
-      country_name == "Turkmenistan2019" {;
+			country_name == "Turkmenistan2019" {;
 	    #delimit cr		
 				global mn3 "mn3a mn3b mn3c"
 			}
@@ -94,7 +95,8 @@
 			if inlist(country_name,"Suriname2018") {	
 				global mn3 "mn3a mn3d mn3e mn3g"
 			}
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019") {
+			//Antenatal care does not involve agente de saude comunitaria, unlike post natal care
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018") {
 				global mn3 "mn3a mn3b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	

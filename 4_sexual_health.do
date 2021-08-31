@@ -8,6 +8,7 @@
 /// w_metmod_fp
 /// w_metany_fp_q
 
+
 * w_condom_conc: Condom use of at-risk women age 18-49
 		cap gen sb7 = .		// creates empty sexual intercourse variables in surveys which do not have the module (to make code run smoothly) 
 		cap gen sb3 = .		 
@@ -47,6 +48,9 @@
 			if inlist(country_name,"Thailand2019") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4n cp4j cp4o"
 			}			
+			if inlist(country_name,"Guinea-Bissau2018") {
+				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4k cp4l"
+			}
 			foreach var in $cp4 {
 				replace `var' = "" if `var' == " "
 				replace w_CPR = 1 if w_CPR == 0 & `var' != "" & `var' != "?"		// 1 for modern method
