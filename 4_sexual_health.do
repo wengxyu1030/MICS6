@@ -46,7 +46,10 @@
 			}
 			if inlist(country_name,"Thailand2019") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4n cp4j cp4o"
-			}			
+			}
+			if inlist(country_name,"Tonga2019") {
+				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j "
+			}
 			foreach var in $cp4 {
 				replace `var' = "" if `var' == " "
 				replace w_CPR = 1 if w_CPR == 0 & `var' != "" & `var' != "?"		// 1 for modern method

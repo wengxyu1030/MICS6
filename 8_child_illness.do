@@ -76,7 +76,13 @@ c_illtreat
 			replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & ca7a == 1	// received ORS
 			replace c_treatdiarrhea = . if cage == . | ca1 != 1   
 			replace c_treatdiarrhea = . if inlist(ca7a, 8, 9)      // missing when both ORS variables are missing and none o	
-		}		
+		}
+		if inlist(country_name,"Tonga2019") {
+					replace c_treatdiarrhea = 0 if ca1 == 1			// children with diarrhea in last 2 weeks
+					replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (ca7b == 1)	// received ORS
+					replace c_treatdiarrhea = . if cage == . | ca1 != 1
+					replace c_treatdiarrhea = . if inlist(ca7b, 8, 9)   // missing when both ORS variables are missing and none o	
+		}
 	
 	
 * c_diarrhea_hmf:  Child under 5 with diarrhea in last 2 weeks received	Government recommended homemade fluid (Coconut water or rice water with salt)		
@@ -88,7 +94,7 @@ c_illtreat
 		}
 		replace c_diarrhea_hmf = 0 if ca1 == 1	         // children with diarrhea in last 2 weeks
 		
-		if ~inlist(country_name,"KyrgyzRepublic2018") {		
+		if ~inlist(country_name,"KyrgyzRepublic2018","Tonga2019") {		
 			replace c_diarrhea_hmf = 1 if c_diarrhea_hmf == 0 & ca7d == 1 	// received Government recommended homemade fluid 
 			replace c_diarrhea_hmf = . if inlist(ca7d, 8, 9) 	// missing when Government recommended homemade fluid  variable is missing and none o	
 		}
@@ -96,7 +102,12 @@ c_illtreat
 			replace c_diarrhea_hmf = 1 if c_diarrhea_hmf == 0 & (ca7d == 1 | ca7e == 1) 	// received Government recommended homemade fluid 
 			replace c_diarrhea_hmf = . if inlist(ca7d, 8, 9) | inlist(ca7e, 8, 9) 	// missing when Government recommended homemade fluid  variable is missing and none o	
 		}
+		if inlist(country_name,"Tonga2019") {
+			replace c_diarrhea_hmf = 1 if c_diarrhea_hmf == 0 & ca7b == 1
+			replace c_diarrhea_hmf = . if inlist(ca7b, 8, 9)	// missing when Government recommended homemade fluid  variable is missing and none o	
+		}
 		replace c_diarrhea_hmf = . if cage == . | ca1 != 1  
+		
  
 		
 		
@@ -140,7 +151,7 @@ c_illtreat
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7aa == 1 | ca7ab == 1 | ca7ac == 1)
 			replace c_diarrhea_med = . if inlist(ca7c,8,9) | inlist(ca7aa,8,9) | inlist(ca7ab,8,9) | inlist(ca7ac,8,9)    // OR treatment/consultation variable missing
 		}
-		if inlist(country_name,"CostaRica2018") {
+		if inlist(country_name,"CostaRica2018","Tonga2019") {
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7d == 1)
 			replace c_diarrhea_med = . if inlist(ca7c,8,9)  | inlist(ca7d,8,9)
 		}		
@@ -188,7 +199,7 @@ c_illtreat
 			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  (ca7c == 1 | ca7aa == 1 | ca7ab == 1 | ca7ac == 1)
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9) | inlist(ca7aa,8,9) | inlist(ca7ab,8,9) | inlist(ca7ac,8,9)    // OR treatment/consultation variable missing
 		}
-		if inlist(country_name,"CostaRica2018") {
+		if inlist(country_name,"CostaRica2018","Tonga2019") {
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7d == 1)
 			replace c_diarrhea_med = . if inlist(ca7c,8,9)  | inlist(ca7d,8,9)
 		}
@@ -242,7 +253,10 @@ c_illtreat
 		}
 		if inlist(country_name,"CostaRica2018") {
 			global ca6 "ca6a ca6b ca6c ca6e ca6i ca6j ca6m"
-		}		
+		}
+		if inlist(country_name,"Tonga2019"){
+			global ca6 "ca6a ca6b ca6d ca6h ca6i ca6j ca6k ca6l ca6o ca6w"
+		}
 		foreach var in $ca6 {
 		    replace `var' = "" if `var' == " "
 			replace c_diarrhea_pro = 1 if c_diarrhea_pro == 0 & `var' != "" & `var' != "?" 
@@ -287,6 +301,9 @@ c_illtreat
 		if inlist(country_name,"Ghana2017") {
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7d == 1 | ca7c == 1 | ca7aa == 1 | ca7ab == 1 | ca7ac == 1)
 			replace c_diarrheaact = . if ca7a == 9 | ca7d == 9 | ca7c == 9 | ca7aa == 9 | ca7ab == 9 | ca7ac == 9 
+		}
+		if inlist(country_name,"Tonga2019"){
+			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7b == 1)
 		}
 		
 		replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca13a == "A" | ca13b == "B" | ca13g == "G"| ca13h == "H" | ca13l == "L" | ca13m == "M" | ca13n == "N" | ca13o == "O" | ca13q == "Q" | ca13x == "X")
@@ -387,6 +404,9 @@ c_illtreat
 		}
 		if inlist(country_name,"CostaRica2018") {
 			global ca21 "ca21a ca21b ca21c ca21e ca21i ca21j ca21m"
+		}
+		if inlist(country_name,"Tonga2019") {
+			global ca21 "ca21a ca21b ca21d ca21h ca21i ca21j ca21k ca21l ca21o ca21w"
 		}		
 	    foreach var in $ca21 {
 		    replace `var' = "" if `var' == " "
@@ -440,7 +460,10 @@ c_illtreat
 		}
 		if inlist(country_name,"CostaRica2018") {
 			global ca621 "ca6a ca6b ca6c ca6e ca6i ca6j ca6m ca21a ca21b ca21c ca21e ca21i ca21j ca21m"
-		}		
+		}
+		if inlist(country_name,"Tonga2019"){
+			global ca21 "ca6a ca6b ca6d ca6h ca6i ca6j ca6k ca6l ca6o ca6w ca21a ca21b ca21d ca21h ca21i ca21j ca21k ca21l ca21o ca21w"
+		}
 		foreach var in $ca621 {
 				replace `var' = "" if `var' == " "
 				replace c_illtreat = 1 if c_illtreat == 0 & `var' != "" & `var' != "?" 
