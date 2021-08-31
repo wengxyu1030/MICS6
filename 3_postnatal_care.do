@@ -30,7 +30,9 @@ c_pnc_eff2_q
 			country_name == "Madagascar2018" |
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018"|
+			country_name == "Belarus2019"|
+			country_name == "Chad2019" {;
 	    #delimit cr	
 			global pnc "a b c"
 		}
