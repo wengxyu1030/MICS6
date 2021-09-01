@@ -120,8 +120,7 @@ foreach name in $newMICS6countries {
 
 * Housekeeping
 	drop country_name
-			pause on
-		pause RW itn
+			
 * Merge with child_temp
 	merge 1:1 hh1 hh2 ln using `ch'
 	drop _merge
