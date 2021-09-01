@@ -46,7 +46,7 @@ macro drop _all
 	if `pc' == 2 global DO "${root}/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Thailand2019"
+	global newMICS6countries "Guinea-Bissau2018"
 
 
 foreach name in $newMICS6countries {
@@ -120,7 +120,7 @@ foreach name in $newMICS6countries {
 
 * Housekeeping
 	drop country_name
-	
+			
 * Merge with child_temp
 	merge 1:1 hh1 hh2 ln using `ch'
 	drop _merge
