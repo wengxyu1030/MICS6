@@ -109,7 +109,7 @@
 			if inlist(country_name,"CostaRica2018") {	
 				global mn3 "mn3a mn3b mn3i"
 			}
-			if inlist(country,name,"Tonga2019"){
+			if inlist(country_name,"Tonga2019"){
 				global mn3 "mn3a mn3b mn3d mn3g"
 			}
 

@@ -17,7 +17,7 @@ c_pnc_eff2_q
 	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019") {
 		replace c_pnc_any = 0 if bl2 == 1
 		* pnc for SBA facility births
-		replace c_pnc_any = 1 if c_sba == 1 & (pn4 == 1 | pn5==1)     // baby OR mother checked within six weeks of birth and before leaving facility by skilled provider
+		replace c_pnc_any = 1 if c_sba == 1 & (pn4 == 1 | pn5 == 1)     // baby OR mother checked within six weeks of birth and before leaving facility by skilled provider
 		* pnc for non-facility SBA births
 		replace c_pnc_any = 1 if c_sba == 1 & (pn8 == 1 | pn9 == 1)   // baby OR mother checked within six weeks of birth and before skilled birth attendant left after delivery
 		* pnc for SBA facility births, non-facility SBA births, and non-facility non-SBA births
@@ -57,12 +57,10 @@ c_pnc_eff2_q
 			global pnc "a b i"
 		}
 		if inlist(country_name,"Tonga2019") {
-			global pnc "a b c d g"
+			global pnc "a"
 		}
 		foreach x in $pnc {	
-			replace c_pnc_any = 1 if (((pn13u == 3 & pn13n<7) |
-										inrange(pn13u,1,2)) & (~inlist(pn14`x',"","?"))) |
-										(((pn22u == 3 & pn22n<7) | inrange(pn22u,1,2)) & (~inlist(pn23`x',"","?"))) // baby OR mother checked within six weeks of birth (after leaving facility OR after birth attendant left)
+			replace c_pnc_any = 1 if (((pn13u == 3 & pn13n<7) | inrange(pn13u,1,2)) & (~inlist(pn14`x',"","?"))) | (((pn22u == 3 & pn22n<7) | inrange(pn22u,1,2)) & (~inlist(pn23`x',"","?"))) // baby OR mother checked within six weeks of birth (after leaving facility OR after birth attendant left)
 			replace c_pnc_any = . if pn14`x' == "?" | pn23`x' == "?" 
 		}	
 		* only for children with PNC info
