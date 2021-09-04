@@ -64,7 +64,8 @@ c_illtreat
 			country_name == "Congodr2017" |
 			country_name == "Togo2017" |
 			country_name == "Kiribati2018" |
-			country_name == "CostaRica2018" {;
+			country_name == "CostaRica2018" |
+			country_name == "Tonga2019" {;
 	    #delimit cr 
 			replace c_treatdiarrhea = 0 if ca1 == 1						// children with diarrhea in last 2 weeks
 			replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (ca7a == 1 | ca7b == 1)	// received ORS
@@ -76,12 +77,6 @@ c_illtreat
 			replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & ca7a == 1	// received ORS
 			replace c_treatdiarrhea = . if cage == . | ca1 != 1   
 			replace c_treatdiarrhea = . if inlist(ca7a, 8, 9)      // missing when both ORS variables are missing and none o	
-		}
-		if inlist(country_name,"Tonga2019") {
-					replace c_treatdiarrhea = 0 if ca1 == 1			// children with diarrhea in last 2 weeks
-					replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (ca7b == 1)	// received ORS
-					replace c_treatdiarrhea = . if cage == . | ca1 != 1
-					replace c_treatdiarrhea = . if inlist(ca7b, 8, 9)   // missing when both ORS variables are missing and none o	
 		}
 	
 	
@@ -255,7 +250,7 @@ c_illtreat
 			global ca6 "ca6a ca6b ca6c ca6e ca6i ca6j ca6m"
 		}
 		if inlist(country_name,"Tonga2019"){
-			global ca6 "ca6a ca6b ca6d ca6h ca6i ca6j ca6k ca6l ca6o ca6w"
+			global ca6 "ca6a ca6b ca6h ca6i ca6j ca6k ca6o"
 		}
 		foreach var in $ca6 {
 		    replace `var' = "" if `var' == " "
@@ -406,7 +401,7 @@ c_illtreat
 			global ca21 "ca21a ca21b ca21c ca21e ca21i ca21j ca21m"
 		}
 		if inlist(country_name,"Tonga2019") {
-			global ca21 "ca21a ca21b ca21d ca21h ca21i ca21j ca21k ca21l ca21o ca21w"
+			global ca21 "ca21a ca21b ca21h ca21i ca21j ca21k ca21o"
 		}		
 	    foreach var in $ca21 {
 		    replace `var' = "" if `var' == " "
@@ -462,7 +457,7 @@ c_illtreat
 			global ca621 "ca6a ca6b ca6c ca6e ca6i ca6j ca6m ca21a ca21b ca21c ca21e ca21i ca21j ca21m"
 		}
 		if inlist(country_name,"Tonga2019"){
-			global ca21 "ca6a ca6b ca6d ca6h ca6i ca6j ca6k ca6l ca6o ca6w ca21a ca21b ca21d ca21h ca21i ca21j ca21k ca21l ca21o ca21w"
+			global ca21 "ca6a ca6b ca6h ca6i ca6j ca6k ca6o ca21a ca21b ca21h ca21i ca21j ca21k ca21o"
 		}
 		foreach var in $ca621 {
 				replace `var' = "" if `var' == " "

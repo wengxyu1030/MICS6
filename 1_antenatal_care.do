@@ -110,7 +110,7 @@
 				global mn3 "mn3a mn3b mn3i"
 			}
 			if inlist(country_name,"Tonga2019"){
-				global mn3 "mn3a mn3b mn3d mn3g"
+				global mn3 "mn3a mn3b mn3d"
 			}
 
 			foreach var in $mn3 {
