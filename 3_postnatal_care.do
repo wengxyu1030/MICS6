@@ -42,7 +42,7 @@ c_pnc_eff2_q
 		if inlist(country_name,"Suriname2018") {
 			global pnc "a d e g"
 		}
-		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018") {
+		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
 			global pnc "a b"
 		}
 		if inlist(country_name,"Bangladesh2019") {

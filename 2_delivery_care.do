@@ -37,7 +37,6 @@ c_sba_eff2_q
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
 			country_name == "Chad2019"{;
-
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31)		// 1 for private/public hospital
@@ -53,6 +52,10 @@ c_sba_eff2_q
 		if inlist(country_name, "Georgia2018") {
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 41		// 1 for private/public hospital
+		}
+		if inlist(country_name, "StateofPalestine2019") {
+			replace c_hospdel = 0 if mn20 != .
+			replace c_hospdel = 1 if inlist(mn20,21,31,41,51,61) 		// 1 for private/public hospital
 		}	
 	
 		replace c_hospdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
@@ -122,6 +125,11 @@ c_sba_eff2_q
 		    replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,23)		// 1 for public health facility
 		}
+		if inlist(country_name,"StateofPalestine2019") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,22)		// 1 for public health facility
+			replace c_facdel = 1 if inrange(mn20,31,61)	    // 1 for private health facility
+		}
 		if inlist(country_name, "Guinea-Bissau2018") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inlist(mn20,21,22) | inlist(mn20,31,32,33)		// 1 for hospital/maternidade do governo, clinica/centro de saude do governo, and for hospital privado, cliinica privada, e maternidade privada
@@ -177,7 +185,7 @@ c_sba_eff2_q
 			if inlist(country_name,"Suriname2018") {
 				global mn19 "mn19a mn19d mn19e mn19g"
 			}
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018") {
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
 				global mn19 "mn19a mn19b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	

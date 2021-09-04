@@ -251,6 +251,7 @@ foreach name in $newMICS6countries {
 ***********************************
 *****      Merge with iso        **
 ***********************************	
+// StateofPalestine not availble in Countrycodes
 
 	gen survey = "MICS"
 	gen year = substr("`name'",-4,4)
