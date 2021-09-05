@@ -70,6 +70,9 @@ foreach name in $newMICS6countries {
 	do "${DO}/4_sexual_health"
 
 * Housekeeping for women data
+	if inlist("`name'","Nepal2019") {
+	drop welevel2
+	}
 	gen hm_male = 0 // Gender variable
 	gen hm_educ = welevel // Educational level
 	gen hm_age_yrs = wb4 // Age in years
@@ -196,6 +199,10 @@ foreach name in $newMICS6countries {
 	mmerge hh1 hh2 ln using `wm'
 	drop _merge
 	
+	if inlist("`name'","Nepal2019") {
+	drop melevel2
+	}
+
 	do "${DO}/19_child_maternal_edu.do"
 
 * Housekeeping
@@ -239,7 +246,9 @@ foreach name in $newMICS6countries {
 	drop if _merge == 2
 	drop _merge
 	gen country_name = "`name'"
-	
+	if inlist("`name'","Nepal2019") {
+	drop helevel2
+	}	
 	do "${DO}/20_hh_sanitation.do" 
 	do "${DO}/15_household.do"
 	do "${DO}/21_subnational_regions.do"

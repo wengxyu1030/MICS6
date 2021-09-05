@@ -67,7 +67,13 @@ c_illtreat
 			country_name == "CostaRica2018" |
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
+<<<<<<< Updated upstream
 			country_name == "Chad2019"  {;
+=======
+			country_name == "Chad2019" |
+			country_name == "StateofPalestine2019"|
+			country_name == "Nepal2019" {;
+>>>>>>> Stashed changes
 	    #delimit cr 
 			replace c_treatdiarrhea = 0 if ca1 == 1						// children with diarrhea in last 2 weeks
 			replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (ca7a == 1 | ca7b == 1)	// received ORS
@@ -179,7 +185,10 @@ c_illtreat
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
 			country_name == "Chad2019" {;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 	    #delimit cr 
 			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  ca7c == 1 
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
@@ -259,8 +268,16 @@ c_illtreat
 			global ca6 "ca6a ca6b ca6c ca6f ca6i"
 		}
 		if inlist(country_name,"Chad2019") {
+<<<<<<< Updated upstream
 			global ca6 "ca6a ca6b ca6c ca6d ca6i ca6l"
 		}		
+=======
+			global ca6 "ca6a ca6b ca6c ca6d ca6i ca6j ca6l"
+		}
+		if inlist(country_name,"StateofPalestine2019","Nepal2019") {
+			global ca6 "ca6a ca6b ca6i ca6j"
+		}			
+>>>>>>> Stashed changes
 		if inlist(country_name,"Guinea-Bissau2018") {
 		    global ca6 "ca6a ca6b ca6d ca6e ca6i ca6j ca6k ca6m"
 		}		/*no Outro Publico or Outro Privado*/
@@ -315,7 +332,9 @@ c_illtreat
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7d == 1 | ca7c == 1 | ca7aa == 1 | ca7ab == 1 | ca7ac == 1)
 			replace c_diarrheaact = . if ca7a == 9 | ca7d == 9 | ca7c == 9 | ca7aa == 9 | ca7ab == 9 | ca7ac == 9 
 		}
-		
+		if inlist(country_name,"Nepal2019","StateofPalestine2019") {
+			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1| ca7d == 1)
+		}
 		replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca13a == "A" | ca13b == "B" | ca13g == "G"| ca13h == "H" | ca13l == "L" | ca13m == "M" | ca13n == "N" | ca13o == "O" | ca13q == "Q" | ca13x == "X")
 		replace c_diarrheaact = . if ca13a == "?" | ca13b == "?" | ca13g == "?"| ca13h == "?" | ca13l == "?" | ca13m == "?" | ca13n == "?" | ca13o == "?" | ca13q == "?" | ca13x == "?"
 		replace c_diarrheaact = . if cage == . | ca1 != 1           // Child age missing OR diarrhea variable missing 
@@ -423,7 +442,14 @@ c_illtreat
 			global ca21 "ca21a ca21b ca21c ca21f ca21i"
 		}	
 		if inlist(country_name,"Chad2019") {
+<<<<<<< Updated upstream
 			global ca21 "ca21a ca21b ca21c ca21d ca21i ca21l"
+=======
+			global ca21 "ca21a ca21b ca21c ca21d ca21i ca21j ca21l"
+		}
+		if inlist(country_name,"StateofPalestine2019","Nepal2019") {
+			global ca21 "ca21a ca21b ca21i ca21j"
+>>>>>>> Stashed changes
 		}
 
 	    foreach var in $ca21 {
@@ -489,6 +515,12 @@ c_illtreat
 		if inlist(country_name,"Chad2019") {
 			global ca621 "ca6a ca6b ca6c ca6d ca6i ca6l ca21a ca21b ca21c ca21d ca21i ca21l"
 		}	
+<<<<<<< Updated upstream
+=======
+		if inlist(country_name,"StateofPalestine2019","Nepal2019") {
+			global ca621 "ca6a ca6b ca6i ca6j ca21a ca21b ca21i ca21j"
+		}
+>>>>>>> Stashed changes
 		foreach var in $ca621 {
 				replace `var' = "" if `var' == " "
 				replace c_illtreat = 1 if c_illtreat == 0 & `var' != "" & `var' != "?" 
