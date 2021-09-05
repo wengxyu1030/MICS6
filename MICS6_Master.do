@@ -22,10 +22,12 @@ macro drop _all
 	if "`c(username)'" == "zetianyuwang" local pc = 0
 	if "`c(username)'" == "xweng"     local pc = 1
 	if "`c(username)'" == "rwang"     local pc = 2
+	if "`c(username)'" == "keicz"     local pc = 3
 	
 	if `pc' == 0 global root "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Data/MICS"
 	if `pc' == 1 global root "C:/Users/XWeng/OneDrive - WBG/MEASURE UHC DATA - Sven Neelsen's files"
 	if `pc' == 2 global root "D:/MEASURE UHC DATA"
+	if `pc' == 3 global root "D:/Drives/OneDrive - Cuny GradCenter/working/WB"
 	
 * Define path for data sources
     global SOURCE "${root}/RAW DATA"
@@ -34,19 +36,23 @@ macro drop _all
 	if `pc' == 0 global OUT "${root}/FINAL"
 	if `pc' == 1 global OUT "${root}/STATA/DATA/SC/ADePT READY/MICS/New"
 	if `pc' == 2 global OUT "${root}/STATA/DATA/SC/FINAL"
+	if `pc' == 3 global OUT "${root}/etc/output"
+	
 
 * Define path for INTERMEDIATE
 	if `pc' == 0 global INTER "${root}/INTER"
 	if `pc' == 1 global INTER "${root}/STATA/DATA/SC/ADePT READY/MICS/Inter"
 	if `pc' == 2 global INTER "${root}/STATA/DATA/SC/INTER"
+	if `pc' == 3 global INTER "${root}/etc/inter"
 
 * Define path for do-files
 	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_github/MICS6"
 	if `pc' == 1 global DO "${root}/STATA/DO/SC/06_Prepare_MICS6/MICS6_DW"
 	if `pc' == 2 global DO "${root}/MICS6"
+	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Guinea-Bissau2018"
+	global newMICS6countries "Tonga2019"
 
 
 foreach name in $newMICS6countries {
@@ -260,6 +266,7 @@ foreach name in $newMICS6countries {
 ***********************************
 *****      Merge with iso        **
 ***********************************	
+// StateofPalestine not availble in Countrycodes
 
 	gen survey = "MICS"
 	gen year = substr("`name'",-4,4)

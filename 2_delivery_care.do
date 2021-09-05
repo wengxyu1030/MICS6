@@ -36,13 +36,8 @@ c_sba_eff2_q
 			country_name == "CostaRica2018" |
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
-<<<<<<< Updated upstream
-			country_name == "Chad2019"{;
-
-=======
 			country_name == "Chad2019"|
 			country_name == "Nepal2019"{;
->>>>>>> Stashed changes
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31)		// 1 for private/public hospital
@@ -58,8 +53,16 @@ c_sba_eff2_q
 		if inlist(country_name, "Georgia2018") {
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 41		// 1 for private/public hospital
+		}
+		if inlist(country_name,"Tonga2019") {
+			replace c_hospdel = 0 if mn20 != .
+			replace c_hospdel = 1 if mn20 == 21 	// 1 for public hospital
+		}
+		if inlist(country_name, "StateofPalestine2019") {
+			replace c_hospdel = 0 if mn20 != .
+			replace c_hospdel = 1 if inlist(mn20,21,31,41,51,61) 		// 1 for private/public hospital
 		}	
-	
+
 		replace c_hospdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 		
 
@@ -83,7 +86,8 @@ c_sba_eff2_q
 			country_name == "Montenegro2018" |
 			country_name == "Thailand2019"|
 			country_name == "Belarus2019" |
-			country_name == "Chad2019"|
+			country_name == "Chad2019" |
+			country_name == "Tonga2019"|
 			country_name == "Nepal2019"{;
 	    #delimit cr		
 			replace c_facdel = 0 if mn20 != .
@@ -127,6 +131,11 @@ c_sba_eff2_q
 		if inlist(country_name,"Turkmenistan2019") {
 		    replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,23)		// 1 for public health facility
+		}
+		if inlist(country_name,"StateofPalestine2019") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,22)		// 1 for public health facility
+			replace c_facdel = 1 if inrange(mn20,31,61)	    // 1 for private health facility
 		}
 		if inlist(country_name, "Guinea-Bissau2018") {
 			replace c_facdel = 0 if mn20 != .
@@ -184,7 +193,7 @@ c_sba_eff2_q
 			if inlist(country_name,"Suriname2018") {
 				global mn19 "mn19a mn19d mn19e mn19g"
 			}
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018") {
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
 				global mn19 "mn19a mn19b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
@@ -193,12 +202,16 @@ c_sba_eff2_q
 			if inlist(country_name,"Congodr2017") {	
 				global mn19 "mn19a mn19c mn19d"
 			}
-			if inlist(country_name,"Togo2017") {	
+			if inlist(country_name,"Togo2017","Tonga2019") {	
 				global mn19 "mn19a mn19b mn19c mn19d"
 			}
 			if inlist(country_name,"CostaRica2018") {	
 				global mn19 "mn19a mn19b mn19i"
 			} 
+			if inlist(country_name,"Turkmenistan2019") {
+			    global mn19 "mn19a mn19b mn19c"
+			}
+
 			foreach var in $mn19 {
 				replace `var' = "" if `var' == " "
 				replace c_sba = 1 if c_sba == 0 & `var' != "" & `var' != "?"	// 1 for Govt. and private doctor/nurse/midwife incl. auxiliary
@@ -229,7 +242,7 @@ c_sba_eff2_q
 * Helper: stayed in facility for 24 hours after birth
 		gen onedayfac = .
 
-		if ~inlist(country_name,"Georgia2018","Thailand2019"，"Turkmenistan2019","Guinea-Bissau2018") {
+		if ~inlist(country_name,"Georgia2018","Thailand2019"，"Turkmenistan2019","Guinea-Bissau2018","Tonga2019") {
 			replace onedayfac = 0 if bl2 == 1
 			replace onedayfac = 1 if pn3u == 1 & inrange(pn3n,24,90)
 			replace onedayfac = 1 if pn3u == 2 & inrange(pn3n,1,7)
