@@ -21,7 +21,7 @@
 			replace c_anc_any = . if mn2 == 9  			// missing for DK and missing
 			replace c_anc_any = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months ago
 		}
-		
+
 * c_anc_ear: First antenatal care visit in first trimester of pregnancy of births in last 2 years
 		gen c_anc_ear = .
 		replace c_anc_ear = 0 if mn2 != .
@@ -46,7 +46,12 @@
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
 			country_name == "Montenegro2018" |
-			country_name == "CostaRica2018" {;
+			country_name == "Guinea-Bissau2018" |
+			country_name == "CostaRica2018"|
+			country_name == "Belarus2019" |
+			country_name == "Chad2019"|
+			country_name == "StateofPalestine2019" {;
+
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -84,7 +89,10 @@
 			country_name == "Kiribati2018" |
 			country_name == "Montenegro2018" |
 			country_name == "Thailand2019" |
-      country_name == "Turkmenistan2019" {;
+			country_name == "Belarus2019"|
+			country_name == "Turkmenistan2019" |
+			country_name == "Chad2019" {;
+
 	    #delimit cr		
 				global mn3 "mn3a mn3b mn3c"
 			}
@@ -94,7 +102,8 @@
 			if inlist(country_name,"Suriname2018") {	
 				global mn3 "mn3a mn3d mn3e mn3g"
 			}
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019") {
+			//Antenatal care does not involve agente de saude comunitaria, unlike post natal care
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
 				global mn3 "mn3a mn3b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
@@ -278,7 +287,7 @@
 		
 * c_anc_tet: pregnant women vaccinated against tetanus during pregnancy of births in last 2 years
 		gen c_anc_tet = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019") {
 		     replace c_anc_tet = 0 if mn7 != .				// immunization question
 		     
 			 replace c_anc_tet = 1 if c_anc_tet == 0 & inlist(mn8,2,8) & inrange(mn12,5,7)		// No/DK injections during pregrancy for last child but 5+ before (woman is then protected for the childbearing years period)
@@ -307,14 +316,14 @@
 			 // missing for births > 24 months age
 		 }
 		
-// no tetanus vaccination data for "KyrgyzRepublic2018", "Mongolia2018" and "Belarus2019"
+// no tetanus vaccination data for "KyrgyzRepublic2018", "Mongolia2018" , "Belarus2019" , "StateofPalestine2019"
 // Following definition from WHO: https://extranet.who.int/rhl/topics/preconception-pregnancy-childbirth-and-postpartum-care/antenatal-care/who-recommendation-tetanus-toxoid-vaccination-pregnant-women
 // Different than TM.7 from MICS
 
 * c_anc_tet_q: pregnant women vaccinated against tetanus during pregnancy among ANC users of births in last 2 years
 		gen c_anc_tet_q = .
 		
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","StateofPalestine2019") {
 
 			replace c_anc_tet_q = 0 if c_anc_any == 1						// among ANC users
 			replace c_anc_tet_q = 1 if c_anc_tet_q == 0  & c_anc_tet == 1
@@ -323,7 +332,7 @@
 
 * c_anc_eff2: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples, tetanus vaccination) of births in last 2 years
 		gen c_anc_eff2 = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019") {
 		     replace c_anc_eff2 = c_anc_eff
 		     replace c_anc_eff2 = 0 if c_anc_tet == 0
 		     replace c_anc_eff2 = . if c_anc_tet == . | c_anc_eff == .
@@ -331,20 +340,20 @@
 		
 * c_anc_eff2_q: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples, tetanus vaccination) among ANC users of births in last 2 years
 		gen c_anc_eff2_q = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019") {
 		     replace c_anc_eff2_q = c_anc_eff2
 		     replace c_anc_eff2_q = . if c_anc_any == 0
 		}
 * c_anc_eff3: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples, tetanus vaccination, start in first trimester) of births in last 2 years 
 		gen c_anc_eff3 = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019") {
 		     replace c_anc_eff3 = c_anc_eff2
 		     replace c_anc_eff3 = 0 if c_anc_ear == 0
 		     replace c_anc_eff3 = . if c_anc_ear == . | c_anc_eff2 == .
         }
 * c_anc_eff3_q: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples, tetanus vaccination, start in first trimester) among ANC users of births in last 2 years
 		gen c_anc_eff3_q = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019") {
 		     replace c_anc_eff3_q = c_anc_eff3
 		     replace c_anc_eff3_q = . if c_anc_any == 0
         }

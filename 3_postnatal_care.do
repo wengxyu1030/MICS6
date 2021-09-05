@@ -12,7 +12,7 @@ c_pnc_eff2_q
 
 
 // c_pnc_any : mother OR child receive PNC in first six weeks by skilled health worker
-	gen c_pnc_any = .
+	gen c_pnc_any = .	
 	
 	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019") {
 		replace c_pnc_any = 0 if bl2 == 1
@@ -31,7 +31,9 @@ c_pnc_eff2_q
 			country_name == "Madagascar2018" |
 			country_name == "Ghana2017" |
 			country_name == "Kiribati2018" |
-			country_name == "Montenegro2018" {;
+			country_name == "Montenegro2018"|
+			country_name == "Belarus2019"|
+			country_name == "Chad2019" {;
 	    #delimit cr	
 			global pnc "a b c"
 		}
@@ -41,7 +43,7 @@ c_pnc_eff2_q
 		if inlist(country_name,"Suriname2018") {
 			global pnc "a d e g"
 		}
-		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019") {
+		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
 			global pnc "a b"
 		}
 		if inlist(country_name,"Bangladesh2019") {
@@ -139,4 +141,3 @@ c_pnc_eff2_q
 		replace c_pnc_eff2_q = . if c_pnc_any == 0
 		replace c_pnc_eff2_q = . if c_pnc_any == . | c_pnc_eff2 == .
 	}			
-		

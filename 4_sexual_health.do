@@ -8,6 +8,7 @@
 /// w_metmod_fp
 /// w_metany_fp_q
 
+
 * w_condom_conc: Condom use of at-risk women age 18-49
 		cap gen sb7 = .		// creates empty sexual intercourse variables in surveys which do not have the module (to make code run smoothly) 
 		cap gen sb3 = .		 
@@ -21,7 +22,7 @@
 		if ~inlist(country_name,"Zimbabwe2019") {
 			replace w_CPR = 0 if inrange(wb4,15,49) & mstatus == 1            	     // women age 15-49 married or in union
 		
-			if inlist(country_name,"LaoPDR2017","Suriname2018","Lesotho2018","Georgia2018","Montenegro2018","CostaRica2018") {
+			if inlist(country_name,"LaoPDR2017","Suriname2018","Lesotho2018","Georgia2018","Montenegro2018","CostaRica2018","Belarus2019","Chad2019","StateofPalestine2019") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j"
 			}
 			#delimit ;
@@ -34,7 +35,7 @@
 			country_name == "Bangladesh2019" |
 			country_name == "Congodr2017" |
 			country_name == "Ghana2017" |
-			country_name == "Togo2017" {;
+			country_name == "Togo2017"{;
 	    #delimit cr 
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4k"
 			}
@@ -49,6 +50,9 @@
 			}
 			if inlist(country_name,"Tonga2019") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j "
+			}			
+			if inlist(country_name,"Guinea-Bissau2018") {
+				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4k cp4l"
 			}
 			foreach var in $cp4 {
 				replace `var' = "" if `var' == " "

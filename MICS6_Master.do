@@ -126,7 +126,7 @@ foreach name in $newMICS6countries {
 
 * Housekeeping
 	drop country_name
-	
+			
 * Merge with child_temp
 	merge 1:1 hh1 hh2 ln using `ch'
 	drop _merge
@@ -257,6 +257,7 @@ foreach name in $newMICS6countries {
 ***********************************
 *****      Merge with iso        **
 ***********************************	
+// StateofPalestine not availble in Countrycodes
 
 	gen survey = "MICS"
 	gen year = substr("`name'",-4,4)
