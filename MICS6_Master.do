@@ -206,7 +206,7 @@ foreach name in $newMICS6countries {
 	drop _merge
 	
 	if inlist("`name'","Nepal2019") {
-	drop melevel2
+	drop melevel2 //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
 	}
 
 	do "${DO}/19_child_maternal_edu.do"
@@ -249,11 +249,12 @@ foreach name in $newMICS6countries {
 *****      Merge with hh         **
 ***********************************	
 	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta"
-	drop if _merge == 2
+	
+	if _merge == 2
 	drop _merge
 	gen country_name = "`name'"
 	if inlist("`name'","Nepal2019") {
-	drop helevel2
+	drop helevel2 //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
 	}	
 	do "${DO}/20_hh_sanitation.do" 
 	do "${DO}/15_household.do"
