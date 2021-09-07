@@ -103,8 +103,8 @@
 			country_name == "Thailand2019" |
 			country_name == "Tonga2019" |
       country_name == "Guinea-Bissau2018"|
-      country_name == "StateofPalestine2019" {;
-
+      country_name == "StateofPalestine2019"|
+      country_name == "Nepal2019" {;
 	    #delimit cr		
 		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im6by,2000,6666) | inlist(im6bd,44,66))
 			replace c_bcg = 1 if c_bcg == 0 & im14 == 1                             // BCG from memory
@@ -148,7 +148,8 @@
 			country_name == "CostaRica2018" |
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Chad2019"|
-			country_name == "StateofPalestine2019" {;
+			country_name == "StateofPalestine2019"|
+			country_name == "Nepal2019" {;
 	    #delimit cr		
 			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6penta`x'y,2000,6666) | inlist(im6penta`x'd,44,66))
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im20 == 1 & inrange(im21,`x',7)               // dpt1-3 from memory
@@ -202,7 +203,7 @@
 		       replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & ((im17 == 2 & inrange(im18,`x',7)) | inrange(im18,`x'+1,7))   // polio1-3 from memory
 			   replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im17,8,9) | inlist(im18,8,9))) | (inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory
 		   }
-		   if inlist(country_name,"SierraLeone2017","Iraq2017","Gambia2018","Lesotho2018","Madagascar2018","Ghana2017","Togo2017","Kiribati2018","Thailand2019")|inlist(country_name,"StateofPalestine2019")  {
+		   if inlist(country_name,"SierraLeone2017","Iraq2017","Gambia2018","Lesotho2018","Madagascar2018","Ghana2017","Togo2017","Kiribati2018","Thailand2019")|inlist(country_name,"StateofPalestine2019","Nepal2019")  {
 		       replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
 		       replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & ((im17 == 2 & inrange(im18,`x',7)) | inrange(im18,`x'+1,7))   // polio1-3 from memory
 			   replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im17,8,9) | inlist(im18,8,9))) | (inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory

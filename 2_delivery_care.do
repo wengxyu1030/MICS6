@@ -36,7 +36,8 @@ c_sba_eff2_q
 			country_name == "CostaRica2018" |
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
-			country_name == "Chad2019"{;
+			country_name == "Chad2019"|
+			country_name == "Nepal2019"{;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31)		// 1 for private/public hospital
@@ -86,8 +87,8 @@ c_sba_eff2_q
 			country_name == "Thailand2019"|
 			country_name == "Belarus2019" |
 			country_name == "Chad2019" |
-			country_name == "Tonga2019" {;
-
+			country_name == "Tonga2019"|
+			country_name == "Nepal2019"{;
 	    #delimit cr		
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,23)		// 1 for public health facility
@@ -181,7 +182,8 @@ c_sba_eff2_q
 			country_name == "Thailand2019" |
 			country_name == "Turkmenistan2019" |
 			country_name == "Belarus2019"|
-			country_name == "Chad2019" {;
+			country_name == "Chad2019"|
+			country_name == "Nepal2019" {;
 	    #delimit cr	
 				global mn19 "mn19a mn19b mn19c"
 			}
