@@ -77,7 +77,7 @@ foreach name in $newMICS6countries {
 
 * Housekeeping for women data
 	if inlist("`name'","Nepal2019") {
-	drop welevel2
+	drop welevel2  //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
 	}
 	gen hm_male = 0 // Gender variable
 	gen hm_educ = welevel // Educational level
