@@ -25,7 +25,7 @@
 * c_anc_ear: First antenatal care visit in first trimester of pregnancy of births in last 2 years
 		gen c_anc_ear = .
 		replace c_anc_ear = 0 if mn2 != .
-		if inlist(country_name,"LaoPDR2017","Togo2017") {	
+		if inlist(country_name,"LaoPDR2017","Togo2017","Algeria2018") {	
 			replace c_anc_ear = 1 if mn4u == 1 & mn4n < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4u == 2 & mn4n < 4				// 1st ANC in first trimester of pregnancy (in months)
 			replace c_anc_ear = . if inlist(mn4n,98,99)  		// missing for DK and missing
@@ -117,7 +117,10 @@
 			if inlist(country_name,"CostaRica2018") {	
 				global mn3 "mn3a mn3b mn3i"
 			}
-
+			if inlist(country_name,"Algeria2018") {	
+				global mn3 "mn3a mn3b mn3d"
+			}
+			
 			foreach var in $mn3 {
 				replace `var' = "" if `var' == " "
 				replace c_anc_eff = 1 if mn5 > 3 & mn5 < 98 & `var' != "" & `var' != "?" & mn6a == 1 & mn6b == 1 & mn6c == 1		// 1 for 4+ anc visits, doctor/nurse/midwife incl. auxiliary, blood pressure, blood and urine samples
@@ -255,7 +258,7 @@
 		     replace c_anc_tet = 1 if c_anc_tet == 0 & mn9 == 1 & inrange(mn12,1,7)   	// Yes injections during pregrancy for last child, only one but at least one before
 		     replace c_anc_tet = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months age
         }               
-		if inlist(country_name,"Tunisia2018") {
+		if inlist(country_name,"Tunisia2018","Algeria2018") {
 		     replace c_anc_tet = 0 if inrange(mn8,1,8)				// immunization question
 		     
 			 replace c_anc_tet = 1 if c_anc_tet == 0 & inlist(mn8,2,8) & inrange(mn12,5,7)		// No/DK injections during pregrancy for last child but 5+ before (woman is then protected for the childbearing years period)

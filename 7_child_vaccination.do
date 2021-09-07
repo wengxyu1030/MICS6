@@ -77,7 +77,13 @@
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6my,6667,9999) | inrange(im6md,97,98))) | (im11 == 1 & inlist(im26a,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
 		}
 	   
-	   
+		if inlist(country_name,"Algeria2018") {
+			replace c_measles = 1 if c_measles == 0 & ((inrange(im3rory,2000,6666) | inlist(im3rord,44,66)) | (inrange(im6rory,2000,6666) | inlist(im6rord,44,66)) | (inrange(im6ror1y,2000,6666) | inlist(im6ror1d,44,66))) // measles/MMR from card
+			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
+			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im3rory,6667,9999) | inrange(im3rord,97,98)) & (inrange(im6rory,6667,9999) | inrange(im6rord,97,98)) & (inrange(im6ror1y,6667,9999) | inrange(im6ror1d,97,98)) ) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
+		}
+		
+		
 
     * c_bcg: Child age 15-23M had BCG vaccination
 	    gen c_bcg = .
@@ -116,8 +122,13 @@
 			replace c_bcg = 1 if c_bcg == 0 & im14corr == 1                         // BCG from memory
 			replace c_bcg = . if ((inrange(im5,1,3) & (inrange(im6by,6667,9999) | inrange(im6bd,97,98))) | (im11 == 1 & inlist(im14corr,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	  // missing if BCG DK/missing for card and memory
 		}		
+		if inlist(country_name,"Algeria2018") {		
+		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im3by,2000,6666) | inlist(im3bd,44,66))
+		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im6by,2000,6666) | inlist(im6bd,44,66))
+			replace c_bcg = 1 if c_bcg == 0 & im14 == 1                             // BCG from memory
+			replace c_bcg = . if ((inrange(im5,1,3) & (inrange(im6by,6667,9999) | inrange(im6bd,97,98)) & (inrange(im3by,6667,9999) | inrange(im3bd,97,98))) | (im11 == 1 & inlist(im14,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	  // missing if BCG DK/missing for card and memory
+		}
 		
-	
 		
 	* c_dpt1: Child age 15-23M had DPT1 or Pentavalent 1 vaccination
 	* c_dpt2: Child age 15-23M had DPT2 or Pentavalent 2 vaccination
@@ -138,7 +149,8 @@
 			country_name == "Kiribati2018" |
 			country_name == "CostaRica2018" |
 			country_name == "Guinea-Bissau2018" |
-			country_name == "Chad2019" {;
+			country_name == "Chad2019" |
+			country_name == "Algeria2018" {;
 	    #delimit cr		
 			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6penta`x'y,2000,6666) | inlist(im6penta`x'd,44,66))
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im20 == 1 & inrange(im21,`x',7)               // dpt1-3 from memory
@@ -186,8 +198,8 @@
 				replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & inrange(im18,`x',7)          // polio1-3 from memory
 				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im18,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory
 		    }
-			//RW0831 Guinea-Bissau2018 might benefit from sensitivity test with regar to the use of im19 as for CostaRica2018
-		   if inlist(country_name,"Guinea-Bissau2018") {
+			//RW0831 Guinea-Bissau2018 might benefit from sensitivity test with regard to the use of im19 as for CostaRica2018
+		   if inlist(country_name,"Guinea-Bissau2018","Algeria2018") {
 		       replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
 		       replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & ((im17 == 2 & inrange(im18,`x',7)) | inrange(im18,`x'+1,7))   // polio1-3 from memory
 			   replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im17,8,9) | inlist(im18,8,9))) | (inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory

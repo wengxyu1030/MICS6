@@ -46,7 +46,7 @@ macro drop _all
 	if `pc' == 2 global DO "${root}/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Guinea-Bissau2018"
+	global newMICS6countries "Algeria2018"
 
 
 foreach name in $newMICS6countries {
