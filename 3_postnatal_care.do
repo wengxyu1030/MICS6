@@ -58,6 +58,9 @@ c_pnc_eff2_q
 		}
 		if inlist(country_name,"CostaRica2018") {
 			global pnc "a b i"
+		}	
+		if inlist(country_name,"Algeria2018") {
+			global pnc "a b d"
 		}
 		if inlist(country_name,"Tonga2019") {
 			global pnc "a b c d"

@@ -52,7 +52,7 @@ macro drop _all
 	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Tonga2019"
+	global newMICS6countries "Algeria2018"
 
 
 foreach name in $newMICS6countries {
