@@ -35,7 +35,8 @@
 			country_name == "Bangladesh2019" |
 			country_name == "Congodr2017" |
 			country_name == "Ghana2017" |
-			country_name == "Togo2017"{;
+			country_name == "Togo2017"|
+			country_name == "CentralAfricanRepublic2018"{;
 	    #delimit cr 
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4k"
 			}
