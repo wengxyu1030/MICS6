@@ -12,7 +12,7 @@
 	// max value of tnln - 10; tn15_1-20; tn15_2-23; tn15_3-22; tn15_4-22
 if inlist(country_name,"CentralAfricanRepublic2018") {
 			//keep if (inrange(tn5,10,18) | (inrange(tn5,21,98) & tn9 < 12))
-			keep if (inrange(tn5,10,36)
+			keep if inrange(tn5,10,36)
 			by hh1 hh2, sort: gen rank_bednet = _n 
 
 			replace tnln = rank_bednet
