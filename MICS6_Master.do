@@ -250,7 +250,7 @@ foreach name in $newMICS6countries {
 ***********************************	
 	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta"
 	
-	if _merge == 2
+	drop if _merge == 2
 	drop _merge
 	gen country_name = "`name'"
 	if inlist("`name'","Nepal2019") {
