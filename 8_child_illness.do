@@ -20,7 +20,7 @@ c_treatARI
 c_illtreat
 */
 
-	if ~inlist(country_name,"Montenegro2018","Thailand2019","Turkmenistan2019") {	
+	if ~inlist(country_name,"Montenegro2018","Thailand2019","Turkmenistan2019","Serbia2019") {	
 
 * c_diarrhea: Child under 5 with diarrhea
 		gen c_diarrhea = .
@@ -562,7 +562,7 @@ c_illtreat
 	    replace c_illtreat = . if cage == . 
         replace c_illtreat = . if (~inlist(ca1,1,2) | ~inlist(ca14,1,2) | ~inlist(ca18,1,3))
 	
-}		
+    }		
 
 		
 		else {

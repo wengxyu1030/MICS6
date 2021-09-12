@@ -55,19 +55,19 @@ c_sba_eff2_q
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 41		// 1 for private/public hospital
 		}
-		if inlist(country_name,"Tonga2019") {
+		if inlist(country_name,"Tonga2019","Algeria2018") {
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 21 	// 1 for public hospital
 		}
 		if inlist(country_name, "StateofPalestine2019") {
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31,41,51,61) 		// 1 for private/public hospital
-		}	
-		if inlist(country_name, "Algeria2018") {
+		}
+		if inlist(country_name,"Serbia2019") {
 			replace c_hospdel = 0 if mn20 != .
-			replace c_hospdel = 1 if mn20==21		// 1 for hopital
-		}			
-	
+			replace c_hospdel = 1 if inlist(mn20,21,23) // 1 for public hospital
+		}
+
 		replace c_hospdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 		
 
@@ -92,7 +92,8 @@ c_sba_eff2_q
 			country_name == "Thailand2019"|
 			country_name == "Belarus2019" |
 			country_name == "Chad2019" |
-			country_name == "Tonga2019"|
+			country_name == "Tonga2019" |
+			country_name == "Serbia2019"|
 			country_name == "Nepal2019"|
 			country_name == "CentralAfricanRepublic2018"{;
 	    #delimit cr		
@@ -193,8 +194,10 @@ c_sba_eff2_q
 			country_name == "Thailand2019" |
 			country_name == "Turkmenistan2019" |
 			country_name == "Belarus2019"|
-			country_name == "Chad2019"|
-			country_name == "Nepal2019" {;
+			country_name == "Chad2019" |
+			country_name == "Serbia2019"|
+			country_name == "Nepal2019" |
+			country_name == "Turkmenistan2019" {;
 	    #delimit cr	
 				global mn19 "mn19a mn19b mn19c"
 			}
@@ -222,9 +225,6 @@ c_sba_eff2_q
 			if inlist(country_name,"Algeria2018") {	
 				global mn19 "mn19a mn19b mn19d"
 			} 
-			if inlist(country_name,"Turkmenistan2019") {
-			    global mn19 "mn19a mn19b mn19c"
-			}
 
 			foreach var in $mn19 {
 				replace `var' = "" if `var' == " "
@@ -256,7 +256,7 @@ c_sba_eff2_q
 * Helper: stayed in facility for 24 hours after birth
 		gen onedayfac = .
 
-		if ~inlist(country_name,"Georgia2018","Thailand2019"，"Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019") {
+		if ~inlist(country_name,"Georgia2018","Thailand2019"，"Turkmenistan2019","Guinea-Bissau2018","Serbia2019") {
 			replace onedayfac = 0 if bl2 == 1
 			replace onedayfac = 1 if pn3u == 1 & inrange(pn3n,24,90)
 			replace onedayfac = 1 if pn3u == 2 & inrange(pn3n,1,7)
