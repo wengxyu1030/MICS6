@@ -51,7 +51,8 @@
 			country_name == "Belarus2019" |
 			country_name == "Chad2019"|
 			country_name == "StateofPalestine2019"|
-			country_name == "Nepal2019" {;
+			country_name == "Nepal2019" | 
+			country_name == "CentralAfricanRepublic2018" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -113,7 +114,7 @@
 			if inlist(country_name,"Congodr2017") {	
 				global mn3 "mn3a mn3c mn3d"
 			}
-			if inlist(country_name,"Togo2017") {	
+			if inlist(country_name,"Togo2017","CentralAfricanRepublic2018") {	
 				global mn3 "mn3a mn3b mn3c mn3d"
 			}
 			if inlist(country_name,"CostaRica2018") {	
@@ -157,21 +158,7 @@
 				replace c_anc_ski = . if `var' == "?"  // missing for DK/missing if no other skilled provider used
 			}	
 			replace c_anc_ski = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months ago
-		}
-		
-		if inlist(country_name,"Tonga2019") {
-			replace c_anc_ski = 0 if mn2 != .
-		
-			foreach var in $mn3 {
-				replace c_anc_ski = 1 if `var' != "" & `var' != "?"		
-				// 1 for Obstetricion, Physician, Family/soum doctor, Midwife, Auxiliary midwife and Nurse
-				replace c_anc_ski = . if `var' == "?"  
-				// missing for DK/missing if no other skilled provider used
-			}	
-			replace c_anc_ski = . if bl2 != 1 | ~inrange(wb4,15,49)     
-			// missing for births > 24 months ago
-		}
-		
+		}	
 	
 		
 * c_anc_ski_q: antenatal care visit with skilled provider among ANC users for pregnancy of births in last 2 years
@@ -192,13 +179,6 @@
 			replace c_anc_bp = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months ago
 		}
 		
-		if inlist(country_name,"Tonga2019"){
-			replace c_anc_bp = 0 if mn2 != .
-			replace c_anc_bp = 1 if mn6a == 1   //  1 for blood pressure
-			replace c_anc_bp = . if mn6a == 9	// missing for DK/missing
-			replace c_anc_bp = . if bl2 != 1 | ~inrange(wb4,15,49)    // missing for births > 24 months ago
-		}
-		
 * c_anc_bp_q: Blood pressure measured during pregnancy among ANC users of births in last 2 years
 		gen c_anc_bp_q = .
 
@@ -216,13 +196,6 @@
 			replace c_anc_bs = . if mn6c == 9	// missing for DK/missing
 			replace c_anc_bs = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months ago
 		}	
-		
-		if inlist(country_name,"Tonga2019"){
-			replace c_anc_bs = 0 if mn2 != .
-			replace c_anc_bs = 1 if mn6c == 1		// 1 for blood sample
-			replace c_anc_bs = . if mn6c == 9	// missing for DK/missing
-			replace c_anc_bs = . if bl2 != 1 | ~inrange(wb4,15,49)    // missing for births > 24 months ago
-		}
 		
 * c_anc_bs_q: Blood sample taken during pregnancy among ANC users of births in last 2 years
 		gen c_anc_bs_q = .
@@ -242,22 +215,12 @@
 			replace c_anc_ur = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months ago
 		}
 		
-		if inlist(country_name,"Tonga2019") {
-			replace c_anc_ur = 0 if mn2 != .
-			replace c_anc_ur = 1 if mn6b == 1		// 1 for urine sample taken
-			replace c_anc_ur = . if mn6b == 9	// missing for DK/missing
-			replace c_anc_ur = . if bl2 != 1 | ~inrange(wb4,15,49)    // missing for births > 24 months ago
-		}
 * c_anc_ur_q: Urine sample taken during pregnancy among ANC users of births in last 2 years
 		gen c_anc_ur_q = .
 
 		replace c_anc_ur_q = 0 if c_anc_any == 1						// among ANC users
 		replace c_anc_ur_q = 1 if c_anc_ur_q == 0  & c_anc_ur == 1
 		replace c_anc_ur_q = . if c_anc_any == . | c_anc_ur == .
-		
-
-		
-		
 		
 * c_anc_ir: iron supplements taken during pregnancy of births in last 2 years
 		gen c_anc_ir = .
@@ -291,6 +254,7 @@
 		
 		
 * c_anc_tet: pregnant women vaccinated against tetanus during pregnancy of births in last 2 years
+//Should Tonga and Turkmenistan be in here?
 		gen c_anc_tet = .
 		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019") {
 		     replace c_anc_tet = 0 if mn7 != .				// immunization question
@@ -308,18 +272,7 @@
 		     replace c_anc_tet = 1 if c_anc_tet == 0 & mn9 == 1 & inrange(mn12,1,7)   	// Yes injections during pregrancy for last child, only one but at least one before
 		     replace c_anc_tet = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months age
         }
- 		if inlist(country_name,"Tonga2019") {
-			 replace c_anc_tet = 0 if mn7 != .				
-			 // immunization question
-			 replace c_anc_tet = 1 if c_anc_tet == 0 & inlist(mn8,2,8) & inrange(mn12,5,7)		
-			 // No/DK injections during pregrancy for last child but 5+ before (woman is then protected for the childbearing years period)
-		     replace c_anc_tet = 1 if c_anc_tet == 0 & inrange(mn9,2,7)   	
-			 // Yes injections during pregrancy for last child and 2+ injections
-		     replace c_anc_tet = 1 if c_anc_tet == 0 & mn9 == 1 & inrange(mn12,1,7)   	
-			 // Yes injections during pregrancy for last child, only one but at least one before
-		     replace c_anc_tet = . if bl2 != 1 | ~inrange(wb4,15,49)    			
-			 // missing for births > 24 months age
-		 }
+
 		
 // no tetanus vaccination data for "KyrgyzRepublic2018", "Mongolia2018" , "Belarus2019" , "StateofPalestine2019"
 // Following definition from WHO: https://extranet.who.int/rhl/topics/preconception-pregnancy-childbirth-and-postpartum-care/antenatal-care/who-recommendation-tetanus-toxoid-vaccination-pregnant-women

@@ -69,7 +69,8 @@ c_illtreat
 			country_name == "Belarus2019"|
 			country_name == "Chad2019" |
 			country_name == "StateofPalestine2019"|
-			country_name == "Nepal2019" {;
+			country_name == "Nepal2019" |
+			country_name == "CentralAfricanRepublic2018" {;
 	    #delimit cr 
 			replace c_treatdiarrhea = 0 if ca1 == 1						// children with diarrhea in last 2 weeks
 			replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (ca7a == 1 | ca7b == 1)	// received ORS
@@ -140,7 +141,8 @@ c_illtreat
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
 			country_name == "Chad2019"|
-			country_name == "StateofPalestine019" {;
+			country_name == "StateofPalestine2019"|
+			country_name == "CentralAfricanRepublic2018" {;
 	    #delimit cr 
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  ca7c == 1 
 			replace c_diarrhea_med = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
@@ -197,7 +199,7 @@ c_illtreat
 			country_name == "Kiribati2018"|
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
-			country_name == "Chad2019" {;
+			country_name == "CentralAfricanRepublic2018" {;
 	    #delimit cr 
 			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  ca7c == 1 
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
@@ -238,7 +240,7 @@ c_illtreat
 		if inlist(country_name,"LaoPDR2017") {
 		    global ca6 "ca6a ca6b ca6d ca6e ca6i ca6j ca6m"
 		}
-		if inlist(country_name,"SierraLeone2017","Gambia2018","Madagascar2018","Congodr2017","Ghana2017") {
+		if inlist(country_name,"SierraLeone2017","Gambia2018","Madagascar2018","Congodr2017","Ghana2017","CentralAfricanRepublic2018") {
 		    global ca6 "ca6a ca6b ca6c ca6d ca6e ca6i ca6j ca6l ca6m"
 		}	
 		if inlist(country_name,"Iraq2017") {
@@ -313,7 +315,7 @@ c_illtreat
 		}		
 
 		
-		if inlist(country_name,"LaoPDR2017","SierraLeone2017","Mongolia2018","Gambia2018","Tunisia2018","Madagascar2018","Togo2017","Kiribati2018", "CostaRica2018")| inlist(country_name,"Belarus2019","Chad2019","StateofPalestine2019"){
+		if inlist(country_name,"LaoPDR2017","SierraLeone2017","Mongolia2018","Gambia2018","Tunisia2018","Madagascar2018","Togo2017","Kiribati2018", "CostaRica2018")| inlist(country_name,"Belarus2019","Chad2019","StateofPalestine2019","CentralAfricanRepublic2018"){
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca7c == 1 | ca7d == 1)
 		}
 		if inlist(country_name,"Iraq2017") {
@@ -473,6 +475,9 @@ c_illtreat
 			global ca21 "ca21a ca21b ca21c ca21h ca21i ca21j ca21o"
 		}		//exclut les pharmacies privees
 
+		if inlist(country_name,"CentralAfricanRepublic2018") {
+		    global ca21 "ca21a ca21b ca21c ca21d ca21e ca21h ca21i ca21j ca21l ca21m ca21o"
+		}	
 	    foreach var in $ca21 {
 		    replace `var' = "" if `var' == " "
 		    replace c_treatARI = 1 if c_treatARI == 0 & `var' != "" & `var' != "?" 
@@ -545,7 +550,10 @@ c_illtreat
 		if inlist(country_name,"StateofPalestine2019","Nepal2019") {
 			global ca621 "ca6a ca6b ca6i ca6j ca21a ca21b ca21i ca21j"
 		}
-
+		if inlist(country_name,"CentralAfricanRepublic2018") {
+		    global ca621 "ca6a ca6b ca6c ca6d ca6e ca6i ca6j ca6l ca6m ca21a ca21b ca21c ca21d ca21e ca21h ca21i ca21j ca21l ca21m ca21o"
+		}	
+		
 		foreach var in $ca621 {
 				replace `var' = "" if `var' == " "
 				replace c_illtreat = 1 if c_illtreat == 0 & `var' != "" & `var' != "?" 

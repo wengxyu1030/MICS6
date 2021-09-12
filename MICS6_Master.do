@@ -52,7 +52,7 @@ macro drop _all
 	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Algeria2018"
+	global newMICS6countries "CentralAfricanRepublic2018"
 
 
 foreach name in $newMICS6countries {
@@ -118,13 +118,13 @@ foreach name in $newMICS6countries {
 	capture confirm file "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta"
 	if !_rc {
 	
-	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta", clear	
+		use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta", clear	
 	
 * Prepare
-	gen country_name = "`name'"
+		gen country_name = "`name'"
 	
 * Run do file
-	do "${DO}/18_child_ITN.do"
+	do "${DO}/18_child_ITN.do"		
 	}
 
 * Housekeeping
@@ -243,18 +243,18 @@ foreach name in $newMICS6countries {
 	}
 	
 	keep hh1 hh2 ln c_* w_* mor_*  hm_*
-	
 
 ***********************************
 *****      Merge with hh         **
 ***********************************	
+
 	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta"
 	
 	drop if _merge == 2
 	drop _merge
 	gen country_name = "`name'"
 	if inlist("`name'","Nepal2019") {
-	drop helevel2 //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
+		drop helevel2 //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
 	}	
 	do "${DO}/20_hh_sanitation.do" 
 	do "${DO}/15_household.do"
@@ -263,7 +263,7 @@ foreach name in $newMICS6countries {
 		
 * Housekeeping
 	keep hh1 hh2 ln hh_* c_* w_* mor_*  hm_* gl_adm1_code gl_adm0_code
-		
+	
 ***********************************
 *****      Merge with iso        **
 ***********************************	
@@ -280,6 +280,7 @@ foreach name in $newMICS6countries {
 	replace WB_cname = "The Gambia" if WB_cname == "Gambia"
 	replace WB_cname = "Dem. Rep. Congo" if WB_cname == "Congodr"
 	replace WB_cname = "Costa Rica" if WB_cname == "CostaRica"
+	replace WB_cname = "Central African Republic" if WB_cname == "CentralAfricanRepublic"
 	
 	// Merges with country code data
 	mmerge WB_cname using "${SOURCE}/CountryCodes.dta", ukeep(iso3c iso2c WB_cname WB_region) 
