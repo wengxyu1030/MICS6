@@ -263,8 +263,7 @@ foreach name in $newMICS6countries {
 		
 * Housekeeping
 	keep hh1 hh2 ln hh_* c_* w_* mor_*  hm_* gl_adm1_code gl_adm0_code
-		pause on
-		pause rw0912
+	
 ***********************************
 *****      Merge with iso        **
 ***********************************	
