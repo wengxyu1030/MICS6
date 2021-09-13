@@ -42,7 +42,7 @@
     }
 	
 	***for variables generated from 11_child_other
-	foreach var of var c_mateduc c_ITN{
+	foreach var of var w_mateduc c_ITN{
 	egen pop_`var' = wtmean(`var'),weight(hh_sampleweight)
 	}
 	
@@ -55,14 +55,8 @@
 
 *Please add the sample size for the variables too.
 
-    foreach var of var c_* w_* mor_* hm_* { 
-	egen sd_`var' = sd(`var') //the standard deviation
-    }
-
-keep pop_* sd_* survey country iso3c iso2c year
+keep pop_* survey country iso3c iso2c year
 keep if _n == 1
 
-reshape long pop_ sd_ ,i(survey country iso3c iso2c year) j(varname) string
-rename (pop_ sd_) (value sd)
 
 

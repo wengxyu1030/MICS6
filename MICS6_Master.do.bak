@@ -20,44 +20,27 @@ macro drop _all
 
 * Define root depend on the stata user. 
 	if "`c(username)'" == "zetianyuwang" local pc = 0
-	if "`c(username)'" == "xweng"     local pc = 1
-	if "`c(username)'" == "rwang"     local pc = 2
-	if "`c(username)'" == "ortsang"     local pc = 3
-	if "`c(username)'" == "keicz"     local pc = 3
-	
+	*if "`c(username)'" == ""     local pc = 1
 	if `pc' == 0 global root "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Data/MICS"
-	if `pc' == 1 global root "C:/Users/XWeng/OneDrive - WBG/MEASURE UHC DATA - Sven Neelsen's files"
-	if `pc' == 2 global root "D:/MEASURE UHC DATA"
-	if `pc' == 3 global root "/Users/ortsang/OneDrive - City University of New York/working/WB"
-	if `pc' == 3 global root "D:/Drives/OneDrive - Cuny GradCenter/working/WB"
-	
+	*if `pc' == 1 global root ""
+
 * Define path for data sources
-    global SOURCE "${root}/RAW DATA"
+	global SOURCE "${root}/RAW DATA"
 
 * Define path for output data
-	if `pc' == 0 global OUT "${root}/FINAL"
-	if `pc' == 1 global OUT "${root}/STATA/DATA/SC/ADePT READY/MICS/New"
-	if `pc' == 2 global OUT "${root}/STATA/DATA/SC/FINAL"
-	if `pc' == 3 global OUT "${root}/etc/output"
-	
+	global OUT "${root}/FINAL"
 
 * Define path for INTERMEDIATE
-	if `pc' == 0 global INTER "${root}/INTER"
-	if `pc' == 1 global INTER "${root}/STATA/DATA/SC/ADePT READY/MICS/Inter"
-	if `pc' == 2 global INTER "${root}/STATA/DATA/SC/INTER"
-	if `pc' == 3 global INTER "${root}/etc/inter"
+	global INTER "${root}/INTER"
 
 * Define path for do-files
 	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_github/MICS6"
-	if `pc' == 1 global DO "${root}/STATA/DO/SC/06_Prepare_MICS6/MICS6_DW"
-	if `pc' == 2 global DO "${root}/MICS6"
-	if `pc' == 3 global DO "/Users/ortsang/Documents/Github/MICS6"
-	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
+	*if `pc' != 0 global DO ""
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "CostaRica2018"
+	global MICS6countries "CostaRica2018"
 
-foreach name in $newMICS6countries {
+foreach name in $MICS6countries {	
 	clear 
 	tempfile wm ch ch_itn bh
 
@@ -65,7 +48,7 @@ foreach name in $newMICS6countries {
 ***** Domains using WOMEN DATA*
 *******************************
 
-	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'wm.dta", clear	
+	use "${SOURCE}/MICS6-`name'/MICS6-`name'wm.dta", clear	
 
 * Prepare
 	gen country_name = "`name'"
@@ -78,9 +61,6 @@ foreach name in $newMICS6countries {
 	do "${DO}/4_sexual_health"
 
 * Housekeeping for women data
-	if inlist("`name'","Nepal2019") {
-	drop welevel2  //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
-	}
 	gen hm_male = 0 // Gender variable
 	gen hm_educ = welevel // Educational level
 	gen hm_age_yrs = wb4 // Age in years
@@ -88,12 +68,12 @@ foreach name in $newMICS6countries {
 	replace w_sampleweight = wmweight
 
 	save `wm', replace
-
+	
 *******************************
 ***** Domains using CHILD DATA*
 *******************************
 
-	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'ch.dta", clear	
+	use "${SOURCE}/MICS6-`name'/MICS6-`name'ch.dta", clear	
 
 * Prepare
 	gen country_name = "`name'"
@@ -112,30 +92,29 @@ foreach name in $newMICS6countries {
 	gen w_sampleweight = chweight // Child's sample weight
 		
 	save `ch', replace
-
+	
 *******************************
 ***** Domains using ITN DATA*
 *******************************	
 
-	capture confirm file "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta"
-	if !_rc {
+	capture confirm file "${SOURCE}/MICS6-`name'/MICS6-`name'tn.dta"
+	if !_rc{
 	
-		use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta", clear	
+	use "${SOURCE}/MICS6-`name'/MICS6-`name'tn.dta", clear	
 	
 * Prepare
-		gen country_name = "`name'"
+	gen country_name = "`name'"
 	
 * Run do file
-	do "${DO}/18_child_ITN.do"		
-	}
+	do "${DO}/18_child_ITN.do"
 
 * Housekeeping
 	drop country_name
-			
+	
 * Merge with child_temp
 	merge 1:1 hh1 hh2 ln using `ch'
 	drop _merge
-	
+	}
 
 	else{
 	gen c_ITN = .
@@ -147,10 +126,10 @@ foreach name in $newMICS6countries {
 ***** Domains using BIRTH DATA    *
 ***********************************
 	
-	capture confirm file "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'bh.dta"
+	capture confirm file "${SOURCE}/MICS6-`name'/MICS6-`name'bh.dta"
 	if !_rc{					
 		
-	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'bh.dta", clear
+	use "${SOURCE}/MICS6-`name'/MICS6-`name'bh.dta", clear
 	do "${DO}/10_child_mortality.do"
 	}
 
@@ -192,7 +171,7 @@ foreach name in $newMICS6countries {
 		gen check2 = 1 if ((hh1 == 246 & hh2 == 11 & ln == 8 & mor_dob == 1372) | (hh1 == 246 & hh2 == 11 & ln == 7 & mor_dob == 1372))
 		drop if check2 == 1
 	}
-	
+
 	mmerge hh1 hh2 ln using `ch_itn'
 	drop _merge
 
@@ -200,10 +179,6 @@ foreach name in $newMICS6countries {
 	mmerge hh1 hh2 ln using `wm'
 	drop _merge
 	
-	if inlist("`name'","Nepal2019") {
-	drop melevel2 //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
-	}
-
 	do "${DO}/19_child_maternal_edu.do"
 
 * Housekeeping
@@ -215,7 +190,7 @@ foreach name in $newMICS6countries {
 ***********************************
 
 * Merge individual level data with household listing
-	mmerge hh1 hh2 hl1 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hl.dta"
+	mmerge hh1 hh2 hl1 using "${SOURCE}/MICS6-`name'/MICS6-`name'hl.dta"
 	drop _merge
 
 * Housekeeping
@@ -242,15 +217,11 @@ foreach name in $newMICS6countries {
 ***********************************
 *****      Merge with hh         **
 ***********************************	
-
-	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta"
-	
+	mmerge hh1 hh2 using "${SOURCE}/MICS6-`name'/MICS6-`name'hh.dta"
 	drop if _merge == 2
 	drop _merge
 	gen country_name = "`name'"
-	if inlist("`name'","Nepal2019") {
-		drop helevel2 //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
-	}	
+	
 	do "${DO}/20_hh_sanitation.do" 
 	do "${DO}/15_household.do"
 	do "${DO}/21_subnational_regions.do"
@@ -261,7 +232,6 @@ foreach name in $newMICS6countries {
 ***********************************
 *****      Merge with iso        **
 ***********************************	
-// StateofPalestine not availble in Countrycodes
 
 	gen survey = "MICS"
 	gen year = substr("`name'",-4,4)
@@ -274,7 +244,6 @@ foreach name in $newMICS6countries {
 	replace WB_cname = "The Gambia" if WB_cname == "Gambia"
 	replace WB_cname = "Dem. Rep. Congo" if WB_cname == "Congodr"
 	replace WB_cname = "Costa Rica" if WB_cname == "CostaRica"
-	replace WB_cname = "Central African Republic" if WB_cname == "CentralAfricanRepublic"
 	
 	// Merges with country code data
 	mmerge WB_cname using "${SOURCE}/CountryCodes.dta", ukeep(iso3c iso2c WB_cname WB_region) 
@@ -290,9 +259,7 @@ foreach name in $newMICS6countries {
 	
 * Label variables
 	do "${DO}/Lab_var.do"
-		
-	//rename (c_del_eff1 c_del_eff1_q c_del_eff2 c_del_eff2_q w_unmet c_measles_vacc c_mateduc ind_sampleweight mor_wdob mor_doi)(c_sba_eff1 c_sba_eff1_q c_sba_eff2 c_sba_eff2_q w_unmet_fp c_measles c_mateduc w_sampleweight hm_dob hm_doi)
-		
+	
 * Save micro-dataset
 	order survey year country hh1 hh2 ln  c_* w_* mor_* ln hm_* hh_*
 	saveold "${OUT}/MICS6-`name'Adept.dta", replace

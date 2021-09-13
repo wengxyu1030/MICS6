@@ -34,8 +34,7 @@ else {
 		replace c_stunted = haz2 < -2						// stunted if child is more than 2 SDs below HAZ reference
 		replace c_stunted_sev = haz2 < -3					// severly stunted if child is more than 3 SDs below HAZ reference
 		for var c_stunted c_stunted_sev c_haz: replace X = . if inlist(hazflag,.,1)		// missing if height or age flagged
-		rename c_haz c_hfa
-	
+		ren c_haz c_hfa
 
 *c_underweight: Child under 5 underweight
 		gen c_waz = .

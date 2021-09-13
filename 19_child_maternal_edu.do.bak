@@ -1,6 +1,6 @@
 //// MICS6-dofiles
 //Do-file for the maternal education :
-/// c_mateduc
+/// w_mateduc
 
 	recode hm_educ (0 = 1) (1 = 2) (2/6 = 3) (8/9 = .)     // recode woman education 
 	recode melevel (0 = 1) (1 = 2) (2/6 = 3) (8/9 = .)		// recode mother education from child dataset
@@ -16,7 +16,7 @@
 	*order hh1 hh2 matline hm_educ mat_educ helper
 	replace mat_educ = helper if mat_educ == .
 	drop helper hm_educ 
-	rename mat_educ c_mateduc
-	replace c_mateduc = melevel if melevel!=.
+	rename mat_educ w_mateduc
+	replace w_mateduc = melevel if melevel!=.
 
 		
