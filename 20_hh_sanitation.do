@@ -1,4 +1,4 @@
-///// Batch MICS6-dofiles
+///// MICS6-dofiles
 // Household access to basic sanitation and drinking water
 // Do-file for the indicators:
 /*
