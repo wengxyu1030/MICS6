@@ -1,4 +1,4 @@
-///// Batch MICS6-dofiles
+///// MICS6-dofiles
 // Subnational Regions
 // Do-file for the indicators:
 /*
