@@ -70,7 +70,8 @@ c_illtreat
 			country_name == "Chad2019" |
 			country_name == "StateofPalestine2019"|
 			country_name == "Nepal2019" |
-			country_name == "CentralAfricanRepublic2018" {;
+			country_name == "CentralAfricanRepublic2018"|
+			country_name == "Cuba2019" {;
 	    #delimit cr 
 			replace c_treatdiarrhea = 0 if ca1 == 1						// children with diarrhea in last 2 weeks
 			replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (ca7a == 1 | ca7b == 1)	// received ORS
@@ -142,7 +143,8 @@ c_illtreat
 			country_name == "Belarus2019"|
 			country_name == "Chad2019"|
 			country_name == "StateofPalestine2019"|
-			country_name == "CentralAfricanRepublic2018" {;
+			country_name == "CentralAfricanRepublic2018" |
+			country_name == "Cuba2019" {;
 	    #delimit cr 
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  ca7c == 1 
 			replace c_diarrhea_med = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
@@ -199,7 +201,8 @@ c_illtreat
 			country_name == "Kiribati2018"|
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
-			country_name == "CentralAfricanRepublic2018" {;
+			country_name == "CentralAfricanRepublic2018"|
+			country_name == "Cuba2019" {;
 	    #delimit cr 
 			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  ca7c == 1 
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
@@ -293,8 +296,10 @@ c_illtreat
 		}		/*no Outro Publico or Outro Privado*/
 		if inlist(country_name,"Algeria2018") {
 		    global ca6 "ca6a ca6b ca6c ca6h ca6i ca6j ca6k ca6o"
-		}		/*Inclut tous les etablissements de sante et prestataires de sante publiics et prives (excluding traditional providers)*/
-
+		}      /*Inclut tous les etablissements de sante et prestataires de sante publiics et prives (excluding traditional providers)*/
+        if inlist(country_name,"Cuba2019") {
+			global ca6 "ca6a ca6b ca6c ca6d ca6e"
+		}  /*  CONSULTORIO DEL MÉDICO Y ENFERMERA DE LA FAMILIA / médico pariente / enfermera pariente*/
 		foreach var in $ca6 {
 		    replace `var' = "" if `var' == " "
 			replace c_diarrhea_pro = 1 if c_diarrhea_pro == 0 & `var' != "" & `var' != "?" 
@@ -313,8 +318,6 @@ c_illtreat
 		if inlist(country_name,"Guinea-Bissau2018") {
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca7c == 1 | ca7d == 1)
 		}		
-
-		
 		if inlist(country_name,"LaoPDR2017","SierraLeone2017","Mongolia2018","Gambia2018","Tunisia2018","Madagascar2018","Togo2017","Kiribati2018", "CostaRica2018")| inlist(country_name,"Belarus2019","Chad2019","StateofPalestine2019","CentralAfricanRepublic2018"){
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca7c == 1 | ca7d == 1)
 		}
@@ -355,7 +358,9 @@ c_illtreat
 		if inlist(country_name,"Tonga2019"){
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7b == 1)
 		}
-		
+		if inlist(country_name,"Cuba2019") {
+			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1| ca7c == 1)
+		}
 		replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca13a == "A" | ca13b == "B" | ca13g == "G"| ca13h == "H" | ca13l == "L" | ca13m == "M" | ca13n == "N" | ca13o == "O" | ca13q == "Q" | ca13x == "X")
 		replace c_diarrheaact = . if ca13a == "?" | ca13b == "?" | ca13g == "?"| ca13h == "?" | ca13l == "?" | ca13m == "?" | ca13n == "?" | ca13o == "?" | ca13q == "?" | ca13x == "?"
 		replace c_diarrheaact = . if cage == . | ca1 != 1           // Child age missing OR diarrhea variable missing 
@@ -478,6 +483,9 @@ c_illtreat
 		if inlist(country_name,"CentralAfricanRepublic2018") {
 		    global ca21 "ca21a ca21b ca21c ca21d ca21e ca21h ca21i ca21j ca21l ca21m ca21o"
 		}	
+		if inlist(country_name,"Cuba2019") {
+		    global ca21 "ca21a ca21b ca21c ca21d ca21e"
+		}
 	    foreach var in $ca21 {
 		    replace `var' = "" if `var' == " "
 		    replace c_treatARI = 1 if c_treatARI == 0 & `var' != "" & `var' != "?" 
@@ -553,6 +561,9 @@ c_illtreat
 		if inlist(country_name,"CentralAfricanRepublic2018") {
 		    global ca621 "ca6a ca6b ca6c ca6d ca6e ca6i ca6j ca6l ca6m ca21a ca21b ca21c ca21d ca21e ca21h ca21i ca21j ca21l ca21m ca21o"
 		}	
+		if inlist(country_name,"Cuba2019") {
+		    global ca621 "ca6a ca6b ca6c ca6d ca6e ca21a ca21b ca21c ca21d ca21e"
+		}
 		
 		foreach var in $ca621 {
 				replace `var' = "" if `var' == " "
