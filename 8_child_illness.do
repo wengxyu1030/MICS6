@@ -20,7 +20,7 @@ c_treatARI
 c_illtreat
 */
 
-	if ~inlist(country_name,"Montenegro2018","Thailand2019","Turkmenistan2019") {	
+	if ~inlist(country_name,"Montenegro2018","Thailand2019","Turkmenistan2019","NorthMacedonia2018") {	
 
 * c_diarrhea: Child under 5 with diarrhea
 		gen c_diarrhea = .

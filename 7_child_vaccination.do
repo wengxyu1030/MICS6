@@ -39,7 +39,7 @@
 		}	
 		// no immunization module for Iraq
 		
-		if inlist(country_name,"KyrgyzRepublic2018","Mongolia2018") {
+		if inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","NorthMacedonia2018") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6m1y,2000,6666) | inlist(im6m1d,44,66) | inrange(hf12m1y,2000,6666) | inlist(hf12m1d,44,66))			// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m1y,6667,9999) | inrange(im6m1d,97,98) | inrange(hf12m1y,6667,9999) | inlist(hf12m1d,0,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
@@ -110,7 +110,8 @@
 			country_name == "Tonga2019" |
       country_name == "Guinea-Bissau2018"|
       country_name == "StateofPalestine2019"|
-      country_name == "Nepal2019" {;
+      country_name == "Nepal2019" |
+	  country_name == "NorthMacedonia2018" {;
 	    #delimit cr		
 		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im6by,2000,6666) | inlist(im6bd,44,66))
 			replace c_bcg = 1 if c_bcg == 0 & im14 == 1                             // BCG from memory
@@ -187,6 +188,13 @@
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im29 == 1 & inrange(im30,`x',7)               // dpt1-3 from memory
 				replace c_dpt`x' = . if ((inrange(im5,1,3) & (inrange(im6dtp`x'y,6667,9999) & inrange(im6dtp`x'd,97,98))) | (im11 == 1 & (inlist(im29,8,9) | inlist(im30,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if DPT1-3 DK/missing for card and memory
 			}			
+			
+			if inlist(country_name,"NorthMacedonia2018") {
+			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6dtp`x'y,2000,6666) | inlist(im6dtp`x'd,44,66)) // with response, marked on card, mother reported
+				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im20 == 1 &inrange(im21,`x',7)   // dpt1-3 from memory
+				replace c_dpt`x' = . if ((inrange(im5,1,3) & (inrange(im6dtp`x'y,6667,9999) & inrange(im6dtp`x'd,97,98))) | (im11 == 1 & (inlist(im20,8,9) | inlist(im21,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) 
+				}
+				
 	   }
 	   
 	   
@@ -203,7 +211,7 @@
 			gen c_polio`x' = . 
 			replace c_polio`x' = 0 if inrange(cage,12,23) & im2 != . 
 			
-			if inlist(country_name,"LaoPDR2017","Suriname2018","Zimbabwe2019") {
+			if inlist(country_name,"LaoPDR2017","Suriname2018","Zimbabwe2019","NorthMacedonia2018") {
 			    replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
 				replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & inrange(im18,`x',7)          // polio1-3 from memory
 				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im18,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory
