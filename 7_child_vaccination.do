@@ -39,7 +39,7 @@
 		}	
 		// no immunization module for Iraq
 		
-		if inlist(country_name,"KyrgyzRepublic2018","Mongolia2018") {
+		if inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","NorthMacedonia2018") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6m1y,2000,6666) | inlist(im6m1d,44,66) | inrange(hf12m1y,2000,6666) | inlist(hf12m1d,44,66))			// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m1y,6667,9999) | inrange(im6m1d,97,98) | inrange(hf12m1y,6667,9999) | inlist(hf12m1d,0,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
@@ -82,6 +82,13 @@
 			replace c_measles = 1 if c_measles == 0 & im26 == 1												// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m2y,6667,9999) | inrange(im6m2d,97,98))) | (im11 == 1 & inlist(im26,2,8)) | (inlist(im2,4,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
 		}
+		if inlist(country_name,"Nepal2019") {
+			replace c_measles = 1 if c_measles == 0 & (inrange(im6m1y,2000,6666) | inlist(im6m1d,44,66))
+			replace c_measles = 1 if c_measles == 0 & (inrange(im6m2y,2000,6666) | inlist(im6m2d,44,66))			// measles/MMR from card
+			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
+			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m1y,6667,9999) | inrange(im6m1d,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
+			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m2y,6667,9999) | inrange(im6m2d,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
+		}
 		if inlist(country_name,"Serbia2019") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6mmry,2000,6666) | inlist(im6mmrd,44,66))		// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1												// measles/MMR from memory
@@ -92,6 +99,7 @@
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im3rory,6667,9999) | inrange(im3rord,97,98)) & (inrange(im6rory,6667,9999) | inrange(im6rord,97,98)) & (inrange(im6ror1y,6667,9999) | inrange(im6ror1d,97,98)) ) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
 		}	
+
 
     * c_bcg: Child age 15-23M had BCG vaccination
 	    gen c_bcg = .
@@ -115,7 +123,8 @@
 			country_name == "StateofPalestine2019"|
 			country_name == "Nepal2019" |
 			country_name == "CentralAfricanRepublic2018"|
-			country_name == "Cuba2019" {;
+			country_name == "Cuba2019" |
+			country_name == "NorthMacedonia2018" {;
 	    #delimit cr		
 		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im6by,2000,6666) | inlist(im6bd,44,66))
 			replace c_bcg = 1 if c_bcg == 0 & im14 == 1                             // BCG from memory
@@ -141,16 +150,16 @@
 		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im6by,2000,6666) | inlist(im6bd,44,66))
 			replace c_bcg = 1 if c_bcg == 0 & im14 == 1                             // BCG from memory
 			replace c_bcg = . if ((inrange(im5,1,3) & (inrange(im6by,6667,9999) | inrange(im6bd,97,98)) & (inrange(im3by,6667,9999) | inrange(im3bd,97,98))) | (im11 == 1 & inlist(im14,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	  // missing if BCG DK/missing for card and memory
-		}
-		
+		}		
 		
 	* c_dpt1: Child age 15-23M had DPT1 or Pentavalent 1 vaccination
 	* c_dpt2: Child age 15-23M had DPT2 or Pentavalent 2 vaccination
 	* c_dpt3: Child age 15-23M had DPT3 or Pentavalent 3 vaccination
 
-		forvalues x = 1 2 to 3 {
+	forvalues x = 1 2 to 3 {
 			gen c_dpt`x' = . 
 			replace c_dpt`x' = 0 if inrange(cage,12,23) & im2 != . 
+			
 		#delimit ;
 		if 	country_name == "LaoPDR2017" | 
 			country_name == "SierraLeone2017" |
@@ -173,12 +182,14 @@
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im20 == 1 & inrange(im21,`x',7)               // dpt1-3 from memory
 				replace c_dpt`x' = . if ((inrange(im5,1,3) & (inrange(im6penta`x'y,6667,9999) | inrange(im6penta`x'd,97,98))) | (im11 == 1 & (inlist(im20,8,9) | inlist(im21,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if DPT1-3 DK/missing for card and memory
 			}
+
+
 			if inlist(country_name,"Iraq2017") {
 			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6hexa`x'y,2000,6666) | inlist(im6hexa`x'd,44,66))
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im20 == 1 & inrange(im21,`x',7)               // dpt1-3 from memory
 				replace c_dpt`x' = . if ((inrange(im5,1,3) & (inrange(im6hexa`x'y,6667,9999) & inrange(im6hexa`x'd,97,98))) | (im11 == 1 & (inlist(im20,8,9) | inlist(im21,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if DPT1-3 DK/missing for card and memory
 			}
-			if inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Congodr2017","Tonga2019") {
+			if inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Congodr2017","Tonga2019"){
 			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6penta`x'y,2000,6666) | inlist(im6penta`x'd,44,66) | inrange(hf12penta`x'y,2000,6666) | inlist(hf12penta`x'd,44,66))
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im20 == 1 & inrange(im21,`x',7)               // dpt1-3 from memory
 				replace c_dpt`x' = . if ((inrange(im5,1,3) & (inrange(im6penta`x'y,6667,9999) | inrange(im6penta`x'd,97,98) | inrange(hf12penta`x'y,6667,9999) | inrange(hf12penta`x'd,97,98))) | (im11 == 1 & (inlist(im20,8,9) | inlist(im21,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if DPT1-3 DK/missing for card and memory
@@ -192,7 +203,14 @@
 			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6dtp`x'y,2000,6666) | inlist(im6dtp`x'd,44,66))
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im29 == 1 & inrange(im30,`x',7)               // dpt1-3 from memory
 				replace c_dpt`x' = . if ((inrange(im5,1,3) & (inrange(im6dtp`x'y,6667,9999) & inrange(im6dtp`x'd,97,98))) | (im11 == 1 & (inlist(im29,8,9) | inlist(im30,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if DPT1-3 DK/missing for card and memory
+			}			
+			
+			if inlist(country_name,"NorthMacedonia2018") {
+			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6dtp`x'y,2000,6666) | inlist(im6dtp`x'd,44,66)) // with response, marked on card, mother reported
+				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im20 == 1 &inrange(im21,`x',7)   // dpt1-3 from memory
+				replace c_dpt`x' = . if ((inrange(im5,1,3) & (inrange(im6dtp`x'y,6667,9999) & inrange(im6dtp`x'd,97,98))) | (im11 == 1 & (inlist(im20,8,9) | inlist(im21,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9)))
 			}
+			
 			if inlist(country_name,"Serbia2019") {
 			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6dtp`x'y,2000,6666) | inlist(im6dtp`x'd,44,66))
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im21e == 1 & inrange(im21f,`x',7)               // dpt1-3 from memory
@@ -205,7 +223,7 @@
 			}
 	   }
 	   
-	   
+	
 	* c_polio1: Child age 15-23M received polio1/OPV1 vaccination
 	* c_polio2: Child age 15-23M received polio2/OPV2 vaccination
 	* c_polio3: Child age 15-23M received polio3/OPV3 vaccination
@@ -219,7 +237,7 @@
 			gen c_polio`x' = . 
 			replace c_polio`x' = 0 if inrange(cage,12,23) & im2 != . 
 			
-			if inlist(country_name,"LaoPDR2017","Suriname2018","Zimbabwe2019","Cuba2019") {
+			if inlist(country_name,"LaoPDR2017","Suriname2018","Zimbabwe2019","NorthMacedonia2018","Cuba2019") {
 			    replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
 				replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & inrange(im18,`x',7)          // polio1-3 from memory
 				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im18,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory
@@ -263,7 +281,7 @@
 		   }
 		   
 		}
-	
+
 
     * c_fullimm: Child age 15-23M had BCG, polio 1-3, DTP/Penta1-3 & measles/MMR (1/0)
 	    gen c_fullimm = .
