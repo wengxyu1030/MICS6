@@ -53,7 +53,8 @@
 			country_name == "StateofPalestine2019" |
 			country_name == "Serbia2019" |
 			country_name == "Nepal2019" | 
-			country_name == "CentralAfricanRepublic2018" {;
+			country_name == "CentralAfricanRepublic2018" |
+			country_name == "Kosovo2019" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -107,7 +108,7 @@
 				global mn3 "mn3a mn3d mn3e mn3g"
 			}
 			//Antenatal care does not involve agente de saude comunitaria, unlike post natal care
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019") {
 				global mn3 "mn3a mn3b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
@@ -254,7 +255,7 @@
 * c_anc_tet: pregnant women vaccinated against tetanus during pregnancy of births in last 2 years
 //Should Tonga and Turkmenistan be in here?
 		gen c_anc_tet = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019","Serbia2019") {
+		if (~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019","Serbia2019") & ~inlist(country_name,"Kosovo2019")) {
 		     replace c_anc_tet = 0 if mn7 != .				// immunization question
 		     
 			 replace c_anc_tet = 1 if c_anc_tet == 0 & inlist(mn8,2,8) & inrange(mn12,5,7)		// No/DK injections during pregrancy for last child but 5+ before (woman is then protected for the childbearing years period)
@@ -271,7 +272,7 @@
 		     replace c_anc_tet = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months age
         }
 		
-// no tetanus vaccination data for "KyrgyzRepublic2018", "Mongolia2018" , "Belarus2019" , "StateofPalestine2019"
+// no tetanus vaccination data for "KyrgyzRepublic2018", "Mongolia2018" , "Belarus2019" , "StateofPalestine2019","Serbia2019", "Kosovo2019"
 // Following definition from WHO: https://extranet.who.int/rhl/topics/preconception-pregnancy-childbirth-and-postpartum-care/antenatal-care/who-recommendation-tetanus-toxoid-vaccination-pregnant-women
 // Different than TM.7 from MICS
 

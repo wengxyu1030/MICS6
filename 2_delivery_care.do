@@ -55,7 +55,7 @@ c_sba_eff2_q
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 41		// 1 for private/public hospital
 		}
-		if inlist(country_name,"Tonga2019","Algeria2018") {
+		if inlist(country_name,"Tonga2019","Algeria2018","Kosovo2019") {
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 21 	// 1 for public hospital
 		}
@@ -130,7 +130,7 @@ c_sba_eff2_q
 			replace c_facdel = 1 if inrange(mn20,21,24)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,35)	    // 1 for private health facility
 		}	
-		if inlist(country_name,"CostaRica2018") {
+		if inlist(country_name,"CostaRica2018","Kosovo2019") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,32)	    // 1 for private health facility
@@ -207,7 +207,7 @@ c_sba_eff2_q
 			if inlist(country_name,"Suriname2018") {
 				global mn19 "mn19a mn19d mn19e mn19g"
 			}
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019") {
 				global mn19 "mn19a mn19b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	

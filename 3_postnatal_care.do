@@ -44,7 +44,7 @@ c_pnc_eff2_q
 		if inlist(country_name,"Suriname2018") {
 			global pnc "a d e g"
 		}
-		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
+		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019") {
 			global pnc "a b"
 		}
 		if inlist(country_name,"Bangladesh2019") {
@@ -82,7 +82,7 @@ c_pnc_eff2_q
 	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019") {
 		replace c_pnc_eff = 0 if bl2 == 1
 		* pnc for SBA facility births
-		replace c_pnc_eff = 1 if c_sba == 1 & pn4 == 1 & pn5==1  // baby AND mother checked within 24h of birth and before leaving facility by skilled provider
+		replace c_pnc_eff = 1 if c_sba == 1 & pn4 == 1 & pn5 == 1  // baby AND mother checked within 24h of birth and before leaving facility by skilled provider
 		* pnc for non-facility SBA births
 		replace c_pnc_eff = 1 if c_sba == 1 & pn8 == 1 & pn9 == 1   // baby AND mother checked within 24h of birth and before skilled birth attendant left after delivery
 		* pnc for SBA facility births, non-facility SBA births, and non-facility non-SBA births
