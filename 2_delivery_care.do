@@ -55,7 +55,7 @@ c_sba_eff2_q
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 41		// 1 for private/public hospital
 		}
-		if inlist(country_name,"Tonga2019","Algeria2018") {
+		if inlist(country_name,"Tonga2019","Algeria2018","SaoTomeAndPrincipe2019") {
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 21 	// 1 for public hospital
 		}
@@ -152,7 +152,11 @@ c_sba_eff2_q
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inlist(mn20,21,32)		// 1 for  hopital / Clinique privee
 		}			
-	
+		if inlist(country_name, "SaoTomeAndPrincipe2019") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inlist(mn20,21,26)		// 1 for unidade de saude do sector publico: hospital, centro de saude, posto de saude, also 26 for Outro publico
+		}		
+		
 		replace c_facdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 // Not taking into account "Others"
     
@@ -207,7 +211,7 @@ c_sba_eff2_q
 			if inlist(country_name,"Suriname2018") {
 				global mn19 "mn19a mn19d mn19e mn19g"
 			}
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","SaoTomeAndPrincipe2019") {
 				global mn19 "mn19a mn19b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	

@@ -53,7 +53,8 @@
 			country_name == "StateofPalestine2019" |
 			country_name == "Serbia2019" |
 			country_name == "Nepal2019" | 
-			country_name == "CentralAfricanRepublic2018" {;
+			country_name == "CentralAfricanRepublic2018" | 
+			country_name == "SaoTomeAndPrincipe2019" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -107,7 +108,8 @@
 				global mn3 "mn3a mn3d mn3e mn3g"
 			}
 			//Antenatal care does not involve agente de saude comunitaria, unlike post natal care
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
+			//SaoTomeAndPrincipe2019: survey report only listed Medico / enfermeira / parteira. Parteira tradicional / agente de sante communautaira have no observations in respective variables.s
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","SaoTomeAndPrincipe2019") {
 				global mn3 "mn3a mn3b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
@@ -252,7 +254,6 @@
 		
 		
 * c_anc_tet: pregnant women vaccinated against tetanus during pregnancy of births in last 2 years
-//Should Tonga and Turkmenistan be in here?
 		gen c_anc_tet = .
 		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019","Serbia2019") {
 		     replace c_anc_tet = 0 if mn7 != .				// immunization question
