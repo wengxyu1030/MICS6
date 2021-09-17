@@ -56,7 +56,8 @@ macro drop _all
 
 * Define the country names (in globals) by recode version
 
-	global newMICS6countries "NorthMacedonia2018"
+	global newMICS6countries "SaoTomeAndPrincipe2019"
+
 
 foreach name in $newMICS6countries {
 	clear 
@@ -286,6 +287,7 @@ foreach name in $newMICS6countries {
 	replace WB_cname = "Costa Rica" if WB_cname == "CostaRica"
 	replace WB_cname = "Macedonia" if WB_cname == "NorthMacedonia"
 	replace WB_cname = "Central African Republic" if WB_cname == "CentralAfricanRepublic"
+	replace WB_cname = "Sao Tome and Principe" if WB_cname == "SaoTomeAndPrincipe"
 	
 	// Merges with country code data
 	mmerge WB_cname using "${SOURCE}/CountryCodes.dta", ukeep(iso3c iso2c WB_cname WB_region) 

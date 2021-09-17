@@ -44,7 +44,8 @@ c_pnc_eff2_q
 		if inlist(country_name,"Suriname2018") {
 			global pnc "a d e g"
 		}
-		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Cuba2019") {
+
+		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Cuba2019", "SaoTomeAndPrincipe2019") {
 			global pnc "a b"
 		}
 		if inlist(country_name,"Bangladesh2019") {
@@ -120,7 +121,6 @@ c_pnc_eff2_q
 	replace c_pnc_eff = . if pn14a == "?" | pn14b == "?" | pn14c == "?" | pn23a == "?" | pn23b == "?" | pn23c == "?"
 	
 */
-
 
 // c_pnc_eff_q: mother AND child in first 24h by skilled health worker among those with any PNC
 	gen c_pnc_eff_q = c_pnc_eff

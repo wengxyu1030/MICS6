@@ -22,12 +22,11 @@
 		if ~inlist(country_name,"Zimbabwe2019") {
 			replace w_CPR = 0 if inrange(wb4,15,49) & mstatus == 1            	     // women age 15-49 married or in union
 		
-			if inlist(country_name,"LaoPDR2017","Suriname2018","Lesotho2018","Georgia2018","Montenegro2018","CostaRica2018","Belarus2019","Chad2019","StateofPalestine2019")|inlist(country_name,"Nepal2019","Cuba2019") {
+
+			if inlist(country_name,"LaoPDR2017","Suriname2018","Lesotho2018","Georgia2018","Montenegro2018","CostaRica2018","Belarus2019","Chad2019","StateofPalestine2019")|inlist(country_name,"Nepal2019","Cuba2019","Serbia2019") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j"
 			}
-			if inlist(country_name,"Serbia2019") {
-				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j"
-			}
+			
 			#delimit ;
 		if 	country_name == "SierraLeone2017" | 
 			country_name == "Iraq2017" |
@@ -39,7 +38,8 @@
 			country_name == "Congodr2017" |
 			country_name == "Ghana2017" |
 			country_name == "Togo2017"|
-			country_name == "CentralAfricanRepublic2018"{;
+			country_name == "CentralAfricanRepublic2018"|
+			country_name == "SaoTomeAndPrincipe2019"{;
 	    #delimit cr 
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4k"
 			}
