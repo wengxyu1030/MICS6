@@ -57,6 +57,7 @@ macro drop _all
 * Define the country names (in globals) by recode version
 	global newMICS6countries "Kosovo2019"
 
+
 foreach name in $newMICS6countries {
 	clear 
 	tempfile wm ch ch_itn bh
@@ -251,6 +252,7 @@ foreach name in $newMICS6countries {
 ***********************************	
 
 	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta"
+
 	
 	drop if _merge == 2
 	drop _merge
@@ -265,7 +267,7 @@ foreach name in $newMICS6countries {
 		
 * Housekeeping
 	keep hh1 hh2 ln hh_* c_* w_* mor_*  hm_* gl_adm1_code gl_adm0_code
-	
+
 ***********************************
 *****      Merge with iso        **
 ***********************************	
@@ -282,11 +284,14 @@ foreach name in $newMICS6countries {
 	replace WB_cname = "The Gambia" if WB_cname == "Gambia"
 	replace WB_cname = "Dem. Rep. Congo" if WB_cname == "Congodr"
 	replace WB_cname = "Costa Rica" if WB_cname == "CostaRica"
+	replace WB_cname = "Macedonia" if WB_cname == "NorthMacedonia"
 	replace WB_cname = "Central African Republic" if WB_cname == "CentralAfricanRepublic"
+	replace WB_cname = "Sao Tome and Principe" if WB_cname == "SaoTomeAndPrincipe"
 	
 	// Merges with country code data
 	mmerge WB_cname using "${SOURCE}/CountryCodes.dta", ukeep(iso3c iso2c WB_cname WB_region) 
 	egen x = max(_merge)   // this and following line are to assert that merge with country code worked -- if this produces an error, you need to align the country name with that in the country code dataset (WB_cname)
+	
 	assert x == 3
 	drop if _merge == 2
 	drop x _merge
@@ -310,7 +315,7 @@ foreach name in $newMICS6countries {
 ***********************************	
 	do "${DO}/Quality_control.do" 
 	save "${INTER}/Indicator_`name'.dta", replace  
-			
+*/
 }		
 
 
