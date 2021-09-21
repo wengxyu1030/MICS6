@@ -312,11 +312,6 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
             replace gl_adm1_code = -7 
         } //internal boundaries have changed and make it hard to match
 
-		if inlist(country_name,"Serbia2019") {
-		    replace gl_adm0_code = -7
-            replace gl_adm1_code = -7 
-        } //internal boundaries have changed and make it hard to match
-
 		if inlist(country_name,"Thailand2019") {
 		    replace gl_adm0_code = 240
             replace gl_adm1_code = -7 
