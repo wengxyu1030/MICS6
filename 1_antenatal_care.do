@@ -50,7 +50,8 @@
 			country_name == "CostaRica2018"|
 			country_name == "Belarus2019" |
 			country_name == "Chad2019"|
-			country_name == "StateofPalestine2019" {;
+			country_name == "StateofPalestine2019" |
+			country_name == "Tonga2019" {;
 
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
