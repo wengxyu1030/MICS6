@@ -331,6 +331,11 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
 			replace gl_adm1_code = 147322 if hh_region_num == 3
 			replace gl_adm1_code = 147323 if hh_region_num == 2
         }
+
+		if inlist(country_name,"Algeria2018") {
+		    replace gl_adm0_code = 4
+            replace gl_adm1_code = -7 
+        } //internal boundaries have changed and make it hard to match
 			
 		
 
