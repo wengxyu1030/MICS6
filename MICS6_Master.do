@@ -200,9 +200,6 @@ foreach name in $newMICS6countries {
 	drop _merge
 			
 		
-* merge with women
-	mmerge hh1 hh2 ln using `wm'
-	drop _merge
 			
 * merge with women
 	mmerge hh1 hh2 ln using `wm'
