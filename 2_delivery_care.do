@@ -160,8 +160,7 @@ c_sba_eff2_q
 		if inlist(country_name, "Cuba2019") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,23)		// 1 for  hopital /  POLICLÍNICO / CONSULTORIO DEL MÉDICO Y ENFERMERA DE LA FAMILIA
-		}		
-		}			
+		}					
 
 		if inlist(country_name, "SaoTomeAndPrincipe2019") {
 			replace c_facdel = 0 if mn20 != .
