@@ -37,8 +37,14 @@
     }
 	
 	***for variables generated from 10_child_mortality
+<<<<<<< Updated upstream
 	foreach var of var mor_ali {
     egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
+=======
+	foreach var of var hm_dob hm_doi mor_ade mor_afl mor_ali mor_bord ///
+	mor_int mor_male mor_wght {
+    egen pop_`var' = wtmean(`var'), weight(hh_sampleweight)
+>>>>>>> Stashed changes
     }
 	
 	***for variables generated from 11_child_other
