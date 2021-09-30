@@ -22,14 +22,14 @@ macro drop _all
 	if "`c(username)'" == "zetianyuwang" local pc = 0
 	if "`c(username)'" == "xweng"     local pc = 1
 	if "`c(username)'" == "rwang"     local pc = 2
-	if "`c(username)'" == "ortsang"     local pc = 3
-	//if "`c(username)'" == "keicz"     local pc = 3
+	//if "`c(username)'" == "ortsang"     local pc = 3
+	if "`c(username)'" == "keicz"     local pc = 3
 	
 	if `pc' == 0 global root "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Data/MICS"
 	if `pc' == 1 global root "C:/Users/XWeng/OneDrive - WBG/MEASURE UHC DATA - Sven Neelsen's files"
 	if `pc' == 2 global root "D:/MEASURE UHC DATA"
-	if `pc' == 3 global root "/Users/ortsang/OneDrive - City University of New York/working/WB"
-	//if `pc' == 3 global root "D:/Drives/OneDrive - Cuny GradCenter/working/WB"
+	//if `pc' == 3 global root "/Users/ortsang/OneDrive - City University of New York/working/WB"
+	if `pc' == 3 global root "D:/Drives/OneDrive - Cuny GradCenter/working/WB"
 	
 * Define path for data sources
     global SOURCE "${root}/RAW DATA"
@@ -51,8 +51,8 @@ macro drop _all
 	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_github/MICS6"
 	if `pc' == 1 global DO "${root}/STATA/DO/SC/06_Prepare_MICS6/MICS6_DW"
 	if `pc' == 2 global DO "${root}/MICS6"
-	if `pc' == 3 global DO "/Users/ortsang/Documents/Github/MICS6"
-	//if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
+	//if `pc' == 3 global DO "/Users/ortsang/Documents/Github/MICS6"
+	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
 
 * Define the country names (in globals) by recode version
 	global newMICS6countries "Kosovo2019"
@@ -153,6 +153,9 @@ foreach name in $newMICS6countries {
 		
 	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'bh.dta", clear
 	do "${DO}/10_child_mortality.do"
+	//capture gen w_sampleweight = .
+	capture replace w_sampleweight = wmweight if w_sampleweight == .
+	
 	}
 	
     //compared to old template: instead of specify the survey but in condition of the existence of bh.dta.
