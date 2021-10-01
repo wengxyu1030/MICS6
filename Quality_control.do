@@ -2,6 +2,8 @@
 ///// Generate Indicators  /////
 ////////////////////////////////
 
+//generating weight info
+egen pop_w_sampleweight = wtmean(w_sampleweight), weight(w_sampleweight)
 
 ***for variables generated from 1_antenatal_care 2_delivery_care 3_postnatal_care
 	foreach var of var c_anc	c_anc_any	c_anc_bp	c_anc_bp_q	c_anc_bs	c_anc_bs_q ///
@@ -14,31 +16,33 @@
     }
 	
 	***for variables generated from 4_sexual_health
-	foreach var of var w_CPR w_unmet_fp	w_need_fp w_metany_fp w_metmod_fp w_metany_fp_q {
+	foreach var of var w_CPR w_unmet_fp	w_need_fp w_metany_fp w_metmod_fp w_metany_fp_q w_condom_conc {
 	egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
 	}
 	
 	***for variables generated from 7_child_vaccination
 	foreach var of var c_bcg c_dpt1 c_dpt2 c_dpt3 c_fullimm c_measles ///
 	c_polio1 c_polio2 c_polio3{
-    egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
+    egen pop_`var' = wtmean(`var'), weight(hh_sampleweight)
     }
 	
 	***for variables generated from 8_child_illness	
 	foreach var of var c_ari* c_diarrhea 	c_diarrhea_hmf	c_diarrhea_medfor	c_diarrhea_mof	c_diarrhea_pro	c_diarrheaact ///
 	c_diarrheaact_q	 c_illness* c_illtreat* c_sevdiarrhea	c_sevdiarrheatreat ///
 	c_sevdiarrheatreat_q	c_treatAR* c_treatdiarrhea	c_diarrhea_med {
-    egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
+    egen pop_`var' = wtmean(`var'), weight(hh_sampleweight)
     }
 	
 	***for variables generated from 9_child_anthropometrics
-	foreach var of var c_underweight c_stunted	c_hfa c_wfa c_wfh {
-    egen pop_`var' = wtmean(`var'),weight(w_sampleweight)
+	foreach var of var c_underweight c_stunted c_height c_underweight_sev ///
+	c_wasted c_wasted_sev c_weight c_hfa c_wfa c_wfh c_stunted_sev {
+    egen pop_`var' = wtmean(`var'),weight(hh_sampleweight)
     }
 	
 	***for variables generated from 10_child_mortality
-	foreach var of var mor_ali {
-    egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
+	foreach var of var hm_dob hm_doi mor_ade mor_afl mor_ali mor_bord ///
+	mor_dob mor_int mor_male mor_wght mor_wln {
+    egen pop_`var' = wtmean(`var'), weight(hh_sampleweight)
     }
 	
 	***for variables generated from 11_child_other
@@ -61,7 +65,7 @@
 
 keep pop_* sd_* survey country iso3c iso2c year
 keep if _n == 1
-
+ 
 reshape long pop_ sd_ ,i(survey country iso3c iso2c year) j(varname) string
 rename (pop_ sd_) (value sd)
 

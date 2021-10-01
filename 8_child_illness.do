@@ -564,7 +564,7 @@ c_illtreat
 			global ca621 "ca6a ca6b ca6c ca6e ca6i ca6j ca6m ca21a ca21b ca21c ca21e ca21i ca21j ca21m"
 		}
 		if inlist(country_name,"Tonga2019"){
-			global ca21 "ca6a ca6b ca6h ca6i ca6j ca6k ca6o ca21a ca21b ca21h ca21i ca21j ca21k ca21o"
+			global ca621 "ca6a ca6b ca6h ca6i ca6j ca6k ca6o ca21a ca21b ca21h ca21i ca21j ca21k ca21o"
 		}		
 		if inlist(country_name,"Guinea-Bissau2018") {
 		    global ca621 "ca6a ca6b ca6d ca6e ca6i ca6j ca6k ca6m ca21a ca21b ca21d ca21e ca21i ca21j ca21k ca21m"
