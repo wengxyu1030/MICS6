@@ -23,14 +23,14 @@ egen pop_w_sampleweight = wtmean(w_sampleweight), weight(w_sampleweight)
 	***for variables generated from 7_child_vaccination
 	foreach var of var c_bcg c_dpt1 c_dpt2 c_dpt3 c_fullimm c_measles ///
 	c_polio1 c_polio2 c_polio3{
-    egen pop_`var' = wtmean(`var'), weight(hh_sampleweight)
+    egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
     }
 	
 	***for variables generated from 8_child_illness	
 	foreach var of var c_ari* c_diarrhea 	c_diarrhea_hmf	c_diarrhea_medfor	c_diarrhea_mof	c_diarrhea_pro	c_diarrheaact ///
 	c_diarrheaact_q	 c_illness* c_illtreat* c_sevdiarrhea	c_sevdiarrheatreat ///
 	c_sevdiarrheatreat_q	c_treatAR* c_treatdiarrhea	c_diarrhea_med {
-    egen pop_`var' = wtmean(`var'), weight(hh_sampleweight)
+    egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
     }
 	
 	***for variables generated from 9_child_anthropometrics
@@ -40,7 +40,7 @@ egen pop_w_sampleweight = wtmean(w_sampleweight), weight(w_sampleweight)
     }
 	
 	***for variables generated from 10_child_mortality
-	foreach var of var hm_dob hm_doi mor_ade mor_afl mor_ali mor_bord ///
+	foreach var of var mor_ade mor_afl mor_ali mor_bord ///
 	mor_int mor_male {
     egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
     }
