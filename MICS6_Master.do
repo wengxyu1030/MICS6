@@ -55,7 +55,7 @@ macro drop _all
 	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Tonga2019"
+	global newMICS6countries "Turkmenistan2019"
 
 
 foreach name in $newMICS6countries {
@@ -110,7 +110,7 @@ foreach name in $newMICS6countries {
 
 	gen hm_age_yrs = ub2 // Child's age in years
 	gen hm_age_mon = cage // Child's age in months
-	gen w_sampleweight = chweight // Child's sample weight
+	gen c_sampleweight = chweight // Child's sample weight
 		
 	save `ch', replace
 
@@ -153,9 +153,6 @@ foreach name in $newMICS6countries {
 		
 	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'bh.dta", clear
 	do "${DO}/10_child_mortality.do"
-	//capture gen w_sampleweight = .
-	capture replace w_sampleweight = wmweight if w_sampleweight == .
-	
 	}
 	
     //compared to old template: instead of specify the survey but in condition of the existence of bh.dta.
