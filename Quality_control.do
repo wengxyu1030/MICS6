@@ -41,8 +41,8 @@ egen pop_w_sampleweight = wtmean(w_sampleweight), weight(w_sampleweight)
 	
 	***for variables generated from 10_child_mortality
 	foreach var of var hm_dob hm_doi mor_ade mor_afl mor_ali mor_bord ///
-	mor_int mor_male {
-    egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
+	mor_dob mor_int mor_male mor_wght mor_wln {
+    egen pop_`var' = wtmean(`var'), weight(hh_sampleweight)
     }
 	
 	***for variables generated from 11_child_other

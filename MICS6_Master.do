@@ -153,9 +153,6 @@ foreach name in $newMICS6countries {
 		
 	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'bh.dta", clear
 	do "${DO}/10_child_mortality.do"
-	//capture gen w_sampleweight = .
-	capture replace w_sampleweight = wmweight if w_sampleweight == .
-	
 	}
 	
     //compared to old template: instead of specify the survey but in condition of the existence of bh.dta.
