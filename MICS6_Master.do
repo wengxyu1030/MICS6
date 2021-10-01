@@ -55,7 +55,7 @@ macro drop _all
 	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Kosovo2019"
+	global newMICS6countries "Tonga2019"
 
 
 foreach name in $newMICS6countries {
@@ -203,9 +203,6 @@ foreach name in $newMICS6countries {
 	drop _merge
 			
 		
-* merge with women
-	mmerge hh1 hh2 ln using `wm'
-	drop _merge
 			
 * merge with women
 	mmerge hh1 hh2 ln using `wm'
@@ -287,6 +284,7 @@ foreach name in $newMICS6countries {
 	replace WB_cname = "The Gambia" if WB_cname == "Gambia"
 	replace WB_cname = "Dem. Rep. Congo" if WB_cname == "Congodr"
 	replace WB_cname = "Costa Rica" if WB_cname == "CostaRica"
+	replace WB_cname = "West Bank and Gaza" if WB_cname == "StateofPalestine"
 	replace WB_cname = "Macedonia" if WB_cname == "NorthMacedonia"
 	replace WB_cname = "Central African Republic" if WB_cname == "CentralAfricanRepublic"
 	replace WB_cname = "Sao Tome and Principe" if WB_cname == "SaoTomeAndPrincipe"

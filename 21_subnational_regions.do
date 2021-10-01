@@ -230,6 +230,113 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
         }	
 		
 		
+	// 210921 by Jianing
+
+		if inlist(country_name,"Belarus2019") {
+		    replace gl_adm0_code = 26
+            replace gl_adm1_code = 593 if hh_region_num == 1
+			replace gl_adm1_code = 594 if hh_region_num == 3
+			replace gl_adm1_code = 595 if hh_region_num == 4
+			replace gl_adm1_code = 596 if hh_region_num == 6
+			replace gl_adm1_code = 597 if hh_region_num == 5
+			replace gl_adm1_code = 598 if hh_region_num == 7 
+			replace gl_adm1_code = 599 if hh_region_num == 2		
+        }
+
+		if inlist(country_name,"CentralAfricanRepublic2019") {
+		    replace gl_adm0_code = 49
+            replace gl_adm1_code = -7 		
+        }	// Region1-7 in CAR hh7 contain many subregions therefore it's hard to code them. E.g., Region1 (hh_region_num=1) includes Ombella-Mpoko(gl_adm1_code=863), Lobaye(gl_adm1_code=858)
 		
+		if inlist(country_name,"Chad2019") {
+		    replace gl_adm0_code = 50
+            replace gl_adm1_code = 12912 if hh_region_num == 5
+			replace gl_adm1_code = 12925 if hh_region_num == 10
+			replace gl_adm1_code = 12927 if hh_region_num == 14		
+        } // Ndjamena(hh_region_num=18) not found in gl_adm1_code
+
+		if inlist(country_name,"CostaRica2018") {
+		    replace gl_adm0_code = 61
+            replace gl_adm1_code = 981 if hh_region_num == 2
+			replace gl_adm1_code = 982 if hh_region_num == 3
+			replace gl_adm1_code = 983 if hh_region_num == 5
+			replace gl_adm1_code = 984 if hh_region_num == 4
+			replace gl_adm1_code = 985 if hh_region_num == 7
+			replace gl_adm1_code = 986 if hh_region_num == 6 
+			replace gl_adm1_code = 987 if hh_region_num == 1		
+        }
+
+		if inlist(country_name,"Cuba2019") {
+		    replace gl_adm0_code = 63
+            replace gl_adm1_code = 1017 if hh_region_num == 23
+			replace gl_adm1_code = 1023 if hh_region_num == 26
+			replace gl_adm1_code = 1010 if hh_region_num == 29
+			replace gl_adm1_code = 1013 if hh_region_num == 33		
+        }
+
+		if inlist(country_name,"Guinea-Bissau2018") {
+		    replace gl_adm0_code = 105
+            replace gl_adm1_code = 1385 if hh_region_num == 6
+			replace gl_adm1_code = 1386 if hh_region_num == 4
+			replace gl_adm1_code = 1387 if hh_region_num == 5
+			replace gl_adm1_code = 1388 if hh_region_num == 8
+			replace gl_adm1_code = 1389 if hh_region_num == 7
+			replace gl_adm1_code = 1390 if hh_region_num == 3
+			replace gl_adm1_code = 1391 if hh_region_num == 2
+			replace gl_adm1_code = 1392 if hh_region_num == 9
+			replace gl_adm1_code = 1393 if hh_region_num == 1			
+        }
+
+		if inlist(country_name,"Kosovo2019") {
+		    replace gl_adm0_code = -9
+            replace gl_adm1_code = -9		
+        } // no observations in subnational.dta
+
+		if inlist(country_name,"Nepal2019") {
+		    replace gl_adm0_code = 175
+            replace gl_adm1_code = -7		
+        } // internal boundaries have changed and make it hard to match
 		
+		if inlist(country_name,"NorthMacedonia2018") {
+		    replace gl_adm0_code = 241
+            replace gl_adm1_code = -7 
+        } //internal boundaries have changed and make it hard to match
+
+		if inlist(country_name,"SaoTomeAndPrincipe2019") {
+		    replace gl_adm0_code = 214
+            replace gl_adm1_code = -7 
+        } //internal boundaries have changed and make it hard to match
+
+		if inlist(country_name,"Serbia2019") {
+		    replace gl_adm0_code = 2648
+            replace gl_adm1_code = -7 
+        } //internal boundaries have changed and make it hard to match
+
+		if inlist(country_name,"Thailand2019") {
+		    replace gl_adm0_code = 240
+            replace gl_adm1_code = -7 
+        } //internal boundaries have changed and make it hard to match
+		
+		if inlist(country_name,"Tonga2019") {
+		    replace gl_adm0_code = 245
+            replace gl_adm1_code = 2976 if inrange(hh_region_num,1,5)
+        } // 2976 = "Administrative unit not available"
+
+		if inlist(country_name,"Turkmenistan2019") {
+		    replace gl_adm0_code = 250
+			replace gl_adm1_code = 3097 if hh_region_num == 5
+			replace gl_adm1_code = 3097 if hh_region_num == 1
+            replace gl_adm1_code = 3099 if hh_region_num == 6
+			replace gl_adm1_code = 3100 if hh_region_num == 4
+			replace gl_adm1_code = 147322 if hh_region_num == 3
+			replace gl_adm1_code = 147323 if hh_region_num == 2
+        }
+
+		if inlist(country_name,"Algeria2018") {
+		    replace gl_adm0_code = 4
+            replace gl_adm1_code = -7 
+        } //internal boundaries have changed and make it hard to match
+			
+		
+
 		
