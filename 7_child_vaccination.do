@@ -19,14 +19,14 @@
 	Other surveys don’t ask mothers without a vaccination card a question about polio at birth. In this case, we assume that polio at birth was not given, and therefore code polio1 = 1 if total # of polio vaccinations >= 1, polio2 = 1 if total # number of polio vaccinations >=2 and polio3 = 1 if total # of polio vaccinations >=3.
 */
 
-	*c_measles: Child age 15-23 immunized against measles/MMR
+	*c_measles: Child age 12-23 immunized against measles/MMR
 		foreach var in im6my im26 im2 im5 im11 {		// create empty variables for surveys without immunization modules
 			cap gen `var' = .
 		}
 		gen c_measles = .
 		replace c_measles = 0 if inrange(cage,12,23) & im2 != .				// children aged 15-23 months						
 		
-		if inlist(country_name,"LaoPDR2017","SierraLeone2017","Togo2017","Guinea-Bissau2018","CentralAfricanRepublic2018","Kosovo2019","Cuba2019") {
+		if inlist(country_name,"LaoPDR2017","SierraLeone2017","Togo2017","Guinea-Bissau2018","CentralAfricanRepublic2018","Cuba2019") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6my,2000,6666) | inlist(im6md,44,66))			// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6my,6667,9999) | inrange(im6md,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
@@ -38,7 +38,6 @@
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6my,6667,9999) | inrange(im6md,97,99) & (inrange(im6mey,6667,9999) | inrange(im6med,97,98)))) | (im11 == 1 & inlist(im26c,8,9) & inlist(im26d,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
 		}	
 		// no immunization module for Iraq
-		
 		if inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","NorthMacedonia2018") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6m1y,2000,6666) | inlist(im6m1d,44,66) | inrange(hf12m1y,2000,6666) | inlist(hf12m1d,44,66))			// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
@@ -70,7 +69,11 @@
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6my,6667,9999) | inrange(im6md,97,98) | inrange(hf12my,6667,9999) | inlist(hf12md,0,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
 		}		
-		
+		if inlist(country_name,"Kosovo2019") {
+			replace c_measles = 1 if c_measles == 0 & (inrange(im6my,2000,6666) | inlist(im6md,66) | inrange(hf12my,2000,6666) | inlist(hf12md,44,66))			// measles/MMR from card and mather report
+			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
+			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6my,6667,9999) | inrange(im6md,97,98) | inrange(hf12my,6667,9999) | inlist(hf12md,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
+		}		
 		if inlist(country_name,"Ghana2017") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6my,2000,6666) | inlist(im6md,44,66))			// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26a == 1				// measles/MMR from memory
