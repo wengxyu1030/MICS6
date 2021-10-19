@@ -81,9 +81,9 @@
 		}
 		
 		if inlist(country_name,"Tonga2019") {
-			replace c_measles = 1 if c_measles == 0 & (inrange(im6m2y,2000,6666) | inlist(im6m2d,44,66))		// measles/MMR from card
+			replace c_measles = 1 if c_measles == 0 & (inrange(im6m2y,2000,6666) | inlist(im6m2d,44))		// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1												// measles/MMR from memory
-			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m2y,6667,9999) | inrange(im6m2d,97,98))) | (im11 == 1 & inlist(im26,2,8)) | (inlist(im2,4,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
+			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m2y,6667,9999) | inrange(im6m2d,97,98))) | (inlist(im2,4,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
 		}
 		if inlist(country_name,"Nepal2019") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6m1y,2000,6666) | inlist(im6m1d,44,66))
@@ -127,7 +127,6 @@
 			country_name == "Kiribati2018" |
 			country_name == "CostaRica2018" |
 			country_name == "Thailand2019" |
-			country_name == "Tonga2019" |
 			country_name == "Serbia2019" |
 			country_name == "Guinea-Bissau2018"|
 			country_name == "StateofPalestine2019"|
@@ -141,7 +140,7 @@
 			replace c_bcg = 1 if c_bcg == 0 & im14 == 1                             // BCG from memory
 			replace c_bcg = . if ((inrange(im5,1,3) & (inrange(im6by,6667,9999) | inrange(im6bd,97,98))) | (im11 == 1 & inlist(im14,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	  // missing if BCG DK/missing for card and memory
 		}
-		if inlist(country_name,"Kosovo2019") {
+		if inlist(country_name,"Kosovo2019","Tonga2019") {
 		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im6by,2000,6666) | inlist(im6bd,44,66))
 			replace c_bcg = 1 if c_bcg == 0 & (inrange(hf12by,2000,6666) | inlist(hf12bd,44,66))
 			replace c_bcg = 1 if c_bcg == 0 & im14 == 1                             // BCG from memory
