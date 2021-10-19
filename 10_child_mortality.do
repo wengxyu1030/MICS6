@@ -48,4 +48,4 @@ mor_ali
 	
 	gen w_sampleweight = wmweight			// sample weight
 	
-	keep mor_dob hm_dob mor_wln mor_ali mor_ade mor_afl hm_doi hm_dob mor_male mor_bord mor_int hh1 hh2 bh8 bhln hm_live wm3 mor_wght
+	keep mor_dob hm_dob mor_wln mor_ali mor_ade mor_afl hm_doi hm_dob mor_male mor_bord mor_int hh1 hh2 bh8 bhln hm_live wm3 mor_wght w_sampleweight

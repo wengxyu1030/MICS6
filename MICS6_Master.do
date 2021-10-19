@@ -22,13 +22,13 @@ macro drop _all
 	if "`c(username)'" == "zetianyuwang" local pc = 0
 	if "`c(username)'" == "xweng"     local pc = 1
 	if "`c(username)'" == "rwang"     local pc = 2
-	if "`c(username)'" == "ortsang"     local pc = 3
+	//if "`c(username)'" == "ortsang"     local pc = 3
 	if "`c(username)'" == "keicz"     local pc = 3
 	
 	if `pc' == 0 global root "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Data/MICS"
 	if `pc' == 1 global root "C:/Users/XWeng/OneDrive - WBG/MEASURE UHC DATA - Sven Neelsen's files"
 	if `pc' == 2 global root "D:/MEASURE UHC DATA"
-	if `pc' == 3 global root "/Users/ortsang/OneDrive - City University of New York/working/WB"
+	//if `pc' == 3 global root "/Users/ortsang/OneDrive - City University of New York/working/WB"
 	if `pc' == 3 global root "D:/Drives/OneDrive - Cuny GradCenter/working/WB"
 	
 * Define path for data sources
@@ -51,11 +51,12 @@ macro drop _all
 	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_github/MICS6"
 	if `pc' == 1 global DO "${root}/STATA/DO/SC/06_Prepare_MICS6/MICS6_DW"
 	if `pc' == 2 global DO "${root}/MICS6"
-	if `pc' == 3 global DO "/Users/ortsang/Documents/Github/MICS6"
+	//if `pc' == 3 global DO "/Users/ortsang/Documents/Github/MICS6"
 	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "CentralAfricanRepublic2018"
+	global newMICS6countries "Turkmenistan2019"
+
 
 foreach name in $newMICS6countries {
 	clear 
@@ -109,7 +110,7 @@ foreach name in $newMICS6countries {
 
 	gen hm_age_yrs = ub2 // Child's age in years
 	gen hm_age_mon = cage // Child's age in months
-	gen w_sampleweight = chweight // Child's sample weight
+	gen c_sampleweight = chweight // Child's sample weight
 		
 	save `ch', replace
 
@@ -199,9 +200,6 @@ foreach name in $newMICS6countries {
 	drop _merge
 			
 		
-* merge with women
-	mmerge hh1 hh2 ln using `wm'
-	drop _merge
 			
 * merge with women
 	mmerge hh1 hh2 ln using `wm'
@@ -251,6 +249,7 @@ foreach name in $newMICS6countries {
 ***********************************	
 
 	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta"
+
 	
 	drop if _merge == 2
 	drop _merge
@@ -265,7 +264,7 @@ foreach name in $newMICS6countries {
 		
 * Housekeeping
 	keep hh1 hh2 ln hh_* c_* w_* mor_*  hm_* gl_adm1_code gl_adm0_code
-	
+
 ***********************************
 *****      Merge with iso        **
 ***********************************	
@@ -282,11 +281,15 @@ foreach name in $newMICS6countries {
 	replace WB_cname = "The Gambia" if WB_cname == "Gambia"
 	replace WB_cname = "Dem. Rep. Congo" if WB_cname == "Congodr"
 	replace WB_cname = "Costa Rica" if WB_cname == "CostaRica"
+	replace WB_cname = "West Bank and Gaza" if WB_cname == "StateofPalestine"
+	replace WB_cname = "Macedonia" if WB_cname == "NorthMacedonia"
 	replace WB_cname = "Central African Republic" if WB_cname == "CentralAfricanRepublic"
+	replace WB_cname = "Sao Tome and Principe" if WB_cname == "SaoTomeAndPrincipe"
 	
 	// Merges with country code data
 	mmerge WB_cname using "${SOURCE}/CountryCodes.dta", ukeep(iso3c iso2c WB_cname WB_region) 
 	egen x = max(_merge)   // this and following line are to assert that merge with country code worked -- if this produces an error, you need to align the country name with that in the country code dataset (WB_cname)
+	
 	assert x == 3
 	drop if _merge == 2
 	drop x _merge
@@ -310,7 +313,7 @@ foreach name in $newMICS6countries {
 ***********************************	
 	do "${DO}/Quality_control.do" 
 	save "${INTER}/Indicator_`name'.dta", replace  
-			
+*/
 }		
 
 

@@ -55,7 +55,8 @@ c_sba_eff2_q
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 41		// 1 for private/public hospital
 		}
-		if inlist(country_name,"Tonga2019","Algeria2018") {
+
+		if inlist(country_name,"Tonga2019","Algeria2018","Kosovo2019","Cuba2019","SaoTomeAndPrincipe2019") {
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if mn20 == 21 	// 1 for public hospital
 		}
@@ -65,7 +66,11 @@ c_sba_eff2_q
 		}
 		if inlist(country_name,"Serbia2019") {
 			replace c_hospdel = 0 if mn20 != .
-			replace c_hospdel = 1 if inlist(mn20,21,23) // 1 for public hospital
+      replace c_hospdel = 1 if inlist(mn20,21,23) // 1 for public hospital
+		}	
+		if inlist(country_name,"NorthMacedonia2018") {
+			replace c_hospdel = 0 if mn20 != .
+			replace c_hospdel = 1 if inlist(mn20,21,31)
 		}
 
 		replace c_hospdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
@@ -130,7 +135,7 @@ c_sba_eff2_q
 			replace c_facdel = 1 if inrange(mn20,21,24)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,35)	    // 1 for private health facility
 		}	
-		if inlist(country_name,"CostaRica2018") {
+		if inlist(country_name,"CostaRica2018","Kosovo2019") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,32)	    // 1 for private health facility
@@ -151,7 +156,21 @@ c_sba_eff2_q
 		if inlist(country_name, "Algeria2018") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inlist(mn20,21,32)		// 1 for  hopital / Clinique privee
-		}			
+		}	
+		if inlist(country_name, "Cuba2019") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,23)		// 1 for  hopital /  POLICLÍNICO / CONSULTORIO DEL MÉDICO Y ENFERMERA DE LA FAMILIA
+		}					
+
+		if inlist(country_name, "SaoTomeAndPrincipe2019") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inlist(mn20,21,26)		// 1 for unidade de saude do sector publico: hospital, centro de saude, posto de saude, also 26 for Outro publico
+		}		
+		
+		if inlist(country_name,"NorthMacedonia2018") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inlist(mn20,21,22,31,32,33)
+		}
 	
 		replace c_facdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 // Not taking into account "Others"
@@ -207,7 +226,8 @@ c_sba_eff2_q
 			if inlist(country_name,"Suriname2018") {
 				global mn19 "mn19a mn19d mn19e mn19g"
 			}
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019") {
+      
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","NorthMacedonia2018","Cuba2019","SaoTomeAndPrincipe2019") {
 				global mn19 "mn19a mn19b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
@@ -256,7 +276,7 @@ c_sba_eff2_q
 * Helper: stayed in facility for 24 hours after birth
 		gen onedayfac = .
 
-		if ~inlist(country_name,"Georgia2018","Thailand2019"，"Turkmenistan2019","Guinea-Bissau2018","Serbia2019") {
+		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019") {
 			replace onedayfac = 0 if bl2 == 1
 			replace onedayfac = 1 if pn3u == 1 & inrange(pn3n,24,90)
 			replace onedayfac = 1 if pn3u == 2 & inrange(pn3n,1,7)
@@ -270,6 +290,7 @@ c_sba_eff2_q
 			replace onedayfac = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}		
 		
+		
 * c_sba_eff1: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth)
 		gen c_sba_eff1 = .
 		if ~inlist(country_name,"Georgia2018") {
@@ -278,6 +299,7 @@ c_sba_eff2_q
 			replace c_sba_eff1 = . if c_sba == . | c_facdel == . | c_earlybreast == . | onedayfac == .
 			replace c_sba_eff1 = . if bl2 != 1 | ~inrange(wb4,15,49)
 		}
+		
 		
 * c_sba_eff1_q: Effective delivery care (baby delivered in facility, by skilled provider, mother and child stay in facility for min. 24h, breastfeeding initiated in first 1h after birth) among those with any SBA
 		gen c_sba_eff1_q = c_sba_eff1
