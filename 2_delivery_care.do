@@ -155,7 +155,8 @@ c_sba_eff2_q
 		}			
 		if inlist(country_name, "Algeria2018") {
 			replace c_facdel = 0 if mn20 != .
-			replace c_facdel = 1 if inlist(mn20,21,32)		// 1 for  hopital / Clinique privee
+			*replace c_facdel = 1 if inlist(mn20,21,32)		// 1 for  hopital / Clinique privee
+			replace c_facdel = 1 if inrange(mn20,20,36)		// 1 for  CHU/hopital/Polyclinique Maternite/Salle de soin maternite/autre public/ Clinique privee / maternite privee/autre CORRECTION1013RW
 		}	
 		if inlist(country_name, "Cuba2019") {
 			replace c_facdel = 0 if mn20 != .
@@ -164,7 +165,7 @@ c_sba_eff2_q
 
 		if inlist(country_name, "SaoTomeAndPrincipe2019") {
 			replace c_facdel = 0 if mn20 != .
-			replace c_facdel = 1 if inlist(mn20,21,26)		// 1 for unidade de saude do sector publico: hospital, centro de saude, posto de saude, also 26 for Outro publico
+			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for unidade de saude do sector publico: hospital, centro de saude, posto de saude, also 26 for Outro publico
 		}		
 		
 		if inlist(country_name,"NorthMacedonia2018") {
@@ -192,8 +193,7 @@ c_sba_eff2_q
 		replace c_skin2skin = 0 if bl2 == 1
 		replace c_skin2skin = 1 if mn23 == 1 & mn24 == 2		// on mother's bare skin but non-wrapped up
 		replace c_skin2skin = . if inlist(mn23,8,9) | inlist(mn24,8,9)
-		replace c_skin2skin = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
-		
+		replace c_skin2skin = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago		
 		
 		
 * c_sba: Skilled birth attendance of births in last 2 years: go to report to verify how "skilled is defined"

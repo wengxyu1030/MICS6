@@ -102,10 +102,17 @@
 
 
 		if inlist(country_name,"SaoTomeAndPrincipe2019") {
+			replace c_measles = 1 if c_measles == 0 & (inrange(im6my,2000,6666) | inlist(im6md,44,66))			// measles/MMR from card
+			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
+			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6my,6667,9999) | inrange(im6md,97,98) )) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
+		}	
+		/*
+		if inlist(country_name,"SaoTomeAndPrincipe2019") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6my,2000,6666) | inlist(im6md,44,66) | inrange(im6m2y,2000,6666) | inlist(im6m2d,44,66))			// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6my,6667,9999) | inrange(im6md,97,98) | inrange(im6m2y,6667,9999) | inlist(im6m2y,0,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
 		}		
+		*/
 		
     * c_bcg: Child age 15-23M had BCG vaccination
 	    gen c_bcg = .
@@ -264,6 +271,7 @@
 			gen c_polio`x' = . 
 			replace c_polio`x' = 0 if inrange(cage,12,23) & im2 != . 
 			
+			// RW 10.17 Review, remove Cuba2019 from list, due to Cuba's unique vaccination regime that incorporated 8 rounds of injection according to survey raw data. The majority of observations had 6-8 completed shots of polio. See im6p`x'y. Action: Created a loop that coped with this with x = 4 5 to 8
 			if inlist(country_name,"LaoPDR2017","Suriname2018","Zimbabwe2019","NorthMacedonia2018","Cuba2019") {
 			    replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
 				replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & inrange(im18,`x',7)          // polio1-3 from memory
@@ -319,14 +327,30 @@
 		   
 		}
 
+		forvalues x = 4 5 to 8 {
+			
+			gen c_polio`x' = . 
+			replace c_polio`x' = 0 if inrange(cage,12,23) & im2 != . 
+			// RW 10.17 Review, due to Cuba's unique vaccination regime that incorporated 8 rounds of injection according to survey raw data. The majority of observations had 6-8 completed shots of polio. See im6p`x'y. Action: Created a loop that coped with this with x = 4 5 to 8
+			if inlist(country_name,"Cuba2019") {
+			    replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
+				replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & inrange(im18,`x',7)          // polio1-3 from memory
+				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im18,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory
+		    }
+		   
+		}
 
     * c_fullimm: Child age 15-23M had BCG, polio 1-3, DTP/Penta1-3 & measles/MMR (1/0)
 	    gen c_fullimm = .
 			
-		if ~inlist(country_name,"Suriname2018","Georgia2018","Bangladesh2019","Montenegro2018") {
+		if ~inlist(country_name,"Suriname2018","Georgia2018","Bangladesh2019","Montenegro2018","Cuba2019") {
 		     replace c_fullimm = 1 if c_bcg == 1 & c_polio1 == 1 & c_polio2 == 1 & c_polio3 == 1 & c_dpt1 == 1 & c_dpt2 == 1 & c_dpt3 == 1 & c_measles == 1
 		     replace c_fullimm = 0 if c_bcg == 0 | c_polio1 == 0 | c_polio2 == 0 | c_polio3 == 0 | c_dpt1 == 0 | c_dpt2 == 0 | c_dpt3 == 0 | c_measles == 0
 	         replace c_fullimm = . if ~inrange(cage,12,23)
 		}
-		
-		
+		// RW 10.17 Review, incorporate c_polio1-8 for Cuba2019
+		if inlist(country_name,"Cuba2019") {
+		     replace c_fullimm = 1 if c_bcg == 1 & c_polio1 == 1 & c_polio2 == 1 & c_polio3 == 1 & c_polio4 == 1& c_polio5 == 1 & c_polio6 == 1 & c_polio7 == 1 & c_polio8 == 1 & c_dpt1 == 1 & c_dpt2 == 1 & c_dpt3 == 1 & c_measles == 1
+		     replace c_fullimm = 0 if c_bcg == 0 | c_polio1 == 0 | c_polio2 == 0 | c_polio3 == 0 | c_polio4 == 1| c_polio5 == 1 | c_polio6 == 1 | c_polio7 == 1 | c_polio8 == 1 | c_dpt1 == 0 | c_dpt2 == 0 | c_dpt3 == 0 | c_measles == 0
+	         replace c_fullimm = . if ~inrange(cage,12,23)
+		}		

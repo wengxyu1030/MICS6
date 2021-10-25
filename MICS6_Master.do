@@ -24,21 +24,24 @@ macro drop _all
 	if "`c(username)'" == "rwang"     local pc = 2
 	//if "`c(username)'" == "ortsang"     local pc = 3
 	if "`c(username)'" == "keicz"     local pc = 3
+	if "`c(username)'" == "robinwang"     local pc = 4
 	
 	if `pc' == 0 global root "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Data/MICS"
 	if `pc' == 1 global root "C:/Users/XWeng/OneDrive - WBG/MEASURE UHC DATA - Sven Neelsen's files"
 	if `pc' == 2 global root "D:/MEASURE UHC DATA"
 	//if `pc' == 3 global root "/Users/ortsang/OneDrive - City University of New York/working/WB"
-	if `pc' == 3 global root "D:/Drives/OneDrive - Cuny GradCenter/working/WB"
+	if `pc' == 3 global root "D:/Drives/OneDrive - Cuny GradCenter/working/"
+	if `pc' == 4 global root "/Users/robinwang/Documents/MEASURE UHC DATA"
 	
 * Define path for data sources
     global SOURCE "${root}/RAW DATA"
-
+	
 * Define path for output data
 	if `pc' == 0 global OUT "${root}/FINAL"
 	if `pc' == 1 global OUT "${root}/STATA/DATA/SC/ADePT READY/MICS/New"
 	if `pc' == 2 global OUT "${root}/STATA/DATA/SC/FINAL"
 	if `pc' == 3 global OUT "${root}/etc/output"
+	if `pc' == 4 global OUT "${root}/STATA/DATA/SC/FINAL"
 	
 
 * Define path for INTERMEDIATE
@@ -46,6 +49,7 @@ macro drop _all
 	if `pc' == 1 global INTER "${root}/STATA/DATA/SC/ADePT READY/MICS/Inter"
 	if `pc' == 2 global INTER "${root}/STATA/DATA/SC/INTER"
 	if `pc' == 3 global INTER "${root}/etc/inter"
+	if `pc' == 4 global INTER "${root}/STATA/DATA/SC/INTER"
 
 * Define path for do-files
 	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_github/MICS6"
@@ -53,9 +57,10 @@ macro drop _all
 	if `pc' == 2 global DO "${root}/MICS6"
 	//if `pc' == 3 global DO "/Users/ortsang/Documents/Github/MICS6"
 	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
+	if `pc' == 4 global DO "/Users/robinwang/Documents/MEASURE UHC DATA/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Turkmenistan2019"
+	global newMICS6countries "Cuba2019"
 
 
 foreach name in $newMICS6countries {
@@ -196,15 +201,15 @@ foreach name in $newMICS6countries {
 		drop if check2 == 1
 	}
 	
+	
 	mmerge hh1 hh2 ln using `ch_itn'
 	drop _merge
-			
-		
-			
+						
 * merge with women
 	mmerge hh1 hh2 ln using `wm'
 	drop _merge
-	
+
+		
 	if inlist("`name'","Nepal2019") {
 	drop melevel2 //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
 	}
@@ -306,6 +311,9 @@ foreach name in $newMICS6countries {
 		
 * Save micro-dataset
 	order survey year country hh1 hh2 ln  c_* w_* mor_* ln hm_* hh_*
+	
+
+	
 	saveold "${OUT}/MICS6-`name'Adept.dta", replace
 
 ***********************************

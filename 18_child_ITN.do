@@ -224,7 +224,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS6-LaoPDR2017/MICS6-LaoPDR2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-LaoPDR2017/MICS6-LaoPDR2017ch.dta", keepusing(hh1 hh2 ln cage)
 			
 			tab _merge
 			drop if _ == 1
@@ -296,7 +296,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2)
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS6-SierraLeone2017/MICS6-SierraLeone2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-SierraLeone2017/MICS6-SierraLeone2017ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -366,7 +366,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2)
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS6-Gambia2018/MICS6-Gambia2018ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Gambia2018/MICS6-Gambia2018ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -441,7 +441,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2)
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS6-Madagascar2018/MICS6-Madagascar2018ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Madagascar2018/MICS6-Madagascar2018ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -500,7 +500,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS6-Zimbabwe2019/MICS6-Zimbabwe2019ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Zimbabwe2019/MICS6-Zimbabwe2019ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -557,7 +557,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS6-Congodr2017/MICS6-Congodr2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Congodr2017/MICS6-Congodr2017ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -614,7 +614,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS6-Ghana2017/MICS6-Ghana2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Ghana2017/MICS6-Ghana2017ch.dta", keepusing(hh1 hh2 ln cage)
 			
 			tab _merge
 			drop if _ == 1
@@ -673,7 +673,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS6-Togo2017/MICS6-Togo2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Togo2017/MICS6-Togo2017ch.dta", keepusing(hh1 hh2 ln cage)
 	
 			tab _merge
 			drop if _ == 1
@@ -757,7 +757,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2)
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS6-Kiribati2018/MICS6-Kiribati2018ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Kiribati2018/MICS6-Kiribati2018ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
