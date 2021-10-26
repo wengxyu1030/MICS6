@@ -4,6 +4,8 @@
 /*
 h_drinkwater
 h_san_facilities
+h_watersource
+h_toilet
 */
 
 
@@ -25,3 +27,13 @@ h_san_facilities
 		replace h_san_facilities = 0 if ws11 != .
 		replace h_san_facilities = 1 if inlist(ws11,11,12,13,18,21,22,31) & ws15 == 2
 		replace h_san_facilities = . if h_san_facilities == 0 & (ws11 == 99 | ws15 == 9)
+
+* h_watersource: Water source (hv201 in DHS HH dataset, already coded for MICS)
+		gen h_watersource = ws1
+		
+* h_toilet: Toilet type (hv205 “”, already coded for MICS)
+		gen h_toilet = ws11
+		
+		
+		
+		

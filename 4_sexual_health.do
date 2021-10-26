@@ -8,6 +8,8 @@
 /// w_metmod_fp
 /// w_metany_fp_q
 
+/// w_married
+
 
 * w_condom_conc: Condom use of at-risk women age 18-49
 		cap gen sb7 = .		// creates empty sexual intercourse variables in surveys which do not have the module (to make code run smoothly) 
@@ -210,6 +212,7 @@
 		}
 
 
-
-
-		
+* w_married: 1 if woman and mother currently married or living in union, 0 otherwise (v501 in DHS and ma1 in MICS woman dataset) – i.e. have it for both woman and child level observations ; coded no response as .
+		gen w_married = .
+		replace w_married = 1 if inlist(ma1,1,2)
+		replace w_married = 0 if ma1 == 3

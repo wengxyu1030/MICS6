@@ -7,6 +7,8 @@ mor_wln
 mor_ade
 mor_afl
 mor_ali
+
+hm_birthorder
 */
 
 * mor_dob: child date of birth
@@ -31,6 +33,9 @@ mor_ali
 	recode hm_live (8/9 = .)
 	recode hm_live (2 = 0)
 
+* hm_birthorder: Birth order 
+	gen hm_birthorder = brthord
+	
 * housekeeping
 	gen hm_doi = wdoi
 	
@@ -48,4 +53,4 @@ mor_ali
 	
 	gen w_sampleweight = wmweight			// sample weight
 	
-	keep mor_dob hm_dob mor_wln mor_ali mor_ade mor_afl hm_doi hm_dob mor_male mor_bord mor_int hh1 hh2 bh8 bhln hm_live wm3 mor_wght w_sampleweight
+	keep mor_dob hm_dob mor_wln mor_ali mor_ade mor_afl hm_doi hm_dob mor_male mor_bord mor_int hh1 hh2 bh8 bhln hm_live wm3 mor_wght w_sampleweight hm_birthorder

@@ -13,7 +13,7 @@ hh_wealth_quintile
 hh_wealthscore
 hh_region_num
 hh_region_lab
-
+hh_religion
 */
 
 * hh_water
@@ -53,3 +53,5 @@ hh_region_lab
 	gen  hh_region_num	= hh7				
 	decode (hh7), gen(hh_region_lab)
 	
+* hh_religion: religion of household head (DW Team Oct 2021)
+	gen hh_religion = hc1a

@@ -2,6 +2,8 @@
 //Do-file for the indicator:
 /// c_stunted
 /// c_underweight
+/// c_stuund
+/// c_motherln
 
 if inlist(country_name,"Belarus2019") {
 	gen c_height = .
@@ -15,6 +17,8 @@ if inlist(country_name,"Belarus2019") {
 	gen c_wfh = .
 	gen c_wasted = .
 	gen c_wasted_sev = .
+	
+	gen c_stuund = .
 }
 
 else {
@@ -56,4 +60,11 @@ else {
 		replace c_wasted_sev = whz2 < -3						// stunted if child is more than 2 SDs below WAZ reference
 		for var c_wasted c_wasted_sev c_whz: replace X = . if inlist(whzflag,.,1)	// missing if weight or age flagged
 		rename c_whz c_wfh
+		
+*c_stuund: Both stunted and under weight
+		gen c_stuund = (c_stunted == 1 & c_underweight ==1) 
+		replace c_stunted == . if c_stunted == . | c_underweight == . 
+		label var c_sttund "1 if child both stunted and underweight"
 }
+
+gen c_motherln = uf4
