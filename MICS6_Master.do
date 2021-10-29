@@ -92,7 +92,7 @@ foreach name in $newMICS6countries {
 	gen hm_age_yrs = wb4 // Age in years
 	gen w_sampleweight = . // Woman's sample weight
 	replace w_sampleweight = wmweight
-
+	sort hh1 hh2 ln
 	save `wm', replace
 
 *******************************
