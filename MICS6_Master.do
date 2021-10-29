@@ -60,7 +60,7 @@ macro drop _all
 	if `pc' == 4 global DO "/Users/robinwang/Documents/MEASURE UHC DATA/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Chad2019"
+	global newMICS6countries "Togo2017"
 
 
 foreach name in $newMICS6countries {
@@ -166,7 +166,6 @@ foreach name in $newMICS6countries {
 		gen `var' = .
 		}
 	}
-	
 	save `bh', replace
 	
 
@@ -201,14 +200,12 @@ foreach name in $newMICS6countries {
 		drop if check2 == 1
 	}
 	
-	
 	mmerge hh1 hh2 ln using `ch_itn'
 	drop _merge
-						
+
 * merge with women
 	mmerge hh1 hh2 ln using `wm'
 	drop _merge
-
 		
 	if inlist("`name'","Nepal2019") {
 	drop melevel2 //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
