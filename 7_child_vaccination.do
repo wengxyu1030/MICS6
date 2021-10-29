@@ -343,19 +343,6 @@
 		   
 		}
 
-		forvalues x = 4 5 to 8 {
-			
-			gen c_polio`x' = . 
-			replace c_polio`x' = 0 if inrange(cage,12,23) & im2 != . 
-			// RW 10.17 Review, due to Cuba's unique vaccination regime that incorporated 8 rounds of injection according to survey raw data. The majority of observations had 6-8 completed shots of polio. See im6p`x'y. Action: Created a loop that coped with this with x = 4 5 to 8
-			if inlist(country_name,"Cuba2019") {
-			    replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
-				replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & inrange(im18,`x',7)          // polio1-3 from memory
-				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im18,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory
-		    }
-		   
-		}
-
     * c_fullimm: Child age 15-23M had BCG, polio 1-3, DTP/Penta1-3 & measles/MMR (1/0)
 	    gen c_fullimm = .
 			
@@ -373,12 +360,22 @@
 	         replace c_fullimm = . if ~inrange(cage,12,23)
 		}		
 		*/
+
+		
+	* DW-RW 2021 Oct Based on consultations with Sven, remove certain problematic indicators
+	if inlist(country_name,"Cuba2019","Nepal2019") {
+		replace c_polio1 = .
+		replace c_polio2 = .
+		replace c_polio3 = .
+		replace c_fullimm = .
+	}		
 		
 	* c_vaczero: Child did not receive any vaccination		
-		gen c_vaczero = (c_measles == 0 & c_polio1 == 0 & c_polio2 == 0 & c_polio3 == 0 & c_bcg == 0 & c_dtp1 == 0 & c_dtp2 == 0 & c_dtp3 == 0)
-		foreach var in c_measles c_polio1 c_polio2 c_polio3 c_bcg c_dtp1 c_dtp2 c_dtp3{
+		gen c_vaczero = (c_measles == 0 & c_polio1 == 0 & c_polio2 == 0 & c_polio3 == 0 & c_bcg == 0 & c_dpt1 == 0 & c_dpt2 == 0 & c_dpt3 == 0)
+		foreach var in c_measles c_polio1 c_polio2 c_polio3 c_bcg c_dpt1 c_dpt2 c_dpt3{
 			replace c_vaczero = . if `var' == .
 		}					
-		label var c_vaczero "1 if child did not receive any vaccinations"
+		*label var c_vaczero "1 if child did not receive any vaccinations"
+		
 		
 		

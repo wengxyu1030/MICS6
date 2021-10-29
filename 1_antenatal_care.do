@@ -325,3 +325,8 @@
 		     replace c_anc_eff3_q = c_anc_eff3
 		     replace c_anc_eff3_q = . if c_anc_any == 0
         }
+
+	* DW-RW 2021Oct Based on consultations with Sven, remove certain problematic indicators
+	if inlist(country_name,"SaoTomeAndPrincipe2019") {
+		replace c_anc = .
+	}	

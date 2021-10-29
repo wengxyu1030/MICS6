@@ -63,8 +63,8 @@ else {
 		
 *c_stuund: Both stunted and under weight
 		gen c_stuund = (c_stunted == 1 & c_underweight ==1) 
-		replace c_stunted == . if c_stunted == . | c_underweight == . 
-		label var c_sttund "1 if child both stunted and underweight"
+		replace c_stuund = . if c_stunted == . | c_underweight == . 
+		label var c_stuund "1 if child both stunted and underweight"
 }
 
 gen c_motherln = uf4

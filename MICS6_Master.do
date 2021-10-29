@@ -60,7 +60,7 @@ macro drop _all
 	if `pc' == 4 global DO "/Users/robinwang/Documents/MEASURE UHC DATA/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Cuba2019"
+	global newMICS6countries "Chad2019"
 
 
 foreach name in $newMICS6countries {
@@ -162,7 +162,7 @@ foreach name in $newMICS6countries {
 	
     //compared to old template: instead of specify the survey but in condition of the existence of bh.dta.
 	else{
-	foreach var in mor_dob mor_wln mor_ali mor_ade mor_afl hm_doi hm_dob mor_male mor_bord mor_int hm_live mor_wght hm_birthorder {
+	foreach var in mor_dob mor_wln mor_ali mor_ade mor_afl hm_doi hm_dob mor_male mor_bord mor_int hm_live mor_wght hm_birthorder c_magebrt {
 		gen `var' = .
 		}
 	}
