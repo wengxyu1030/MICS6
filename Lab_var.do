@@ -132,7 +132,7 @@
 		label var c_motherln "The line number of the mother for each kid"
 		label var w_married "Marital Status"
 		label var hm_birthorder "Birth Order"
-		label var hh_religion "Head of Household Religion"
+		cap label var hh_religion "Head of Household Religion"
 		label var h_watersource "Water Source"
 		label var h_toilet "Toilet type"
 		label var c_stuund "Child: Child under five both stunted and underweight"

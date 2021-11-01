@@ -54,4 +54,4 @@ hh_religion
 	decode (hh7), gen(hh_region_lab)
 	
 * hh_religion: religion of household head (DW Team Oct 2021)
-	gen hh_religion = hc1a
+	cap gen hh_religion = hc1a
