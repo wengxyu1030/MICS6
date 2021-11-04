@@ -216,3 +216,6 @@
 		gen w_married = .
 		replace w_married = 1 if inlist(ma1,1,2)
 		replace w_married = 0 if ma1 == 3
+		
+	label define l_ms 0 "Otherwise" 1 "Currently married or living in union"
+	label values w_married l_ms		

@@ -9,6 +9,7 @@ mor_afl
 mor_ali
 
 hm_birthorder
+c_magebrt
 */
 
 * mor_dob: child date of birth
@@ -34,10 +35,10 @@ hm_birthorder
 	recode hm_live (2 = 0)
 
 * hm_birthorder: Birth order 
-	gen hm_birthorder = brthord
+	rename brthord hm_birthorder
 	
 * c_magebrt: Mother's age at birth [DW - OCT2021]
-	gen c_magebrt = magebrt
+	rename magebrt c_magebrt
 	
 * housekeeping
 	gen hm_doi = wdoi

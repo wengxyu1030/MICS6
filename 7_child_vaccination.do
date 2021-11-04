@@ -375,7 +375,7 @@
 		foreach var in c_measles c_polio1 c_polio2 c_polio3 c_bcg c_dpt1 c_dpt2 c_dpt3{
 			replace c_vaczero = . if `var' == .
 		}					
-		*label var c_vaczero "1 if child did not receive any vaccinations"
-		
+	label define l_vaczero 1 "Did not receive any vaccination"
+	label values c_vaczero l_vaczero		
 		
 		

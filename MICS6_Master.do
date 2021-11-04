@@ -60,7 +60,7 @@ macro drop _all
 	if `pc' == 4 global DO "/Users/robinwang/Documents/MEASURE UHC DATA/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Togo2017"
+	global newMICS6countries "Nepal2019"
 
 
 foreach name in $newMICS6countries {
@@ -100,10 +100,9 @@ foreach name in $newMICS6countries {
 *******************************
 
 	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'ch.dta", clear	
-
 * Prepare
 	gen country_name = "`name'"
-	
+		
 * Run do files for child data
     do "${DO}/7_child_vaccination"
 	do "${DO}/8_child_illness"
@@ -255,7 +254,9 @@ foreach name in $newMICS6countries {
 	
 	drop if _merge == 2
 	drop _merge
+	
 	gen country_name = "`name'"
+		
 	if inlist("`name'","Nepal2019") {
 		drop helevel2 //there're both *level1 and *level2, to avoid the ambiguity of the specification, dropping the *level2 here. 
 	}	
@@ -265,7 +266,7 @@ foreach name in $newMICS6countries {
 
 		
 * Housekeeping
-	keep hh1 hh2 ln hh_* c_* w_* mor_*  hm_* gl_adm1_code gl_adm0_code h_*
+	keep hh1 hh2 ln hh_* c_* w_* mor_*  hm_* gl_adm1_code gl_adm0_code
 
 ***********************************
 *****      Merge with iso        **
