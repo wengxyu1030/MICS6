@@ -133,6 +133,6 @@
 		label var w_married "Marital Status"
 		label var hm_birthorder "Birth Order"
 		cap label var hh_religion "Head of Household Religion"
-		label var c_stuund "Child: Child under five both stunted and underweight"
-		label var c_stuund_sev "Child: Child under five both severely stunted and severely wasted"		
+		label var c_stu_was "Child: Child under five both stunted and underweight"
+		label var c_stu_was_sev "Child: Child under five both severely stunted and severely wasted"	
 		label var c_vaczero "Child: Not Received Any Vaccination"
