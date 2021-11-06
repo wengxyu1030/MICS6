@@ -2,8 +2,8 @@
 //Do-file for the indicator:
 /// c_stunted
 /// c_underweight
-/// c_stuund
-/// c_stuund_sev
+/// c_stu_was
+/// c_stu_was_sev
 /// c_motherln
 
 if inlist(country_name,"Belarus2019") {
@@ -19,8 +19,8 @@ if inlist(country_name,"Belarus2019") {
 	gen c_wasted = .
 	gen c_wasted_sev = .
 	
-	gen c_stuund = .
-	gen c_stuund_sev = .
+	gen c_stu_was = .
+	gen c_stu_was_sev = .
 }
 
 else {
@@ -63,19 +63,17 @@ else {
 		for var c_wasted c_wasted_sev c_whz: replace X = . if inlist(whzflag,.,1)	// missing if weight or age flagged
 		rename c_whz c_wfh
 		
-*c_stuund: Both stunted and under weight
-		gen c_stuund = (c_stunted == 1 & c_underweight ==1) 
-		replace c_stuund = . if c_stunted == . | c_underweight == . 
-		label define l_stuund 1 "Both stunted and under weight"
-		label values c_stuund l_stuund		
+*c_stuund: Both stunted and wasted
+		gen c_stu_was = (c_stunted == 1 & c_wasted ==1) 
+		replace c_stu_was = . if c_stunted == . | c_wasted == . 
+		label define l_stu_was 1 "Both stunted and wasted"
+		label values c_stu_was l_stu_was		
 
-*c_stuund_sev: Both severely stunted and severely underweight		
-		gen c_stuund_sev = (c_stunted_sev == 1 & c_wasted_sev == 1)
-		replace c_stuund_sev = . if c_stunted_sev == . | c_wasted_sev == . 
-		label define l_stuund_sev 1 "Both severely stunted and severely wasted"
-		label values c_stuund_sev l_stuund_sev
+*c_stuund_sev: Both severely stunted and severely wasted		
+		gen c_stu_was_sev = (c_stunted_sev == 1 & c_wasted_sev == 1)
+		replace c_stu_was_sev = . if c_stunted_sev == . | c_wasted_sev == . 
+		label define l_stu_was_sev 1 "Both severely stunted and severely wasted"
+		label values c_stu_was_sev l_stu_was_sev
 }
-
-
 
 gen c_motherln = uf4

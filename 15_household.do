@@ -16,21 +16,34 @@ hh_region_lab
 hh_religion
 */
 
+	levelsof country_name, local(name) clean
+preserve
+	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", clear
+	local varnames "hc1a ws1 ws11"
+	desc `varnames', replace	
+	cd "${SOURCE}/MICS/MICS6-`name'"
+	
+	levelsof vallab, local(vallabelnames) clean
+	di "`vallabelnames'"
+	local i = 1
+	foreach vallabelname in `vallabelnames' {
+		local varname: word `i' of `varnames'
+		cap label drop l_`varname'
+		di "`vallabelname' to be applied to l_`varname'"
+		label copy `vallabelname' l_`varname'
+		local i = `i' + 1
+	}
+	
+	label save l_hc1a l_ws1 l_ws11 using labelhh_`name'.do, replace
+restore
+run labelhh_`name'.do
+
 * hh_water
 	rename ws1 hh_water
-	label define l_ws1 11 "Piped into dwelling" 12 "Piped into Yard / Plot" 13 "Piped to Neighbour" ///
-	14 "Public Tap / Standpipe" 21 "Tubewell / Borehole" 31 "Protected Well" 32 "Unprotecetd Well" ///
-	41 "Protected Spring" 42 "Unprotected Spring" 51 "Rainwater" 61 "Tanker-Truck" 71 "Cart with Small Tank" ///
-	81 "Surface Water (River, Dam, Lake, Pond, Stream, Canal, Irrigation Channel)" 91 "Bottled Water" ///
-	93 "Jar Water" 96 "Others"
 	label values hh_water l_ws1
 	
 * hh_toilet
 	rename ws11 hh_toilet
-	label define l_ws11 11 "Flush to Piped Sewer System" 12 "Flush to Septic Tank" 13 "Flush to Pit Latrine" ///
-	14 "Flush to Open Drain" 18 "Flush to DK Where" 21 "Ventilated Improved Pit Latrine" ///
-	22 "Pit Latrine with Slab" 23 "Pit Latrine without Slab / Open Pit" 31 "Composting Toilet" ///
-	41 "Bucket" 95 "No Facility / Bush / Field" 96 "Other"
 	label values hh_toilet l_ws11
 	
 * hh_id
@@ -66,3 +79,4 @@ hh_religion
 	
 * hh_religion: religion of household head (DW Team Oct 2021)
 	cap rename hc1a hh_religion
+	cap label values hh_religion l_hc1a
