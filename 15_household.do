@@ -16,35 +16,41 @@ hh_region_lab
 hh_religion
 */
 
-	levelsof country_name, local(name) clean
-preserve
-	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", clear
-	local varnames "hc1a ws1 ws11"
-	desc `varnames', replace	
-	cd "${SOURCE}/MICS/MICS6-`name'"
-	
-	levelsof vallab, local(vallabelnames) clean
-	di "`vallabelnames'"
-	local i = 1
-	foreach vallabelname in `vallabelnames' {
-		local varname: word `i' of `varnames'
-		cap label drop l_`varname'
-		di "`vallabelname' to be applied to l_`varname'"
-		label copy `vallabelname' l_`varname'
-		local i = `i' + 1
+	if ${trigger_change_structure} == 0 {
+		levelsof country_name, local(name) clean
+		preserve
+		use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", clear
+		local varnames "hc1a ws1 ws11"
+		desc `varnames', replace	
+		cd "${SOURCE}/MICS/MICS6-`name'"
+		
+		levelsof vallab, local(vallabelnames) clean
+		di "`vallabelnames'"
+		local i = 1
+		foreach vallabelname in `vallabelnames' {
+			local varname: word `i' of `varnames'
+			cap label drop l_`varname'
+			di "`vallabelname' to be applied to l_`varname'"
+			label copy `vallabelname' l_`varname'
+			local i = `i' + 1
+		}
+		
+		label save l_hc1a l_ws1 l_ws11 using labelhh_`name'.do, replace
+		restore
+		run labelhh_`name'.do
 	}
 	
-	label save l_hc1a l_ws1 l_ws11 using labelhh_`name'.do, replace
-restore
-run labelhh_`name'.do
-
 * hh_water
 	rename ws1 hh_water
-	label values hh_water l_ws1
+	if ${trigger_change_structure} == 0 {
+		label values hh_water l_ws1
+	}
 	
 * hh_toilet
 	rename ws11 hh_toilet
-	label values hh_toilet l_ws11
+	if ${trigger_change_structure} == 0 {
+		label values hh_toilet l_ws11
+	}
 	
 * hh_id
 	egen hh_id = concat(hh1 hh2), punct(_)
@@ -79,4 +85,6 @@ run labelhh_`name'.do
 	
 * hh_religion: religion of household head (DW Team Oct 2021)
 	cap rename hc1a hh_religion
-	cap label values hh_religion l_hc1a
+	if ${trigger_change_structure} == 0 {
+		cap label values hh_religion l_hc1a
+	}

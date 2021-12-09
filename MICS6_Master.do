@@ -60,8 +60,7 @@ macro drop _all
 	if `pc' == 4 global DO "/Users/robinwang/Documents/MEASURE UHC DATA/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Nepal2019"
-
+	global newMICS6countries "NorthMacedonia2018"
 
 foreach name in $newMICS6countries {
 	clear 
@@ -249,10 +248,22 @@ foreach name in $newMICS6countries {
 *****      Merge with hh         **
 ***********************************	
 
-	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta"
+	global trigger_change_structure = 1	
 	
+	if ${trigger_change_structure} == 1 {
+		tempfile pre_hh
+		save `pre_hh', replace
+		use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", replace
+		merge 1:m hh1 hh2 using `pre_hh'
+		drop if _merge != 3 /*as the base is now HH.dta, must ensure _merge == 1 is screened out*/
+		drop _merge		
+	}
+	
+	if ${trigger_change_structure} == 0 {
+	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", nolabel
 	drop if _merge == 2
 	drop _merge
+	}
 	
 	gen country_name = "`name'"
 		
