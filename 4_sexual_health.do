@@ -63,12 +63,21 @@
 			if inlist(country_name,"Kosovo2019"){
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4n"
 			}
+			}
 		
 			foreach var in $cp4 {
-				replace `var' = "" if `var' == " "
-				replace w_CPR = 1 if w_CPR == 0 & `var' != "" & `var' != "?"		// 1 for modern method
-				replace w_CPR = . if `var'== "?"                          // missing for DK/missing if no other modern method used
-			}			
+			    clonevar `var'_old = `var'
+				replace `var' = "0" if `var' == " " | `var' == "" 
+				replace `var' = "" if  `var' == "?" // missing for DK/missing if no other modern method used
+				replace `var' = "1" if `var' != "" & `var' != "0" // 1 for modern method
+				destring `var',replace
+			}	
+            
+			egen temp_cp4_tot = rowtotal($cp4) if w_CPR == 0,mi
+			replace w_CPR = 1 if temp_cp4_tot >= 1 
+			replace w_CPR = . if temp_cp4_tot == . & w_CPR == 0
+			
+			br $cp4 w_CPR *old if inrange(wb4,15,49) & mstatus == 1      
 			
 
 // postpartum amenorrheic: if she had a birth in last two years and is not currently pregnant, and her menstrual period has not returned since the birth of the last child
