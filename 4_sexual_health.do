@@ -63,7 +63,7 @@
 			if inlist(country_name,"Kosovo2019"){
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4n"
 			}
-			}
+			
 		
 			foreach var in $cp4 {
 			    clonevar `var'_old = `var'
@@ -74,11 +74,13 @@
 			}	
             
 			egen temp_cp4_tot = rowtotal($cp4) if w_CPR == 0,mi
-			replace w_CPR = 1 if temp_cp4_tot >= 1 
-			replace w_CPR = . if temp_cp4_tot == . & w_CPR == 0
-			
-			br $cp4 w_CPR *old if inrange(wb4,15,49) & mstatus == 1      
-			
+	
+			replace w_CPR = 1 if temp_cp4_tot >= 1 & w_CPR == 0
+			replace w_CPR = . if temp_cp4_tot == . 
+					
+			foreach var in $cp4 {
+				tostring `var',replace
+			}				
 
 // postpartum amenorrheic: if she had a birth in last two years and is not currently pregnant, and her menstrual period has not returned since the birth of the last child
 		gen pregPPA = .
@@ -211,7 +213,7 @@
 		replace w_metany_fp_q = 0 if w_metany_fp == 1
 		replace w_metany_fp_q = 1 if w_metany_fp_q == 0 & w_CPR == 1
 		replace w_metany_fp_q = . if w_metany_fp == . | w_CPR == .
-}
+        }
 		
 		
 		if inlist(country_name,"Zimbabwe2019") {
