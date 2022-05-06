@@ -63,7 +63,9 @@
 			if inlist(country_name,"Kosovo2019"){
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4n"
 			}
-			
+			if inlist(country_name,"Samoa2019"){
+				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4k cp4l cp4m cp4n cp4x"
+			}
 		
 			foreach var in $cp4 {
 			    clonevar `var'_old = `var'

@@ -71,7 +71,9 @@ c_pnc_eff2_q
 		if inlist(country_name,"CentralAfricanRepublic2018") {
 			global pnc "a b c d e f g"
 		}		
-		
+		if inlist(country_name,"Samoa2019") {
+			global pnc "a b f h x"
+		}		
 		foreach x in $pnc {	
 			replace c_pnc_any = 1 if (((pn13u == 3 & pn13n<7) | inrange(pn13u,1,2)) & (~inlist(pn14`x',"","?"))) | (((pn22u == 3 & pn22n<7) | inrange(pn22u,1,2)) & (~inlist(pn23`x',"","?"))) // baby OR mother checked within six weeks of birth (after leaving facility OR after birth attendant left)
 			replace c_pnc_any = . if pn14`x' == "?" | pn23`x' == "?" 
