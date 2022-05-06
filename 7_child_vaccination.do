@@ -357,7 +357,7 @@
 		if inlist(country_name,"Cuba2019") {
 		     replace c_fullimm = 1 if c_bcg == 1 & c_polio1 == 1 & c_polio2 == 1 & c_polio3 == 1 & c_polio4 == 1& c_polio5 == 1 & c_polio6 == 1 & c_polio7 == 1 & c_polio8 == 1 & c_dpt1 == 1 & c_dpt2 == 1 & c_dpt3 == 1 & c_measles == 1
 		     replace c_fullimm = 0 if c_bcg == 0 | c_polio1 == 0 | c_polio2 == 0 | c_polio3 == 0 | c_polio4 == 1| c_polio5 == 1 | c_polio6 == 1 | c_polio7 == 1 | c_polio8 == 1 | c_dpt1 == 0 | c_dpt2 == 0 | c_dpt3 == 0 | c_measles == 0
-	         replace c_fullimm = . if ~inrange(cage,12,23)
+	         replace c_fullimm = . if ~inrange(cage,15,23)
 		}		
 		*/
 

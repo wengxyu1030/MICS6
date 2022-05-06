@@ -220,7 +220,7 @@
 		replace w_metany_fp_q = 0 if w_metany_fp == 1
 		replace w_metany_fp_q = 1 if w_metany_fp_q == 0 & w_CPR == 1
 		replace w_metany_fp_q = . if w_metany_fp == . | w_CPR == .
-}
+        }
 		
 		
 		if inlist(country_name,"Zimbabwe2019") {
