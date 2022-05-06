@@ -25,6 +25,7 @@ macro drop _all
 	//if "`c(username)'" == "ortsang"     local pc = 3
 	if "`c(username)'" == "keicz"     local pc = 3
 	if "`c(username)'" == "robinwang"     local pc = 4
+	if "`c(username)'" == "crystalo"     local pc = 5
 	
 	if `pc' == 0 global root "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Data/MICS"
 	if `pc' == 1 global root "C:/Users/XWeng/OneDrive - WBG/MEASURE UHC DATA - Sven Neelsen's files"
@@ -32,6 +33,7 @@ macro drop _all
 	//if `pc' == 3 global root "/Users/ortsang/OneDrive - City University of New York/working/WB"
 	if `pc' == 3 global root "D:/Drives/OneDrive - Cuny GradCenter/working/"
 	if `pc' == 4 global root "/Users/robinwang/Documents/MEASURE UHC DATA"
+    if `pc' == 5 global root "/Users/crystalo/Downloads"
 	
 * Define path for data sources
     global SOURCE "${root}/RAW DATA"
@@ -43,7 +45,7 @@ macro drop _all
 	if `pc' == 2 global OUT "${root}/STATA/DATA/SC/FINAL"
 	if `pc' == 3 global OUT "${root}/etc/output"
 	if `pc' == 4 global OUT "${root}/STATA/DATA/SC/FINAL"
-	
+	if `pc' == 5 global OUT "${root}/STATA/DATA/SC/FINAL"
 
 * Define path for INTERMEDIATE
 	if `pc' == 0 global INTER "${root}/INTER"
@@ -51,7 +53,8 @@ macro drop _all
 	if `pc' == 2 global INTER "${root}/STATA/DATA/SC/INTER"
 	if `pc' == 3 global INTER "${root}/etc/inter"
 	if `pc' == 4 global INTER "${root}/STATA/DATA/SC/INTER"
-
+    if `pc' == 5 global INTER "${root}/STATA/DATA/SC/INTER"
+	
 * Define path for do-files
 	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_github/MICS6"
 	if `pc' == 1 global DO "${root}/STATA/DO/SC/06_Prepare_MICS6/MICS6_DW"
@@ -59,7 +62,8 @@ macro drop _all
 	//if `pc' == 3 global DO "/Users/ortsang/Documents/Github/MICS6"
 	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
 	if `pc' == 4 global DO "/Users/robinwang/Documents/MEASURE UHC DATA/MICS6"
-
+    if `pc' == 5 global DO "/Users/crystalo/Documents/GitHub/MICS6"
+	
 * Define the country names (in globals) by recode version
 	global newMICS6countries "Algeria2018 Cuba2019 SaoTomeAndPrincipe2019 Kosovo2019 CentralAfricanRepublic2018 Nepal2019 StateofPalestine2019 Guinea-Bissau2018 Serbia2019 Turkmenistan2019 Tonga2019 Thailand2019 NorthMacedonia2018 Belarus2019 Chad2019 CostaRica2018 Ghana2017 Congodr2017 Bangladesh2019 Togo2017 Montenegro2018 Kiribati2018 Zimbabwe2019 Madagascar2018 LaoPDR2017 SierraLeone2017 Iraq2017 KyrgyzRepublic2018 Mongolia2018 Suriname2018 Gambia2018 Tunisia2018 Lesotho2018 Georgia2018"
 
