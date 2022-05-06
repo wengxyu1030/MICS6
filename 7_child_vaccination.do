@@ -20,7 +20,7 @@
 	Other surveys don’t ask mothers without a vaccination card a question about polio at birth. In this case, we assume that polio at birth was not given, and therefore code polio1 = 1 if total # of polio vaccinations >= 1, polio2 = 1 if total # number of polio vaccinations >=2 and polio3 = 1 if total # of polio vaccinations >=3.
 */
 
-	*c_measles: Child age 12-23 immunized against measles/MMR
+	*c_measles: Child age 15-23 immunized against measles/MMR
 		foreach var in im6my im26 im2 im5 im11 {		// create empty variables for surveys without immunization modules
 			cap gen `var' = .
 		}
@@ -370,6 +370,19 @@
 		replace c_polio3 = .
 		replace c_fullimm = .
 	}		
+		
+	* DW-RW 2022 Apr Based on consultations with Sven, remove certain problematic indicators
+	if inlist(country_name,"Chad2019") {
+		replace c_measles = .
+		replace c_bcg = .
+		replace c_dpt1 = .
+		replace c_dpt2 = .
+		replace c_dpt3 = .
+		replace c_polio1 = .
+		replace c_polio2 = .
+		replace c_polio3 = .
+		replace c_fullimm = .
+	}	
 		
 	* c_vaczero: Child did not receive any vaccination		
 		gen c_vaczero = (c_measles == 0 & c_polio1 == 0 & c_polio2 == 0 & c_polio3 == 0 & c_bcg == 0 & c_dpt1 == 0 & c_dpt2 == 0 & c_dpt3 == 0)
