@@ -16,7 +16,7 @@
 		label var hm_dob "Mortality: woman date of birth (cmc)"
 		label var mor_wln "Mortality: woman ln number in HH to match child with mother (original)"
 		label var mor_male "Mortality: child male"
-		label var mor_bord "Mortality: child birth order"
+		*label var mor_bord "Mortality: child birth order"
 		label var mor_int "Mortality: child birth interval"
 		label var mor_wght "Mortality: mother's sample weight"
 		label var c_diarrhea "Child under 5 with diarrhea"
@@ -101,7 +101,7 @@
 		label var w_metany_fp "15-49y married or in union with need for family planning using any contraceptives (1/0)"
 		label var w_metmod_fp "15-49y married or in union with need for family planning using modern contraceptives (1/0)"
 		label var w_metany_fp_q "15-49y married or in union using modern contraceptives among those with need for family planning who use any contraceptives (1/0)"
-		label var hh_drinkwater "HH: access to drinking water from an improved source with collection time < 30min round trip (1/0)"
+		label var hh_watersource "HH: access to drinking water from an improved source with collection time < 30min round trip (1/0)"
 		label var hh_san_facilities "HH: access to improved sanitation facilities that are not shared with other HHs (1/0)"
 		label var hm_male "HH member: male (1/0)"
 		label var ln "HH member: woman/pregnancy or child line number in HH (original)"
@@ -136,3 +136,9 @@
 		label var c_stu_was "Child: Child under five both stunted and underweight"
 		label var c_stu_was_sev "Child: Child under five both severely stunted and severely wasted"	
 		label var c_vaczero "Child: Not Received Any Vaccination"
+
+* DW Apr 2021
+		label var c_mateduclvl_raw "Level of education of child's mother - original variable"		
+		label var hh_headedu_raw "Education of head of household - original"
+		label var hh_headage_raw "Age of head of household - original"
+		label var hh_headsex_raw "Sex of head of household - original"		

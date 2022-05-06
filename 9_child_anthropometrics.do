@@ -63,17 +63,18 @@ else {
 		for var c_wasted c_wasted_sev c_whz: replace X = . if inlist(whzflag,.,1)	// missing if weight or age flagged
 		rename c_whz c_wfh
 		
-*c_stuund: Both stunted and wasted
+*c_stu_was: Both stunted and wasted
 		gen c_stu_was = (c_stunted == 1 & c_wasted ==1) 
 		replace c_stu_was = . if c_stunted == . | c_wasted == . 
 		label define l_stu_was 1 "Both stunted and wasted"
 		label values c_stu_was l_stu_was		
 
-*c_stuund_sev: Both severely stunted and severely wasted		
+*c_stu_was_sev: Both severely stunted and severely wasted		
 		gen c_stu_was_sev = (c_stunted_sev == 1 & c_wasted_sev == 1)
 		replace c_stu_was_sev = . if c_stunted_sev == . | c_wasted_sev == . 
 		label define l_stu_was_sev 1 "Both severely stunted and severely wasted"
 		label values c_stu_was_sev l_stu_was_sev
 }
 
-gen c_motherln = uf4
+*c_motherln
+clonevar c_motherln = uf4
