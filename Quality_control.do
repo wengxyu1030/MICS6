@@ -21,8 +21,8 @@ egen pop_w_sampleweight = wtmean(w_sampleweight), weight(w_sampleweight)
 	}
 	
 	***for variables generated from 7_child_vaccination
-	foreach var of var c_bcg c_dpt1 c_dpt2 c_dpt3 c_fullimm c_measles ///
-	c_polio1 c_polio2 c_polio3{
+	foreach var of var c_bcg c_dpt1 c_dpt2 c_dpt3 c_measles ///
+	c_polio1 c_polio2 c_polio3 c_fullimm c_vaczero {
     egen pop_`var' = wtmean(`var'), weight(c_sampleweight)
     }
 	
@@ -35,24 +35,24 @@ egen pop_w_sampleweight = wtmean(w_sampleweight), weight(w_sampleweight)
 	
 	***for variables generated from 9_child_anthropometrics
 	foreach var of var c_underweight c_stunted c_height c_underweight_sev ///
-	c_wasted c_wasted_sev c_weight c_hfa c_wfa c_wfh c_stunted_sev {
+	c_wasted c_wasted_sev c_weight c_hfa c_wfa c_wfh c_stunted_sev c_motherln {
     egen pop_`var' = wtmean(`var'),weight(c_sampleweight)
     }
 	
 	***for variables generated from 10_child_mortality
-	foreach var of var mor_ade mor_afl mor_ali mor_bord ///
-	mor_int mor_male {
+	foreach var of var mor_dob mor_wln mor_ade mor_afl mor_ali /*mor_bord*/ ///
+	mor_int mor_male hm_live hm_birthorder c_magebrt hm_doi hm_dob mor_wght {
     egen pop_`var' = wtmean(`var'), weight(w_sampleweight)
     }
 	
-	***for variables generated from 11_child_other
-	foreach var of var c_mateduc c_ITN{
+	***for variables generated from 19_child_maternal_edu & ITN
+	foreach var of var c_mateduclvl_raw  c_mateduc  c_ITN {
 	egen pop_`var' = wtmean(`var'),weight(hh_sampleweight)
 	}
 	
 	
 	***for hm related indicators 
-	foreach var of var hm_live hm_male hm_age_yrs hm_age_mon hm_headrel hm_stay {
+	foreach var of var hm_male hm_age_yrs hm_age_mon hm_headrel hm_stay {
 	egen pop_`var' = wtmean(`var'),weight(w_sampleweight)    
 	}
 

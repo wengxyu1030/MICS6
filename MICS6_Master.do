@@ -35,7 +35,8 @@ macro drop _all
 	
 * Define path for data sources
     global SOURCE "${root}/RAW DATA"
-	
+		if `pc' == 4 global SOURCE "/Volumes/Seagate Bas/HEFPI DATA/RAW DATA/"
+
 * Define path for output data
 	if `pc' == 0 global OUT "${root}/FINAL"
 	if `pc' == 1 global OUT "${root}/STATA/DATA/SC/ADePT READY/MICS/New"
@@ -60,7 +61,7 @@ macro drop _all
 	if `pc' == 4 global DO "/Users/robinwang/Documents/MEASURE UHC DATA/MICS6"
 
 * Define the country names (in globals) by recode version
-	global newMICS6countries "NorthMacedonia2018"
+	global newMICS6countries "Algeria2018 Cuba2019 SaoTomeAndPrincipe2019 Kosovo2019 CentralAfricanRepublic2018 Nepal2019 StateofPalestine2019 Guinea-Bissau2018 Serbia2019 Turkmenistan2019 Tonga2019 Thailand2019 NorthMacedonia2018 Belarus2019 Chad2019 CostaRica2018 Ghana2017 Congodr2017 Bangladesh2019 Togo2017 Montenegro2018 Kiribati2018 Zimbabwe2019 Madagascar2018 LaoPDR2017 SierraLeone2017 Iraq2017 KyrgyzRepublic2018 Mongolia2018 Suriname2018 Gambia2018 Tunisia2018 Lesotho2018 Georgia2018"
 
 foreach name in $newMICS6countries {
 	clear 
@@ -91,6 +92,7 @@ foreach name in $newMICS6countries {
 	gen hm_age_yrs = wb4 // Age in years
 	gen w_sampleweight = . // Woman's sample weight
 	replace w_sampleweight = wmweight
+	
 	sort hh1 hh2 ln
 	save `wm', replace
 
@@ -155,6 +157,7 @@ foreach name in $newMICS6countries {
 	if !_rc{					
 		
 	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'bh.dta", clear
+		global name = "`name'"
 	do "${DO}/10_child_mortality.do"
 	}
 	
@@ -166,7 +169,6 @@ foreach name in $newMICS6countries {
 	}
 	save `bh', replace
 	
-
 ***********************************
 ***** Merge bh + ch + wm         **
 ***********************************	
@@ -229,7 +231,8 @@ foreach name in $newMICS6countries {
 	replace hm_male = hl4
 	recode hm_male (2 = 0)
 	replace hm_age_yrs = hl6
-	gen hm_headrel = hl3   
+	*gen hm_headrel = hl3   
+	clonevar hm_headrel = hl3
 	gen country_name = "`name'"
 	
 	capture confirm variable hl7
@@ -253,12 +256,13 @@ foreach name in $newMICS6countries {
 	if ${trigger_change_structure} == 1 {
 		tempfile pre_hh
 		save `pre_hh', replace
+
 		use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", replace
 		merge 1:m hh1 hh2 using `pre_hh'
+
 		drop if _merge != 3 /*as the base is now HH.dta, must ensure _merge == 1 is screened out*/
 		drop _merge		
 	}
-	
 	if ${trigger_change_structure} == 0 {
 	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", nolabel
 	drop if _merge == 2
@@ -274,7 +278,6 @@ foreach name in $newMICS6countries {
 	do "${DO}/15_household.do"
 	do "${DO}/21_subnational_regions.do"
 
-		
 * Housekeeping
 	keep hh1 hh2 ln hh_* c_* w_* mor_*  hm_* gl_adm1_code gl_adm0_code
 

@@ -4,7 +4,7 @@
 
 * c_anc: 4+ antenatal care visits of births in last 2 years
 		gen c_anc = .
-		if ~inlist(country_name,"Georgia2018") {
+		if ~inlist(country_name,"Georgia2018","Chad2019") {
 			replace c_anc = 0 if mn2 != .
 			replace c_anc = 1 if mn5 > 3 & mn5 < 98				// 1 for 4+ anc visits
 			replace c_anc = . if inlist(mn5,98,99) | mn2 == 9  	// missing for DK and missing
@@ -15,7 +15,7 @@
 
 * c_anc_any: any antenatal care visits of births in last 2 years
 		gen c_anc_any = .
-		if ~inlist(country_name,"Georgia2018") {
+		if ~inlist(country_name,"Georgia2018","Chad2019") {
 			replace c_anc_any = 0 if mn2 != .
 			replace c_anc_any = 1 if mn2 == 1				// 1+ anc visits
 			replace c_anc_any = . if mn2 == 9  			// missing for DK and missing
@@ -49,7 +49,6 @@
 			country_name == "Guinea-Bissau2018" |
 			country_name == "CostaRica2018"|
 			country_name == "Belarus2019" |
-			country_name == "Chad2019"|
 			country_name == "NorthMacedonia2018" |
 			country_name == "StateofPalestine2019" |
 			country_name == "Serbia2019" |
@@ -70,20 +69,24 @@
 			replace c_anc_ear = . if inlist(mn4,98,99)  		// missing for DK and missing
 			replace c_anc_ear = . if bl2 != 1 | ~inrange(wb4,15,49)	          	// missing for births > 24 months ago
 		}
-		
+		if inlist(country_name,"Chad2019") {	
+			replace c_anc_ear = . 
+		}		
 		
 * c_anc_ear_q: First antenatal care visit in first trimester of pregnancy among ANC users of births in last 2 years
 		gen c_anc_ear_q = .
 		replace c_anc_ear_q = 0 if c_anc_any == 1						// among ANC users
 		replace c_anc_ear_q = 1 if c_anc_ear_q == 0  & c_anc_ear == 1
 		replace c_anc_ear_q = . if c_anc_any == . | c_anc_ear == .
-		
+		if inlist(country_name,"Chad2019") {	
+			replace c_anc_ear_q = . 
+		}			
 	
 		
 * c_anc_eff: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples) of births in last 2 years
 		// always look up definition for skilled provider for different countries in the report
 		gen c_anc_eff = . 
-		if ~inlist(country_name,"Georgia2018") {
+		if ~inlist(country_name,"Georgia2018","Chad2019") {
 			replace c_anc_eff = 0 if mn2 != .
 		#delimit ;
 		if 	country_name == "LaoPDR2017" | 
@@ -98,7 +101,6 @@
 			country_name == "Thailand2019" |
 			country_name == "Belarus2019"|
 			country_name == "Turkmenistan2019" |
-			country_name == "Chad2019" |
 			country_name == "Serbia2019" |
 			country_name == "Nepal2019" {;
 
@@ -150,12 +152,14 @@
 		replace c_anc_eff_q = 0 if c_anc_any == 1						// among ANC users
 		replace c_anc_eff_q = 1 if c_anc_eff_q == 0  & c_anc_eff == 1
 		replace c_anc_eff_q = . if c_anc_any == . | c_anc_eff == .
-		
+		if inlist(country_name,"Chad2019") {	
+			replace c_anc_eff_q = . 
+		}			
 		
 
 * c_anc_ski: antenatal care visit with skilled provider for pregnancy of births in last 2 years
 		gen c_anc_ski = . 
-		if ~inlist(country_name,"Georgia2018") {
+		if ~inlist(country_name,"Georgia2018","Chad2019") {
 			replace c_anc_ski = 0 if mn2 != .
 		
 			foreach var in $mn3 {
@@ -173,11 +177,13 @@
 		replace c_anc_ski_q = 1 if c_anc_ski_q == 0  & c_anc_ski == 1
 		replace c_anc_ski_q = . if c_anc_any == . | c_anc_ski == .
 
-		
+		if inlist(country_name,"Chad2019") {	
+			replace c_anc_ski_q = . 
+		}			
 		
 * c_anc_bp: Blood pressure measured during pregnancy of births in last 2 years
 		gen c_anc_bp = .
-		if ~inlist(country_name,"Georgia2018") {
+		if ~inlist(country_name,"Georgia2018","Chad2019") {
 			replace c_anc_bp = 0 if mn2 != .
 			replace c_anc_bp = 1 if mn6a == 1		// 1 for blood pressure
 			replace c_anc_bp = . if mn6a == 9	// missing for DK/missing
@@ -191,11 +197,13 @@
 		replace c_anc_bp_q = 1 if c_anc_bp_q == 0  & c_anc_bp == 1
 		replace c_anc_bp_q = . if c_anc_any == . | c_anc_bp == .
 		
-
+		if inlist(country_name,"Chad2019") {	
+			replace c_anc_bp_q = . 
+		}		
 		
 * c_anc_bs: Blood sample taken during pregnancy of births in last 2 years
 		gen c_anc_bs = .
-		if ~inlist(country_name,"Georgia2018") {
+		if ~inlist(country_name,"Georgia2018","Chad2019") {
 			replace c_anc_bs = 0 if mn2 != .
 			replace c_anc_bs = 1 if mn6c == 1		// 1 for blood sample
 			replace c_anc_bs = . if mn6c == 9	// missing for DK/missing
@@ -208,12 +216,14 @@
 		replace c_anc_bs_q = 0 if c_anc_any == 1						// among ANC users
 		replace c_anc_bs_q = 1 if c_anc_bs_q == 0  & c_anc_bs == 1
 		replace c_anc_bs_q = . if c_anc_any == . | c_anc_bs == .
-		
+		if inlist(country_name,"Chad2019") {	
+			replace c_anc_bs_q = . 
+		}				
 		
 		
 * c_anc_ur: Urine sample taken during pregnancy of births in last 2 years
 		gen c_anc_ur = .
-		if ~inlist(country_name,"Georgia2018") {
+		if ~inlist(country_name,"Georgia2018","Chad2019") {
 			replace c_anc_ur = 0 if mn2 != .
 			replace c_anc_ur = 1 if mn6b == 1		// 1 for urine sample taken
 			replace c_anc_ur = . if mn6b == 9	// missing for DK/missing
@@ -226,7 +236,9 @@
 		replace c_anc_ur_q = 0 if c_anc_any == 1						// among ANC users
 		replace c_anc_ur_q = 1 if c_anc_ur_q == 0  & c_anc_ur == 1
 		replace c_anc_ur_q = . if c_anc_any == . | c_anc_ur == .
-		
+		if inlist(country_name,"Chad2019") {	
+			replace c_anc_ur_q = . 
+		}			
 * c_anc_ir: iron supplements taken during pregnancy of births in last 2 years
 		gen c_anc_ir = .
 		if inlist(country_name,"LaoPDR2017") {	
@@ -283,7 +295,10 @@
 		     replace c_anc_tet = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months age
         }
 		
-
+		if inlist(country_name,"Chad2019") {	
+			replace c_anc_tet = . 
+		}		
+		
 // no tetanus vaccination data for "KyrgyzRepublic2018", "Mongolia2018" , "Belarus2019" , "StateofPalestine2019", "Serbia2019","Kosovo2019","NorthMacedonia2018"
 // Following definition from WHO: https://extranet.who.int/rhl/topics/preconception-pregnancy-childbirth-and-postpartum-care/antenatal-care/who-recommendation-tetanus-toxoid-vaccination-pregnant-women
 // Different than TM.7 from MICS
@@ -291,7 +306,7 @@
 * c_anc_tet_q: pregnant women vaccinated against tetanus during pregnancy among ANC users of births in last 2 years
 		gen c_anc_tet_q = .
 		
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","StateofPalestine2019","Serbia2019","Kosovo2019") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","StateofPalestine2019","Serbia2019","Kosovo2019","Chad2019") {
 
 			replace c_anc_tet_q = 0 if c_anc_any == 1						// among ANC users
 			replace c_anc_tet_q = 1 if c_anc_tet_q == 0  & c_anc_tet == 1
@@ -300,7 +315,7 @@
 
 * c_anc_eff2: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples, tetanus vaccination) of births in last 2 years
 		gen c_anc_eff2 = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","Serbia2019","Kosovo2019") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","Serbia2019","Kosovo2019","Chad2019") {
 		     replace c_anc_eff2 = c_anc_eff
 		     replace c_anc_eff2 = 0 if c_anc_tet == 0
 		     replace c_anc_eff2 = . if c_anc_tet == . | c_anc_eff == .
@@ -308,20 +323,20 @@
 		
 * c_anc_eff2_q: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples, tetanus vaccination) among ANC users of births in last 2 years
 		gen c_anc_eff2_q = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","Serbia2019","Kosovo2019") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","Serbia2019","Kosovo2019","Chad2019") {
 		     replace c_anc_eff2_q = c_anc_eff2
 		     replace c_anc_eff2_q = . if c_anc_any == 0
 		}
 * c_anc_eff3: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples, tetanus vaccination, start in first trimester) of births in last 2 years 
 		gen c_anc_eff3 = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","Serbia2019","Kosovo2019") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","Serbia2019","Kosovo2019","Chad2019") {
 		     replace c_anc_eff3 = c_anc_eff2
 		     replace c_anc_eff3 = 0 if c_anc_ear == 0
 		     replace c_anc_eff3 = . if c_anc_ear == . | c_anc_eff2 == .
         }
 * c_anc_eff3_q: Effective ANC (4+ antenatal care visits, any skilled provider, blood pressure, blood and urine samples, tetanus vaccination, start in first trimester) among ANC users of births in last 2 years
 		gen c_anc_eff3_q = .
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","Serbia2019","Kosovo2019") {
+		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","Serbia2019","Kosovo2019","Chad2019") {
 		     replace c_anc_eff3_q = c_anc_eff3
 		     replace c_anc_eff3_q = . if c_anc_any == 0
         }

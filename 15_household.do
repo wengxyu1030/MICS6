@@ -14,6 +14,9 @@ hh_wealthscore
 hh_region_num
 hh_region_lab
 hh_religion
+hh_headedu_raw
+hh_headage_raw
+hh_headsex_raw
 */
 
 	if ${trigger_change_structure} == 0 {
@@ -39,12 +42,14 @@ hh_religion
 		restore
 		run labelhh_`name'.do
 	}
-	
+
+
 * hh_water
 	rename ws1 hh_water
 	if ${trigger_change_structure} == 0 {
 		label values hh_water l_ws1
 	}
+
 	
 * hh_toilet
 	rename ws11 hh_toilet
@@ -58,7 +63,18 @@ hh_religion
 * hh_headed: educational level of household head
 	gen hh_headed = helevel					
 	recode hh_headed (0 = 1) (1 = 2) (2/6 = 3) (8/9 = .)    
+	label define l_headed 1 "none" 2 "primary" 3 "lower sec or higher"
+    label values hh_headed l_headed
+	
+* hh_headedu_raw Household Head - Education [raw]
+	clonevar hh_headedu_raw = helevel
+	
+* hh_headage_raw Household Head - Age [raw]
+	rename hhage hh_headage_raw
 
+* hh_headsex_raw Household Head - Sex [raw]
+	rename hhsex hh_headsex_raw	
+	
 * hh_size
 	gen hh_size = hh48						
 	recode hh_size (97/99 = .)	
