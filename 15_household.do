@@ -70,11 +70,22 @@ hh_headsex_raw
 	clonevar hh_headedu_raw = helevel
 	
 * hh_headage_raw Household Head - Age [raw]
-	rename hhage hh_headage_raw
+	capture confirm variable hhage
+	if !_rc {
+		rename hhage hh_headage_raw
+	}
+	else {
+		gen hh_headage_raw = .
+	}
 
 * hh_headsex_raw Household Head - Sex [raw]
-	rename hhsex hh_headsex_raw	
-	
+	capture confirm variable hhsex
+	if !_rc {
+		rename hhsex hh_headsex_raw
+	}
+	else {
+		gen hh_headsex_raw = .
+	}	
 * hh_size
 	gen hh_size = hh48						
 	recode hh_size (97/99 = .)	

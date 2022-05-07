@@ -45,7 +45,7 @@ c_pnc_eff2_q
 			global pnc "a d e g"
 		}
 
-		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019", "SaoTomeAndPrincipe2019") {
+		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019", "SaoTomeAndPrincipe2019","NorthMacedonia2018") {
 			global pnc "a b"
 		}
 		if inlist(country_name,"Bangladesh2019") {

@@ -67,7 +67,13 @@
 			}
 		
 			foreach var in $cp4 {
-			    clonevar `var'_old = `var'
+			    cap clonevar `var'_old = `var'
+				if _rc {
+					cap drop `var'_old
+					gen `var'_old = `var'
+					/*Accommodate Madagascar's long and irregular labels*/
+				}
+				
 				replace `var' = "" if `var' == " "
 				replace `var' = "0" if `var'== ""
 				replace `var' = "" if  `var' == "?" // missing for DK/missing if no other modern method used
