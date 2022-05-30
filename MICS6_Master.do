@@ -305,6 +305,7 @@ foreach name in $newMICS6countries {
 	replace WB_cname = "Macedonia" if WB_cname == "NorthMacedonia"
 	replace WB_cname = "Central African Republic" if WB_cname == "CentralAfricanRepublic"
 	replace WB_cname = "Sao Tome and Principe" if WB_cname == "SaoTomeAndPrincipe"
+	replace WB_cname = "Turks and Caicos Islands" if WB_cname == "TurksCaicosIslands"
 	
 	// Merges with country code data
 	mmerge WB_cname using "${SOURCE}/CountryCodes.dta", ukeep(iso3c iso2c WB_cname WB_region) 
