@@ -39,6 +39,7 @@ c_sba_eff2_q
 			country_name == "Chad2019"|
 			country_name == "TurksCaicosIslands2019"|
 			country_name == "Nepal2019"|
+			country_name == "TurksCaicosIslands2019"|
 			country_name == "CentralAfricanRepublic2018"{;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
@@ -172,7 +173,7 @@ c_sba_eff2_q
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for unidade de saude do sector publico: hospital, centro de saude, posto de saude, also 26 for Outro publico
 		}		
-		
+
 		if inlist(country_name,"NorthMacedonia2018") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inlist(mn20,21,22,31,32,33)
