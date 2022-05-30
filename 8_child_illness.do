@@ -74,6 +74,7 @@ c_illtreat
 			country_name == "CentralAfricanRepublic2018"|
 			country_name == "Cuba2019"|
 			country_name == "Samoa2019"|
+			country_name == "TurksCaicosIslands2019"|
 			country_name == "SaoTomeAndPrincipe2019" {;
 	    #delimit cr 
 			replace c_treatdiarrhea = 0 if ca1 == 1						// children with diarrhea in last 2 weeks
@@ -104,7 +105,7 @@ c_illtreat
 		}
 		replace c_diarrhea_hmf = 0 if ca1 == 1	         // children with diarrhea in last 2 weeks
 		
-		if ~inlist(country_name,"KyrgyzRepublic2018","Guinea-Bissau2018","Tonga2019","SaoTomeAndPrincipe2019","Samoa2019") {		
+		if ~inlist(country_name,"KyrgyzRepublic2018","Guinea-Bissau2018","Tonga2019","SaoTomeAndPrincipe2019","Samoa2019","TurksCaicosIslands2019") {		
 			replace c_diarrhea_hmf = 1 if c_diarrhea_hmf == 0 & ca7d == 1 	// received Government recommended homemade fluid 
 			replace c_diarrhea_hmf = . if inlist(ca7d, 8, 9) 	// missing when Government recommended homemade fluid  variable is missing and none o	
 		}
@@ -149,6 +150,7 @@ c_illtreat
 			country_name == "CentralAfricanRepublic2018" |
 			country_name == "Cuba2019" |
 			country_name == "Samoa2019" |
+			country_name == "TurksCaicosIslands2019" |
 			country_name == "CentralAfricanRepublic2018"|
 			country_name == "SaoTomeAndPrincipe2019" {;
 	    #delimit cr 
@@ -214,7 +216,7 @@ c_illtreat
 			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  ca7c == 1 
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
 		}
-		if inlist(country_name,"SaoTomeAndPrincipe2019") {
+		if inlist(country_name,"SaoTomeAndPrincipe2019","TurksCaicosIslands2019") {
 			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  (ca7c == 1 | ca5 == 1)
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
 			replace c_diarrhea_medfor = . if c_diarrhea_medfor == 0 & inlist(ca5,8,9)   // OR treatment/consultation variable missing
@@ -318,6 +320,9 @@ c_illtreat
 		if inlist(country_name,"Samoa2019") {
 			global ca6 "ca6a ca6b ca6j"
 		}
+		if inlist(country_name,"TurksCaicosIslands2019") {
+			global ca6 "ca6a ca6i"
+		}
 		
 		foreach var in $ca6 {
 		    replace `var' = "" if `var' == " "
@@ -338,7 +343,7 @@ c_illtreat
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca7c == 1 | ca7d == 1)
 		}		
 
-		if inlist(country_name,"SaoTomeAndPrincipe2019") {
+		if inlist(country_name,"SaoTomeAndPrincipe2019","TurksCaicosIslands2019") {
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca7c == 1)
 		}		
 		
@@ -522,6 +527,9 @@ c_illtreat
 		if inlist(country_name,"Samoa2019") {
 			global ca21 "ca21a ca21b ca21j"
 		} 
+		if inlist(country_name,"TurksCaicosIslands2019") {
+			global ca21 "ca21a ca21b ca21i ca21j"
+		} 
 		
 	    foreach var in $ca21 {
 		    replace `var' = "" if `var' == " "
@@ -609,6 +617,9 @@ c_illtreat
 		
 		if inlist(country_name,"Samoa2019") {
 			global ca621 "ca6a ca6b ca6j ca21a ca21b ca21j"
+		}	
+		if inlist(country_name,"TurksCaicosIslands2019") {
+			global ca621 "ca6a ca6i ca21a ca21b ca21i ca21j"
 		}	
 		
 		foreach var in $ca621 {
