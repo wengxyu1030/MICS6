@@ -37,6 +37,7 @@ c_sba_eff2_q
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
 			country_name == "Chad2019"|
+			country_name == "TurksCaicosIslands2019"|
 			country_name == "Nepal2019"|
 			country_name == "CentralAfricanRepublic2018"{;
 	    #delimit cr		
@@ -139,6 +140,11 @@ c_sba_eff2_q
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,32)	    // 1 for private health facility
 		}
+		if inlist(country_name,"TurksCaicosIslands2019") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
+			replace c_facdel = 1 if mn20 == 31	    // 1 for private health facility
+		}
 		if inlist(country_name,"Turkmenistan2019") {
 		    replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,23)		// 1 for public health facility
@@ -166,7 +172,7 @@ c_sba_eff2_q
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for unidade de saude do sector publico: hospital, centro de saude, posto de saude, also 26 for Outro publico
 		}		
-		
+
 		if inlist(country_name,"NorthMacedonia2018") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inlist(mn20,21,22,31,32,33)
@@ -187,7 +193,7 @@ c_sba_eff2_q
 		replace c_earlybreast = 1 if mn37u == 0							// immediately
 		replace c_earlybreast = . if mn37u == 9 | inlist(mn37n,98,99,998)
 		replace c_earlybreast = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
-		
+
 		
 
 * c_skin2skin: child placed on mother's bare skin immediately after birth of births in last 2 years
@@ -196,7 +202,7 @@ c_sba_eff2_q
 		replace c_skin2skin = 1 if mn23 == 1 & mn24 == 2		// on mother's bare skin but non-wrapped up
 		replace c_skin2skin = . if inlist(mn23,8,9) | inlist(mn24,8,9)
 		replace c_skin2skin = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago		
-		
+
 		
 * c_sba: Skilled birth attendance of births in last 2 years: go to report to verify how "skilled is defined"
 		gen c_sba = . 
@@ -229,7 +235,7 @@ c_sba_eff2_q
 				global mn19 "mn19a mn19d mn19e mn19g"
 			}
       
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","NorthMacedonia2018","Cuba2019","SaoTomeAndPrincipe2019")|inlist(country_name,"Samoa2019"){
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","NorthMacedonia2018","Cuba2019","SaoTomeAndPrincipe2019")|inlist(country_name,"Samoa2019","TurksCaicosIslands2019"){
 				global mn19 "mn19a mn19b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
@@ -278,7 +284,7 @@ c_sba_eff2_q
 * Helper: stayed in facility for 24 hours after birth
 		gen onedayfac = .
 
-		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019") {
+		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019","TurksCaicosIslands2019") {
 			replace onedayfac = 0 if bl2 == 1
 			replace onedayfac = 1 if pn3u == 1 & inrange(pn3n,24,90)
 			replace onedayfac = 1 if pn3u == 2 & inrange(pn3n,1,7)

@@ -86,7 +86,7 @@
 			replace c_measles = 1 if c_measles == 0 & im26 == 1												// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m2y,6667,9999) | inrange(im6m2d,97,98))) | (inlist(im2,4,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
 		}
-		if inlist(country_name,"Nepal2019","Samoa2019") {
+		if inlist(country_name,"Nepal2019","Samoa2019","TurksCaicosIslands2019") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6m1y,2000,6666) | inlist(im6m1d,44,66))
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6m2y,2000,6666) | inlist(im6m2d,44,66))			// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
@@ -142,7 +142,8 @@
 			country_name == "CentralAfricanRepublic2018"|
 			country_name == "Cuba2019" |
 			country_name == "Samoa2019" |
-      country_name == "NorthMacedonia2018" |
+			country_name == "TurksCaicosIslands2019" |
+            country_name == "NorthMacedonia2018" |
 			country_name == "SaoTomeAndPrincipe2019"{;
 	    #delimit cr		
 		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im6by,2000,6666) | inlist(im6bd,44,66))
@@ -202,6 +203,7 @@
 			country_name == "StateofPalestine2019"|
 			country_name == "Nepal2019"|
 			country_name == "Samoa2019"|
+			country_name == "TurksCaicosIslands2019"|
 			country_name == "CentralAfricanRepublic2018"|
 			country_name == "SaoTomeAndPrincipe2019" {;
 	    #delimit cr		
@@ -308,7 +310,7 @@
 				replace c_polio`x' = 1 if c_polio`x' == 0 & ((im16 == 1 & inrange(im18,`x',7)) | (impp16 == 1 & inrange(impp18,`x',7)))         // polio1-3 from memory
 				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6vpo`x'y,6667,9999) | inrange(im6vpo`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im18,8,9) | inlist(impp16,8,9) | inlist(impp18,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory
 		    }	
-			if inlist(country_name,"CostaRica2018") {
+			if inlist(country_name,"CostaRica2018","TurksCaicosIslands2019") {
 			    replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
 				replace c_polio`x' = 1 if c_polio`x' == 0 & im19 == 1       // polio1-3 from memory
 				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & inlist(im19,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory

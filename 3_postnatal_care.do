@@ -14,7 +14,7 @@ c_pnc_eff2_q
 // c_pnc_any : mother OR child receive PNC in first six weeks by skilled health worker
 	gen c_pnc_any = .	
 	
-	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019") {
+	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019"，"TurksCaicosIslands2019") {
 		replace c_pnc_any = 0 if bl2 == 1
 		* pnc for SBA facility births
 		replace c_pnc_any = 1 if c_sba == 1 & (pn4 == 1 | pn5 == 1)     // baby OR mother checked within six weeks of birth and before leaving facility by skilled provider
@@ -45,7 +45,7 @@ c_pnc_eff2_q
 			global pnc "a d e g"
 		}
 
-		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019", "SaoTomeAndPrincipe2019","NorthMacedonia2018") {
+		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019", "SaoTomeAndPrincipe2019","NorthMacedonia2018") | inlist(country_name,"TurksCaicosIslands2019") {
 			global pnc "a b"
 		}
 		if inlist(country_name,"Bangladesh2019") {
@@ -90,7 +90,7 @@ c_pnc_eff2_q
 	
 	gen c_pnc_eff = .
 	
-	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019") {
+	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019","TurksCaicosIslands2019") {
 		replace c_pnc_eff = 0 if bl2 == 1
 		* pnc for SBA facility births
 		replace c_pnc_eff = 1 if c_sba == 1 & pn4 == 1 & pn5 == 1  // baby AND mother checked within 24h of birth and before leaving facility by skilled provider

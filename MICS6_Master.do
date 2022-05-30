@@ -65,7 +65,7 @@ macro drop _all
     if `pc' == 5 global DO "/Users/crystalo/Documents/GitHub/MICS6"
 	
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Algeria2018 Cuba2019 SaoTomeAndPrincipe2019 Kosovo2019 CentralAfricanRepublic2018 Nepal2019 StateofPalestine2019 Guinea-Bissau2018 Serbia2019 Turkmenistan2019 Tonga2019 Thailand2019 NorthMacedonia2018 Belarus2019 Chad2019 CostaRica2018 Ghana2017 Congodr2017 Bangladesh2019 Togo2017 Montenegro2018 Kiribati2018 Zimbabwe2019 Madagascar2018 LaoPDR2017 SierraLeone2017 Iraq2017 KyrgyzRepublic2018 Mongolia2018 Suriname2018 Gambia2018 Tunisia2018 Lesotho2018 Georgia2018"
+	global newMICS6countries "TurksCaicosIslands2019"
 
 foreach name in $newMICS6countries {
 	clear 
@@ -305,6 +305,7 @@ foreach name in $newMICS6countries {
 	replace WB_cname = "Macedonia" if WB_cname == "NorthMacedonia"
 	replace WB_cname = "Central African Republic" if WB_cname == "CentralAfricanRepublic"
 	replace WB_cname = "Sao Tome and Principe" if WB_cname == "SaoTomeAndPrincipe"
+	replace WB_cname = "Turks and Caicos Islands" if WB_cname == "TurksCaicosIslands"
 	
 	// Merges with country code data
 	mmerge WB_cname using "${SOURCE}/CountryCodes.dta", ukeep(iso3c iso2c WB_cname WB_region) 
