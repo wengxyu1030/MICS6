@@ -39,7 +39,6 @@ c_sba_eff2_q
 			country_name == "Chad2019"|
 			country_name == "TurksCaicosIslands2019"|
 			country_name == "Nepal2019"|
-			country_name == "TurksCaicosIslands2019"|
 			country_name == "CentralAfricanRepublic2018"{;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
