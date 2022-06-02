@@ -3,7 +3,8 @@
 /// c_mateduclvl_raw
 /// c_mateduc
 	
-	
+		local name "$name"
+		
 	clonevar c_mateduclvl_raw = melevel // raw variable preserved
 
 	recode hm_educ (0 = 1) (1 = 2) (2/6 = 3) (8/9 = .)     // recode woman education 
@@ -22,3 +23,7 @@
 	drop helper hm_educ 
 	rename mat_educ c_mateduc
 	replace c_mateduc = melevel if melevel!=.
+
+	if ("`name'" == "Zimbabwe2019") {
+		replace c_mateduc = . if c_mateduc > 3
+	}	
