@@ -39,6 +39,7 @@ c_sba_eff2_q
 			country_name == "Chad2019"|
 			country_name == "TurksCaicosIslands2019"|
 			country_name == "Nepal2019"|
+			country_name == "Tuvalu2019"|
 			country_name == "CentralAfricanRepublic2018"{;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
@@ -154,6 +155,11 @@ c_sba_eff2_q
 			replace c_facdel = 1 if inrange(mn20,21,22)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,61)	    // 1 for private health facility
 		}
+		if inlist(country_name,"Tuvalu2019") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,22)		// 1 for public health facility
+			replace c_facdel = 1 if inrange(mn20,31,36)	    // 1 for private health facility
+		}
 		if inlist(country_name, "Guinea-Bissau2018") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inlist(mn20,21,22) | inlist(mn20,31,32,33)		// 1 for hospital/maternidade do governo, clinica/centro de saude do governo, and for hospital privado, cliinica privada, e maternidade privada
@@ -224,6 +230,7 @@ c_sba_eff2_q
 			country_name == "Chad2019" |
 			country_name == "Serbia2019"|
 			country_name == "Nepal2019" |
+			country_name == "Tuvalu2019" |
 			country_name == "Turkmenistan2019" {;
 	    #delimit cr	
 				global mn19 "mn19a mn19b mn19c"
@@ -284,7 +291,7 @@ c_sba_eff2_q
 * Helper: stayed in facility for 24 hours after birth
 		gen onedayfac = .
 
-		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019","TurksCaicosIslands2019") {
+		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019","TurksCaicosIslands2019")|inlist(country_name,"Tunisia2018"){
 			replace onedayfac = 0 if bl2 == 1
 			replace onedayfac = 1 if pn3u == 1 & inrange(pn3n,24,90)
 			replace onedayfac = 1 if pn3u == 2 & inrange(pn3n,1,7)

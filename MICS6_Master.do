@@ -67,6 +67,7 @@ macro drop _all
 * Define the country names (in globals) by recode version
 	global newMICS6countries "Algeria2018 Cuba2019 SaoTomeAndPrincipe2019 Kosovo2019 CentralAfricanRepublic2018 Nepal2019 StateofPalestine2019 Guinea-Bissau2018 Serbia2019 Turkmenistan2019 Tonga2019 Thailand2019 NorthMacedonia2018 Belarus2019 Chad2019 CostaRica2018 Ghana2017 Congodr2017 Bangladesh2019 Togo2017 Montenegro2018 Kiribati2018 Zimbabwe2019 Madagascar2018 LaoPDR2017 SierraLeone2017 Iraq2017 KyrgyzRepublic2018 Mongolia2018 Suriname2018 Gambia2018 Tunisia2018 Lesotho2018 Georgia2018 Samoa2019"
 	global newMICS6countries "TurksCaicosIslands2019"
+	global newMICS6countries "Tuvalu2019"
 
 foreach name in $newMICS6countries {
 	clear 
