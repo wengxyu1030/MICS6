@@ -65,7 +65,7 @@ macro drop _all
     if `pc' == 5 global DO "/Users/crystalo/Documents/GitHub/MICS6"
 	
 * Define the country names (in globals) by recode version
-	global newMICS6countries "TurksCaicosIslands2019"
+	global newMICS6countries "Tuvalu2019"
 
 foreach name in $newMICS6countries {
 	clear 
