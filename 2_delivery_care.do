@@ -37,6 +37,7 @@ c_sba_eff2_q
 			country_name == "Guinea-Bissau2018" |
 			country_name == "Belarus2019"|
 			country_name == "Chad2019"|
+			country_name == "NorthMacedonia2018"|
 			country_name == "TurksCaicosIslands2019"|
 			country_name == "Nepal2019"|
 			country_name == "Tuvalu2019"|
@@ -69,11 +70,10 @@ c_sba_eff2_q
 			replace c_hospdel = 0 if mn20 != .
       replace c_hospdel = 1 if inlist(mn20,21,23) // 1 for public hospital
 		}	
-		if inlist(country_name,"NorthMacedonia2018") {
+		if inlist(country_name,"Vietnam2020") {
 			replace c_hospdel = 0 if mn20 != .
-			replace c_hospdel = 1 if inlist(mn20,21,31)
-		}
-
+      replace c_hospdel = 1 if inlist(mn20,21,24,31) // 1 for private/public hospital
+		}	
 		replace c_hospdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 		
 
@@ -187,6 +187,11 @@ c_sba_eff2_q
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inlist(mn20,21,22,41)
 		}
+		if inlist(country_name,"Vietnam2020") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,24)		// 1 for public health facility
+			replace c_facdel = 1 if inlist(mn20,31,36)	    // 1 for private health facility
+		}	
 		replace c_facdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 // Not taking into account "Others"
     
@@ -242,7 +247,7 @@ c_sba_eff2_q
 				global mn19 "mn19a mn19d mn19e mn19g"
 			}
       
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","NorthMacedonia2018","Cuba2019","SaoTomeAndPrincipe2019")|inlist(country_name,"Samoa2019","TurksCaicosIslands2019"){
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","NorthMacedonia2018","Cuba2019","SaoTomeAndPrincipe2019")|inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Vietnam2020"){
 				global mn19 "mn19a mn19b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
@@ -291,7 +296,7 @@ c_sba_eff2_q
 * Helper: stayed in facility for 24 hours after birth
 		gen onedayfac = .
 
-		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019","TurksCaicosIslands2019")|inlist(country_name,"Tunisia2018"){
+		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019","TurksCaicosIslands2019")|inlist(country_name,"Tunisia2018","Vietnam2020"){
 			replace onedayfac = 0 if bl2 == 1
 			replace onedayfac = 1 if pn3u == 1 & inrange(pn3n,24,90)
 			replace onedayfac = 1 if pn3u == 2 & inrange(pn3n,1,7)

@@ -66,7 +66,10 @@
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4k cp4l cp4m cp4n cp4x"
 			}
 			if inlist(country_name,"Tuvalu2019"){
-				global cp4 "cp4a cp4d cp4e cp4f cp4g cp4h cp4i cp4k"
+				global cp4 "cp4a cp4b cp4d cp4e cp4f cp4g cp4h cp4i cp4k"
+			}
+			if inlist(country_name,"Vietnam2020"){
+				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4k"
 			}
 		
 			foreach var in $cp4 {
