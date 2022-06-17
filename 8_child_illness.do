@@ -77,7 +77,8 @@ c_illtreat
 			country_name == "TurksCaicosIslands2019"|
 			country_name == "Tuvalu2019"|
 			country_name == "Argentina2019"|
-			country_name == "SaoTomeAndPrincipe2019" {;
+			country_name == "SaoTomeAndPrincipe2019"|
+			country_name == "Honduras2019" {;
 	    #delimit cr 
 			replace c_treatdiarrhea = 0 if ca1 == 1						// children with diarrhea in last 2 weeks
 			replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (ca7a == 1 | ca7b == 1)	// received ORS
@@ -154,7 +155,8 @@ c_illtreat
 			country_name == "Samoa2019" |
 			country_name == "TurksCaicosIslands2019" |
 			country_name == "CentralAfricanRepublic2018"|
-			country_name == "SaoTomeAndPrincipe2019" {;
+			country_name == "SaoTomeAndPrincipe2019" |
+			country_name == "Honduras2019" {;
 	    #delimit cr 
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  ca7c == 1 
 			replace c_diarrhea_med = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
@@ -217,7 +219,8 @@ c_illtreat
 			country_name == "Belarus2019"|
 			country_name == "Samoa2019"|
 			country_name == "CentralAfricanRepublic2018"|
-			country_name == "Cuba2019" {;
+			country_name == "Cuba2019" |
+			country_name == "Honduras2019" {;
 	    #delimit cr 
 			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  ca7c == 1 
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9)   // OR treatment/consultation variable missing
@@ -335,6 +338,9 @@ c_illtreat
 		if inlist(country_name,"Argentina2019") {
 			global ca6 "ca6a ca6b ca6d ca6h ca6j ca6o"
 		}
+		if inlist(country_name,"Honduras2019") {
+			global ca6 "ca6a ca6b ca6d ca6e ca6f ca6i ca6j ca6l ca6m"
+		}
 		
 		foreach var in $ca6 {
 		    replace `var' = "" if `var' == " "
@@ -359,7 +365,7 @@ c_illtreat
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca7c == 1)
 		}		
 		
-		if inlist(country_name,"LaoPDR2017","SierraLeone2017","Mongolia2018","Gambia2018","Tunisia2018","Madagascar2018","Togo2017","Kiribati2018", "CostaRica2018")| inlist(country_name,"Belarus2019","Chad2019","StateofPalestine2019","CentralAfricanRepublic2018","Tuvalu2019"){
+		if inlist(country_name,"LaoPDR2017","SierraLeone2017","Mongolia2018","Gambia2018","Tunisia2018","Madagascar2018","Togo2017","Kiribati2018", "CostaRica2018")| inlist(country_name,"Belarus2019","Chad2019","StateofPalestine2019","CentralAfricanRepublic2018","Tuvalu2019","Guinea-Bissau2018","Honduras2019"){
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca7c == 1 | ca7d == 1)
 		}
 		if inlist(country_name,"Iraq2017") {
@@ -551,6 +557,9 @@ c_illtreat
 		if inlist(country_name,"Argentina2019") {
 			global ca21 "ca21a ca21b ca21d ca21h ca21i ca21j ca21o"
 		} 
+		if inlist(country_name,"Honduras2019") {
+			global ca21 "ca21a ca21b ca21d ca21e ca21f ca21i ca21j ca21l ca21m"
+		}
 		
 	    foreach var in $ca21 {
 		    replace `var' = "" if `var' == " "
@@ -647,6 +656,9 @@ c_illtreat
 		}	
 		if inlist(country_name,"Argentina2019") {
 			global ca621 "ca6a ca6b ca6d ca6h ca6j ca6o ca21a ca21b ca21d ca21h ca21i ca21j ca21o"
+		}
+		if inlist(country_name,"Honduras2019") {
+			global ca621 "ca6a ca6b ca6d ca6e ca6f ca6i ca6j ca6l ca6m ca21a ca21b ca21d ca21e ca21f ca21i ca21j ca21l ca21m"
 		}
 		
 		foreach var in $ca621 {

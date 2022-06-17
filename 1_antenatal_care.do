@@ -61,7 +61,8 @@
 			country_name == "Tuvalu2019" |
 			country_name == "Argentina2019" |
 			country_name == "TurksCaicosIslands2019" |
-			country_name == "Tonga2019" {;
+			country_name == "Tonga2019" |
+			country_name == "Honduras2019" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -107,7 +108,8 @@
 			country_name == "Turkmenistan2019" |
 			country_name == "Serbia2019" |
 			country_name == "Tuvalu2019" |
-			country_name == "Nepal2019" {;
+			country_name == "Nepal2019" |
+			country_name == "Honduras2019" {;
 
 	    #delimit cr		
 				global mn3 "mn3a mn3b mn3c"
