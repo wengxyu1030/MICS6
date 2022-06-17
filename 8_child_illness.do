@@ -364,7 +364,7 @@ c_illtreat
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca7c == 1)
 		}		
 		
-		if inlist(country_name,"LaoPDR2017","SierraLeone2017","Mongolia2018","Gambia2018","Tunisia2018","Madagascar2018","Togo2017","Kiribati2018", "CostaRica2018")| inlist(country_name,"Belarus2019","Chad2019","StateofPalestine2019","CentralAfricanRepublic2018","Tuvalu2019","Vietnam2020")
+		if inlist(country_name,"LaoPDR2017","SierraLeone2017","Mongolia2018","Gambia2018","Tunisia2018","Madagascar2018","Togo2017","Kiribati2018", "CostaRica2018")| inlist(country_name,"Belarus2019","Chad2019","StateofPalestine2019","CentralAfricanRepublic2018","Tuvalu2019","Vietnam2020") {
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca7c == 1 | ca7d == 1)
 		}
 		if inlist(country_name,"Iraq2017") {
