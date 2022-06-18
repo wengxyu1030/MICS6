@@ -75,6 +75,10 @@ c_sba_eff2_q
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,22,31) // 1 for public hospital
 		}	
+		if inlist(country_name,"DominicanRepublic2019") {
+			replace c_hospdel = 0 if mn20 != .
+			replace c_hospdel = 1 if inlist(mn20,21,22) // 1 for public hospital
+		}	
 		
 		replace c_hospdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 		
@@ -194,7 +198,7 @@ c_sba_eff2_q
 			replace c_facdel = 1 if inrange(mn20,21,22)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,33)	    // 1 for private health facility
 		}
-		if inlist(country_name,"Honduras2019") {
+		if inlist(country_name,"Honduras2019","DominicanRepublic2019") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,36)	    // 1 for private health facility
@@ -264,7 +268,7 @@ c_sba_eff2_q
 			if inlist(country_name,"Congodr2017") {	
 				global mn19 "mn19a mn19c mn19d"
 			}
-			if inlist(country_name,"Togo2017","Tonga2019","CentralAfricanRepublic2018") {	
+			if inlist(country_name,"Togo2017","Tonga2019","CentralAfricanRepublic2018","Argentina2019","DominicanRepublic2019") {	
 				global mn19 "mn19a mn19b mn19c mn19d"
 			}
 			if inlist(country_name,"CostaRica2018") {	
@@ -273,9 +277,7 @@ c_sba_eff2_q
 			if inlist(country_name,"Algeria2018") {	
 				global mn19 "mn19a mn19b mn19d"
 			} 
-			if inlist(country_name,"Argentina2019") {	
-				global mn19 "mn19a mn19b mn19c mn19d"
-			} 
+
 
 			foreach var in $mn19 {
 				replace `var' = "" if `var' == " "
