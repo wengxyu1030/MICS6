@@ -61,7 +61,7 @@ c_pnc_eff2_q
 			global pnc "a b c d"
 		}
 		*/
-		if inlist(country_name,"Togo2017","Tonga2019","Argentina2019") {
+		if inlist(country_name,"Togo2017","Tonga2019","Argentina2019","DominicanRepublic2019") {
 			global pnc "a b c d"
 		}		
 		if inlist(country_name,"CostaRica2018") {

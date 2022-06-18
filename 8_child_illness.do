@@ -97,7 +97,12 @@ c_illtreat
 					replace c_treatdiarrhea = . if cage == . | ca1 != 1
 					replace c_treatdiarrhea = . if inlist(ca7b, 8, 9)   // missing when both ORS variables are missing and none o	
 		}
-	
+		if inlist(country_name,"DominicanRepublic2019") {
+					replace c_treatdiarrhea = 0 if ca1 == 1			// children with diarrhea in last 2 weeks
+					replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (bd5 == 1)	// received ORS
+					replace c_treatdiarrhea = . if cage == . | ca1 != 1
+					replace c_treatdiarrhea = . if inlist(bd5, 8, 9)   // missing when both ORS variables are missing and none o	
+		}	
 	
 * c_diarrhea_hmf:  Child under 5 with diarrhea in last 2 weeks received	Government recommended homemade fluid (Coconut water or rice water with salt)		
 		
@@ -108,7 +113,7 @@ c_illtreat
 		}
 		replace c_diarrhea_hmf = 0 if ca1 == 1	         // children with diarrhea in last 2 weeks
 		
-		if ~inlist(country_name,"KyrgyzRepublic2018","Guinea-Bissau2018","Tonga2019","SaoTomeAndPrincipe2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019") {		
+		if ~inlist(country_name,"KyrgyzRepublic2018","Guinea-Bissau2018","Tonga2019","SaoTomeAndPrincipe2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019","DominicanRepublic2019") {		
 			replace c_diarrhea_hmf = 1 if c_diarrhea_hmf == 0 & ca7d == 1 	// received Government recommended homemade fluid 
 			replace c_diarrhea_hmf = . if inlist(ca7d, 8, 9) 	// missing when Government recommended homemade fluid  variable is missing and none o	
 		}
@@ -117,14 +122,11 @@ c_illtreat
 			replace c_diarrhea_hmf = 1 if c_diarrhea_hmf == 0 & (ca7d == 1 | ca7e == 1) 	// received Government recommended homemade fluid 
 			replace c_diarrhea_hmf = . if inlist(ca7d, 8, 9) | inlist(ca7e, 8, 9) 	// missing when Government recommended homemade fluid  variable is missing and none o	
 		}
-		if inlist(country_name,"Tonga2019") {
+		if inlist(country_name,"Tonga2019","DominicanRepublic2019") {
 			replace c_diarrhea_hmf = 1 if c_diarrhea_hmf == 0 & ca7b == 1
 			replace c_diarrhea_hmf = . if inlist(ca7b, 8, 9)	// missing when Government recommended homemade fluid  variable is missing and none o	
 		}
 		replace c_diarrhea_hmf = . if cage == . | ca1 != 1  
-		
- 
-		
 		
 		
 * c_diarrhea_med: Child under 5 with diarrhea in last 2 weeks received any medicine treatment other than ORS and homemade fluid
@@ -190,7 +192,11 @@ c_illtreat
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7d == 1 | ca73 == 1)
 			replace c_diarrhea_med = . if inlist(ca7c,8,9) | inlist(ca7d,8,9) | inlist(ca7e,8,9)      // OR treatment/consultation variable missing
 		}
-			
+		if inlist(country_name,"DominicanRepublic2019") {
+			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca12 == 1)
+			replace c_diarrhea_med = . if inlist(ca12,8,9)      // OR treatment/consultation variable missing
+		}
+		
 		replace c_diarrhea_med = 1 if  c_diarrhea_med == 0 & (ca13a == "A" | ca13b == "B" | ca13g == "G"| ca13h == "H" | ca13l == "L" | ca13m == "M" | ca13n == "N" | ca13o == "O" | ca13q == "Q" | ca13x == "X")
 		replace c_diarrhea_med = . if  ca13a == "?" | ca13b == "?" | ca13g == "?"| ca13h == "?" | ca13l == "?" | ca13m == "?" | ca13n == "?" | ca13o == "?" | ca13q == "?" | ca13x == "?"
 		replace c_diarrhea_med = . if cage == . | ca1 != 1           // Child age missing OR diarrhea variable missing 
@@ -247,8 +253,12 @@ c_illtreat
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9) | inlist(ca7aa,8,9) | inlist(ca7ab,8,9) | inlist(ca7ac,8,9)    // OR treatment/consultation variable missing
 		}
 		if inlist(country_name,"CostaRica2018","Tonga2019") {
-			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7d == 1)
-			replace c_diarrhea_med = . if inlist(ca7c,8,9)  | inlist(ca7d,8,9)
+			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  (ca7c == 1 | ca7d == 1)
+			replace c_diarrhea_medfor = . if inlist(ca7c,8,9)  | inlist(ca7d,8,9)
+		}
+		if inlist(country_name,"DominicanRepublic2019") {
+			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca12 == 1)
+			replace c_diarrhea_med = . if inlist(ca12,8,9)      // OR treatment/consultation variable missing
 		}
 		
 		replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 & (ca13a == "A" | ca13b == "B" | ca13g == "G"| ca13h == "H" | ca13l == "L" | ca13m == "M" | ca13n == "N" | ca13o == "O")
@@ -341,6 +351,9 @@ c_illtreat
 		if inlist(country_name,"Honduras2019") {
 			global ca6 "ca6a ca6b ca6d ca6e ca6f ca6i ca6j ca6l ca6m"
 		}
+		if inlist(country_name,"DominicanRepublic2019") {
+			global ca6 "ca6a ca6b ca6c ca6d ca6e ca6i ca6j ca6m"
+		}
 		
 		foreach var in $ca6 {
 		    replace `var' = "" if `var' == " "
@@ -414,6 +427,10 @@ c_illtreat
 		if inlist(country_name,"Argentina2019") {
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1)
 		}
+		if inlist(country_name,"DominicanRepublic2019") {
+			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1 | ca12)
+		}
+		
 		replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca13a == "A" | ca13b == "B" | ca13g == "G"| ca13h == "H" | ca13l == "L" | ca13m == "M" | ca13n == "N" | ca13o == "O" | ca13q == "Q" | ca13x == "X")
 		replace c_diarrheaact = . if ca13a == "?" | ca13b == "?" | ca13g == "?"| ca13h == "?" | ca13l == "?" | ca13m == "?" | ca13n == "?" | ca13o == "?" | ca13q == "?" | ca13x == "?"
 		replace c_diarrheaact = . if cage == . | ca1 != 1           // Child age missing OR diarrhea variable missing 
@@ -560,6 +577,9 @@ c_illtreat
 		if inlist(country_name,"Honduras2019") {
 			global ca21 "ca21a ca21b ca21d ca21e ca21f ca21i ca21j ca21l ca21m"
 		}
+		if inlist(country_name,"DominicanRepublic2019") {
+			global ca21 "ca21a ca21b ca21c ca21d ca21e ca21i ca21j ca21m"
+		}
 		
 	    foreach var in $ca21 {
 		    replace `var' = "" if `var' == " "
@@ -659,6 +679,9 @@ c_illtreat
 		}
 		if inlist(country_name,"Honduras2019") {
 			global ca621 "ca6a ca6b ca6d ca6e ca6f ca6i ca6j ca6l ca6m ca21a ca21b ca21d ca21e ca21f ca21i ca21j ca21l ca21m"
+		}
+		if inlist(country_name,"DominicanRepublic2019") {
+			global ca621 "ca6a ca6b ca6c ca6d ca6e ca6i ca6j ca6m ca21a ca21b ca21c ca21d ca21e ca21i ca21j ca21m"
 		}
 		
 		foreach var in $ca621 {
