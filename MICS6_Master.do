@@ -70,6 +70,7 @@ macro drop _all
 	global newMICS6countries "Malawi2019"
 
 
+
 foreach name in $newMICS6countries {
 	clear 
 	tempfile wm ch ch_itn bh
