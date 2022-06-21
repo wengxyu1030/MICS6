@@ -364,4 +364,10 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
 			*/
         }		
 
-		
+		if inlist(country_name,"Malawi2019") {
+		    replace gl_adm0_code = 152
+			replace gl_adm1_code = 1889 if hh_region_num == 1
+			replace gl_adm1_code = 1888 if hh_region_num == 2
+            replace gl_adm1_code = 1890 if hh_region_num == 3
+			
+        }		
