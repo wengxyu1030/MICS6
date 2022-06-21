@@ -265,8 +265,8 @@ c_illtreat
 			replace c_diarrhea_medfor = . if inlist(ca7c,8,9)  | inlist(ca7d,8,9)
 		}
 		if inlist(country_name,"DominicanRepublic2019") {
-			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca12 == 1)
-			replace c_diarrhea_med = . if inlist(ca12,8,9)      // OR treatment/consultation variable missing
+			replace c_diarrhea_medfor = 1 if c_diarrhea_med == 0 &  (ca12 == 1)
+			replace c_diarrhea_medfor = . if inlist(ca12,8,9)      // OR treatment/consultation variable missing
 		}
 		
 		replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 & (ca13a == "A" | ca13b == "B" | ca13g == "G"| ca13h == "H" | ca13l == "L" | ca13m == "M" | ca13n == "N" | ca13o == "O")

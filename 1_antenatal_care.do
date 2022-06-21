@@ -65,7 +65,7 @@
 			country_name == "Tonga2019" |
 			country_name == "Honduras2019" |
 			country_name == "DominicanRepublic2019" |
-      country_name == "Malawi2019" {;
+			country_name == "Malawi2019" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -289,7 +289,7 @@
 * c_anc_tet: pregnant women vaccinated against tetanus during pregnancy of births in last 2 years
 		gen c_anc_tet = .
 
-		if !(inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019","Serbia2019") | inlist(country_name,"Kosovo2019","NorthMacedonia2018","Cuba2019","Tonga2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019","Argentina2019")) {
+		if !(inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019","Serbia2019") | inlist(country_name,"Kosovo2019","NorthMacedonia2018","Cuba2019","Tonga2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019","Argentina2019","Honduras2019")) {
 		     replace c_anc_tet = 0 if mn7 != .				// immunization question
 		     
 			 replace c_anc_tet = 1 if c_anc_tet == 0 & inlist(mn8,2,8) & inrange(mn12,5,7)		// No/DK injections during pregrancy for last child but 5+ before (woman is then protected for the childbearing years period)
