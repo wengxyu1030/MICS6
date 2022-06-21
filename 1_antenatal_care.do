@@ -59,9 +59,14 @@
 			country_name == "SaoTomeAndPrincipe2019" |
 			country_name == "Samoa2019" |
 			country_name == "Tuvalu2019" |
+			country_name == "Argentina2019" |
 			country_name == "TurksCaicosIslands2019" |
 			country_name == "Vietnam2020" |
-			country_name == "Tonga2019" {;
+			country_name == "Tonga2019" |
+			country_name == "Honduras2019" |
+			country_name == "DominicanRepublic2019" |
+      country_name == "Malawi2019" {;
+
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -107,7 +112,8 @@
 			country_name == "Turkmenistan2019" |
 			country_name == "Serbia2019" |
 			country_name == "Tuvalu2019" |
-			country_name == "Nepal2019" {;
+			country_name == "Nepal2019" |
+			country_name == "Honduras2019" {;
 
 	    #delimit cr		
 				global mn3 "mn3a mn3b mn3c"
@@ -122,8 +128,7 @@
 			//Antenatal care does not involve agente de saude comunitaria, unlike post natal care
 
 			//SaoTomeAndPrincipe2019: survey report only listed Medico / enfermeira / parteira. Parteira tradicional / agente de sante communautaira have no observations in respective variables.s
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019","NorthMacedonia2018","SaoTomeAndPrincipe2019") | inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Vietnam2020") {
-			
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019","NorthMacedonia2018","SaoTomeAndPrincipe2019") | inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Vietnam2020","Malawi2019") {
 				global mn3 "mn3a mn3b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
@@ -132,7 +137,7 @@
 			if inlist(country_name,"Congodr2017") {	
 				global mn3 "mn3a mn3c mn3d"
 			}
-			if inlist(country_name,"Togo2017","CentralAfricanRepublic2018") {	
+			if inlist(country_name,"Togo2017","CentralAfricanRepublic2018","Argentina2019","DominicanRepublic2019") {	
 				global mn3 "mn3a mn3b mn3c mn3d"
 			}
 			if inlist(country_name,"CostaRica2018") {	
@@ -285,7 +290,7 @@
 * c_anc_tet: pregnant women vaccinated against tetanus during pregnancy of births in last 2 years
 		gen c_anc_tet = .
 
-		if !(inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019","Serbia2019") | inlist(country_name,"Kosovo2019","NorthMacedonia2018","Cuba2019","Tonga2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019")) {
+		if !(inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019","Serbia2019") | inlist(country_name,"Kosovo2019","NorthMacedonia2018","Cuba2019","Tonga2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019","Argentina2019")) {
 		     replace c_anc_tet = 0 if mn7 != .				// immunization question
 		     
 			 replace c_anc_tet = 1 if c_anc_tet == 0 & inlist(mn8,2,8) & inrange(mn12,5,7)		// No/DK injections during pregrancy for last child but 5+ before (woman is then protected for the childbearing years period)

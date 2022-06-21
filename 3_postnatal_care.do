@@ -35,7 +35,8 @@ c_pnc_eff2_q
 			country_name == "Belarus2019"|
 			country_name == "Chad2019"|
 			country_name == "Tuvalu2019"|
-			country_name == "Nepal2019" {;
+			country_name == "Nepal2019" |
+			country_name == "Honduras2019" {;
 	    #delimit cr	
 			global pnc "a b c"
 		}
@@ -46,7 +47,7 @@ c_pnc_eff2_q
 			global pnc "a d e g"
 		}
 
-		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019", "SaoTomeAndPrincipe2019","NorthMacedonia2018") | inlist(country_name,"TurksCaicosIslands2019","Vietnam2020") {
+		if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019", "SaoTomeAndPrincipe2019","NorthMacedonia2018") | inlist(country_name,"TurksCaicosIslands2019","Malawi2019","Vietnam2020") {
 			global pnc "a b"
 		}
 		if inlist(country_name,"Bangladesh2019") {
@@ -60,7 +61,7 @@ c_pnc_eff2_q
 			global pnc "a b c d"
 		}
 		*/
-		if inlist(country_name,"Togo2017","Tonga2019") {
+		if inlist(country_name,"Togo2017","Tonga2019","Argentina2019","DominicanRepublic2019") {
 			global pnc "a b c d"
 		}		
 		if inlist(country_name,"CostaRica2018") {
@@ -91,7 +92,7 @@ c_pnc_eff2_q
 	
 	gen c_pnc_eff = .
 	
-	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019","TurksCaicosIslands2019","Tuvalu2019") {
+	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019","TurksCaicosIslands2019","Tuvalu2019","Argentina2019") {
 		replace c_pnc_eff = 0 if bl2 == 1
 		* pnc for SBA facility births
 		replace c_pnc_eff = 1 if c_sba == 1 & pn4 == 1 & pn5 == 1  // baby AND mother checked within 24h of birth and before leaving facility by skilled provider
@@ -143,7 +144,7 @@ c_pnc_eff2_q
 // c_pnc_eff2: mother AND child in first 24h by skilled health worker and cord check, temperature check and breastfeeding counselling within first two days
 	gen c_pnc_eff2 = c_pnc_eff
 
-	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019","Tuvalu2019") {
+	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019","Tuvalu2019","Argentina2019") {
 		replace c_pnc_eff2 = 0 if pn25a == 2 | pn25b == 2| pn25c == 2
 		replace c_pnc_eff2 = . if c_pnc_eff == . | inrange(pn25a,8,9) | inrange(pn25b,8,9) | inrange(pn25c,8,9)  
 	}

@@ -337,6 +337,37 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
             replace gl_adm1_code = -7 
         } //internal boundaries have changed and make it hard to match
 			
-		
+		if inlist(country_name,"Honduras2019") {
+		    replace gl_adm0_code = 111
+			replace gl_adm1_code = 1420 if hh_region_num == 1
+			replace gl_adm1_code = 1422 if hh_region_num == 2
+            replace gl_adm1_code = 1423 if hh_region_num == 3
+			replace gl_adm1_code = 1424 if hh_region_num == 4
+			replace gl_adm1_code = 1425 if hh_region_num == 5
+			replace gl_adm1_code = 1421 if hh_region_num == 6 // choluteca
+			replace gl_adm1_code = . if hh_region_num == 7 // el paraiso
+			replace gl_adm1_code = 1426 if hh_region_num == 8
+            replace gl_adm1_code = 1427 if hh_region_num == 9
+			replace gl_adm1_code = 1428 if hh_region_num == 10
+			replace gl_adm1_code = 1429 if hh_region_num == 11
+			replace gl_adm1_code = 1430 if hh_region_num == 12
+            replace gl_adm1_code = 1431 if hh_region_num == 13
+			replace gl_adm1_code = 1433 if hh_region_num == 14
+			replace gl_adm1_code = 1434 if hh_region_num == 15
+			replace gl_adm1_code = 1436 if hh_region_num == 16
+            replace gl_adm1_code = 1437 if hh_region_num == 17
+			replace gl_adm1_code = 1438 if hh_region_num == 18
+			replace gl_adm1_code = . if hh_region_num == 19 // san pedro sula
+			replace gl_adm1_code = . if hh_region_num == 20 // distrito central
+			
+			/*FAO's Gaul2015 has a "Name unknown" category https://data.apps.fao.org/catalog/dataset/gaul-codes/resource/cfdaf156-26b9-46c2-aab2-eb437fc16622
+			*/
+        }		
 
-		
+		if inlist(country_name,"Malawi2019") {
+		    replace gl_adm0_code = 152
+			replace gl_adm1_code = 1889 if hh_region_num == 1
+			replace gl_adm1_code = 1888 if hh_region_num == 2
+            replace gl_adm1_code = 1890 if hh_region_num == 3
+			
+        }		
