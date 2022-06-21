@@ -6,7 +6,7 @@
 /// c_stu_was_sev
 /// c_motherln
 
-if inlist(country_name,"Belarus2019") {
+if inlist(country_name,"Belarus2019","Vietnam2020") {
 	gen c_height = .
 	gen c_weight = .
 	gen c_hfa = .
