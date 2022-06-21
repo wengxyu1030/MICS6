@@ -69,8 +69,6 @@ macro drop _all
 	global newMICS6countries "Vietnam2020"
 	global newMICS6countries "Malawi2019"
 
-
-
 foreach name in $newMICS6countries {
 	clear 
 	tempfile wm ch ch_itn bh
@@ -111,7 +109,7 @@ foreach name in $newMICS6countries {
 	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'ch.dta", clear	
 * Prepare
 	gen country_name = "`name'"
-		
+			
 * Run do files for child data
     do "${DO}/7_child_vaccination"
 	do "${DO}/8_child_illness"
