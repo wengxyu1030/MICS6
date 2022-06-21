@@ -324,7 +324,7 @@ c_sba_eff2_q
 * Helper: stayed in facility for 24 hours after birth
 		gen onedayfac = .
 
-		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019","TurksCaicosIslands2019")|inlist(country_name,"Tunisia2018","Argentina2019","Vietnam2020"){
+		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019","TurksCaicosIslands2019") {
 			replace onedayfac = 0 if bl2 == 1
 			replace onedayfac = 1 if pn3u == 1 & inrange(pn3n,24,90)
 			replace onedayfac = 1 if pn3u == 2 & inrange(pn3n,1,7)

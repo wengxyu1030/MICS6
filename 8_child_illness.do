@@ -114,7 +114,7 @@ c_illtreat
 		}
 		replace c_diarrhea_hmf = 0 if ca1 == 1	         // children with diarrhea in last 2 weeks
 		
-		if ~inlist(country_name,"KyrgyzRepublic2018","Guinea-Bissau2018","Tonga2019","SaoTomeAndPrincipe2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019","DominicanRepublic2019","Malawi2019","Vietnam2020") {		
+		if ~inlist(country_name,"KyrgyzRepublic2018","Guinea-Bissau2018","Tonga2019","SaoTomeAndPrincipe2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019") | ~inlist("DominicanRepublic2019","Malawi2019","Vietnam2020") {		
 			replace c_diarrhea_hmf = 1 if c_diarrhea_hmf == 0 & ca7d == 1 	// received Government recommended homemade fluid 
 			replace c_diarrhea_hmf = . if inlist(ca7d, 8, 9) 	// missing when Government recommended homemade fluid  variable is missing and none o	
 		}
