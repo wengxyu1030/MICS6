@@ -65,7 +65,8 @@
 			country_name == "Tonga2019" |
 			country_name == "Honduras2019" |
 			country_name == "DominicanRepublic2019" |
-			country_name == "Malawi2019" {;
+			country_name == "Malawi2019" 
+			country_name == "Fiji2021" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -127,7 +128,7 @@
 			//Antenatal care does not involve agente de saude comunitaria, unlike post natal care
 
 			//SaoTomeAndPrincipe2019: survey report only listed Medico / enfermeira / parteira. Parteira tradicional / agente de sante communautaira have no observations in respective variables.s
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019","NorthMacedonia2018","SaoTomeAndPrincipe2019") | inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Vietnam2020","Malawi2019") {
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019","NorthMacedonia2018","SaoTomeAndPrincipe2019") | inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Vietnam2020","Malawi2019","Fiji2021") {
 				global mn3 "mn3a mn3b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
@@ -273,12 +274,17 @@
 			replace c_anc_ir = 1 if mn6ba == 1
 			replace c_anc_ir = . if inlist(mn6ba,8,9)
 	    }
+	    	if inlist(country_name,"Fiji2021") {
+			replace c_anc_ir = 0 if mn2 != .
+			replace c_anc_ir = 1 if mn6h == 1
+			replace c_anc_ir = . if mn6h == 9
+	    }
 			replace c_anc_ir = . if bl2 != 1 | ~inrange(wb4,15,49)			// missing for births > 24 months age		
 		
 * c_anc_ir_q: iron supplements taken during pregnancy among ANC users of births in last 2 years
 		gen c_anc_ir_q = .
 
-		if inlist(country_name,"LaoPDR2017","Mongolia2018","Kiribati2018","Cuba2019") {
+		if inlist(country_name,"LaoPDR2017","Mongolia2018","Kiribati2018","Cuba2019","Fiji2021") {
 			replace c_anc_ir_q = 0 if c_anc_any == 1						// among ANC users
 			replace c_anc_ir_q = 1 if c_anc_ir_q == 0  & c_anc_ir == 1
 			replace c_anc_ir_q = . if c_anc_any == . | c_anc_ir == .
