@@ -75,6 +75,9 @@
 			if inlist(country_name,"Argentina2019"){
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4k cp4n cp4o cp4p"
 			}
+			if inlist(country_name,"Fiji2021") {
+		    		global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4k"
+			}
 			
 		
 			foreach var in $cp4 {
