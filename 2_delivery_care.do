@@ -42,7 +42,7 @@ c_sba_eff2_q
 			country_name == "Nepal2019"|
 			country_name == "Tuvalu2019"|
 			country_name == "Argentina2019"|
-			country_name == "CentralAfricanRepublic2018"
+			country_name == "CentralAfricanRepublic2018" |
 			country_name == "Fiji2021"{;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
