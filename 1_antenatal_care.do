@@ -65,7 +65,7 @@
 			country_name == "Tonga2019" |
 			country_name == "Honduras2019" |
 			country_name == "DominicanRepublic2019" |
-			country_name == "Malawi2019" 
+			country_name == "Malawi2019" |
 			country_name == "Fiji2021" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
