@@ -160,7 +160,7 @@ c_illtreat
 			country_name == "CentralAfricanRepublic2018"|
 			country_name == "SaoTomeAndPrincipe2019" |
 			country_name == "Honduras2019" |
-			country_name == "Malawi2019" 
+			country_name == "Malawi2019" |
 			country_name == "Fiji2021"{;
 	    #delimit cr 
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  ca7c == 1 
@@ -235,7 +235,7 @@ c_illtreat
 			country_name == "Vietnam2020"|
 			country_name == "Cuba2019" |
 			country_name == "Honduras2019" |
-			country_name == "Malawi2019"
+			country_name == "Malawi2019" |
 			country_name == "Fiji2021"{;
 	    #delimit cr 
 			replace c_diarrhea_medfor = 1 if c_diarrhea_medfor == 0 &  ca7c == 1 
