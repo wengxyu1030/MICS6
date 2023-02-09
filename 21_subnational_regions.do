@@ -371,3 +371,7 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
             replace gl_adm1_code = 1890 if hh_region_num == 3
 			
         }		
+	if inlist(country_name,"Fiji2021") {
+		    replace gl_adm0_code = -9
+			replace gl_adm1_code = -9
+        }

@@ -42,7 +42,8 @@ c_sba_eff2_q
 			country_name == "Nepal2019"|
 			country_name == "Tuvalu2019"|
 			country_name == "Argentina2019"|
-			country_name == "CentralAfricanRepublic2018"{;
+			country_name == "CentralAfricanRepublic2018" |
+			country_name == "Fiji2021"{;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31)		// 1 for private/public hospital
@@ -219,6 +220,10 @@ c_sba_eff2_q
 			replace c_facdel = 1 if inrange(mn20,31,36)	    // 1 for private health facility
 			replace c_facdel = 1 if inrange(mn20,41,42)	    // 1 for CHAM/MISSION facility
 		}		
+		if inlist(country_name,"Fiji2021") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inlist(mn20,21,22)		// 1 for public hospital & clinic & health centre
+		}
 		replace c_facdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 // Not taking into account "Others"
     
@@ -274,7 +279,7 @@ c_sba_eff2_q
 				global mn19 "mn19a mn19d mn19e mn19g"
 			}
       
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","NorthMacedonia2018","Cuba2019","SaoTomeAndPrincipe2019")|inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Malawi2019","Vietnam2020"){
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","NorthMacedonia2018","Cuba2019","SaoTomeAndPrincipe2019")|inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Malawi2019","Vietnam2020","Fiji2021"){
 				global mn19 "mn19a mn19b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
