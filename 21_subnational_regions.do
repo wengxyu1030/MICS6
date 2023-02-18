@@ -380,38 +380,38 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
 			replace gl_adm1_code = 2211 if hh7 == 1
 			replace gl_adm1_code = 2212 if hh7 == 37
 			replace gl_adm1_code = 2213 if hh7 == 2
-            replace gl_adm1_code = 2215 if hh7 == 3
+            		replace gl_adm1_code = 2215 if hh7 == 3
 			replace gl_adm1_code = 2216 if hh7 == 4
 			replace gl_adm1_code = 2217 if hh7 == 5
-            replace gl_adm1_code = 2218 if hh7 == 6
+            		replace gl_adm1_code = 2218 if hh7 == 6
 			replace gl_adm1_code = 2219 if hh7 == 7
 			replace gl_adm1_code = 2221 if hh7 == 8
-            replace gl_adm1_code = 2222 if hh7 == 9
+            		replace gl_adm1_code = 2222 if hh7 == 9
 			replace gl_adm1_code = 2223 if hh7 == 10
 			replace gl_adm1_code = 2224 if hh7 == 11
-            replace gl_adm1_code = 2225 if hh7 == 12
+            		replace gl_adm1_code = 2225 if hh7 == 12
 			replace gl_adm1_code = 2226 if hh7 == 13
 			replace gl_adm1_code = 2227 if hh7 == 14
-            replace gl_adm1_code = 2228 if hh7 == 15
+            		replace gl_adm1_code = 2228 if hh7 == 15
 			replace gl_adm1_code = 2229 if hh7 == 16
 			replace gl_adm1_code = 2230 if hh7 == 17
 			replace gl_adm1_code = 2231 if hh7 == 18
-            replace gl_adm1_code = 2232 if hh7 == 19
+           		replace gl_adm1_code = 2232 if hh7 == 19
 			replace gl_adm1_code = 2234 if hh7 == 20
 			replace gl_adm1_code = 2235 if hh7 == 21
-            replace gl_adm1_code = 2239 if hh7 == 22
+            		replace gl_adm1_code = 2239 if hh7 == 22
 			replace gl_adm1_code = 2240 if hh7 == 23
 			replace gl_adm1_code = 65698 if hh7 == 24
 			replace gl_adm1_code = 65699 if hh7 == 25
 			replace gl_adm1_code = 65700 if hh7 == 26
-            replace gl_adm1_code = 65701 if hh7 == 27
+            		replace gl_adm1_code = 65701 if hh7 == 27
 			replace gl_adm1_code = 65702 if hh7 == 28
 			replace gl_adm1_code = 65703 if hh7 == 29
-            replace gl_adm1_code = 65704 if hh7 == 30
+            		replace gl_adm1_code = 65704 if hh7 == 30
 			replace gl_adm1_code = 65705 if hh7 == 31
 			replace gl_adm1_code = 65706 if hh7 == 32
 			replace gl_adm1_code = 65707 if hh7 == 33
-            replace gl_adm1_code = 65708 if hh7 == 34
+            		replace gl_adm1_code = 65708 if hh7 == 34
 			replace gl_adm1_code = 65709 if hh7 == 35
 			replace gl_adm1_code = 65710 if hh7 == 36
 		}
