@@ -66,7 +66,8 @@
 			country_name == "Honduras2019" |
 			country_name == "DominicanRepublic2019" |
 			country_name == "Malawi2019" |
-			country_name == "Fiji2021" {;
+			country_name == "Fiji2021" |
+			country_name == "Nigeria2021"{;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -146,6 +147,10 @@
 			if inlist(country_name,"Tonga2019","Algeria2018"){
 				global mn3 "mn3a mn3b mn3d"
 			}
+			if inlist(country_name,"Nigeria2021") {	
+				global mn3 "mn3a mn3b mn3c mn3g"
+			}
+			
 
 			foreach var in $mn3 {
 				replace `var' = "" if `var' == " "
