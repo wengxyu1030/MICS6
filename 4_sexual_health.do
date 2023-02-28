@@ -54,7 +54,7 @@
 			if inlist(country_name,"Thailand2019") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4n cp4j cp4o"
 			}
-			if inlist(country_name,"Tonga2019","Honduras2019","DominicanRepublic2019") {
+			if inlist(country_name,"Tonga2019","Honduras2019","DominicanRepublic2019","Uzbekistan2021") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j"
 			}			
 			if inlist(country_name,"Guinea-Bissau2018") {

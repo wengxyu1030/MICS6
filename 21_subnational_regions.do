@@ -415,3 +415,22 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
 			replace gl_adm1_code = 65709 if hh7 == 35
 			replace gl_adm1_code = 65710 if hh7 == 36
 		}
+		if inlist(country_name,"Uzbekistan2021") {
+		    	replace gl_adm0_code = 14
+			replace hh_region_num = hh7
+			replace gl_adm1_code = 3288 if  hh7 == 1
+           		replace gl_adm1_code = 3284 if  hh7 == 2
+			replace gl_adm1_code = 3285 if  hh7 == 3
+			replace gl_adm1_code = 3286 if  hh7 == 12
+			replace gl_adm1_code = 3287 if  hh7 == 4
+			replace gl_adm1_code = 3289 if  hh7 == 5
+			replace gl_adm1_code = 3291 if  hh7 == 13
+			replace gl_adm1_code = 3292 if  hh7 == 7
+			replace gl_adm1_code = 3293 if  hh7 == 6
+			replace gl_adm1_code = 3294 if  hh7 == 8
+			replace gl_adm1_code = 3295 if  hh7 == 10
+			replace gl_adm1_code = 39696 if  hh7 == 9	
+			replace gl_adm1_code = 39697 if  hh7 == 11
+			replace gl_adm1_code = 39698 if  hh7 == 14	
+        }
+

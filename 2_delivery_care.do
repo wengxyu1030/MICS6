@@ -92,6 +92,10 @@ c_sba_eff2_q
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31,22) // 1 for public hospital
 		}
+		if inlist(country_name,"Uzbekistan2021") {
+			replace c_hospdel = 0 if mn20 != .
+			replace c_hospdel = 1 if inlist(mn20,21,22,23,26,36,76) // 1 for public hospital
+		}
 		
 		replace c_hospdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 		
@@ -228,6 +232,11 @@ c_sba_eff2_q
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inlist(mn20,21,22)		// 1 for public hospital & clinic & health centre
 		}
+		if inlist(country_name,"Uzbekistan2021") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
+			replace c_facdel = 1 if inlist(mn20,36)	    // 1 for private health facility
+		}
 		replace c_facdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 // Not taking into account "Others"
     
@@ -273,7 +282,8 @@ c_sba_eff2_q
 			country_name == "Tuvalu2019" |
 			country_name == "Turkmenistan2019" |
 			country_name == "Honduras2019"|
-			country_name == "Nigeria2021" {;
+			country_name == "Nigeria2021"|
+			country_name == "Uzbekistan2021" {;
 	    #delimit cr	
 				global mn19 "mn19a mn19b mn19c"
 			}
