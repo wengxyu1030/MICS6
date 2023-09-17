@@ -2,7 +2,8 @@
 //Do-file for the maternal education :
 /// c_mateduclvl_raw
 /// c_mateduc
-	
+	pause edu
+
 		local name "$name"
 		
 	clonevar c_mateduclvl_raw = melevel // raw variable preserved

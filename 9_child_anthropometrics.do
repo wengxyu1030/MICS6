@@ -5,6 +5,7 @@
 /// c_stu_was
 /// c_stu_was_sev
 /// c_motherln
+pause anthro
 
 if inlist(country_name,"Belarus2019","Vietnam2020","Nigeria2021") {
 	gen c_height = .

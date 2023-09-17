@@ -18,6 +18,9 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
    gen gl_adm1_name = "admin change"
    gen gl_adm1_name_alt = "admin change"
 */
+
+pause regions
+
 		gen gl_adm0_code = .
 		gen gl_adm1_code = . 
 		

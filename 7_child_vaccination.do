@@ -10,6 +10,7 @@
 /// c_polio3
 /// c_fullimm
 /// c_vaczero
+pause vac
 
 /*  For polio:
     If the info is available from the vaccination card, code for polio1-3

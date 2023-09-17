@@ -19,6 +19,7 @@ c_sevdiarrheatreat_q
 c_treatARI
 c_illtreat
 */
+pause ill
 
 
 	if ~inlist(country_name,"Montenegro2018","Thailand2019","Turkmenistan2019","Serbia2019","Kosovo2019","NorthMacedonia2018") {	

@@ -19,65 +19,34 @@ macro drop _all
 //NOTE FOR WINDOWS USERS : use "/" instead of "\" in your paths
 
 * Define root depend on the stata user. 
-	if "`c(username)'" == "zetianyuwang" local pc = 0
-	if "`c(username)'" == "xweng"     local pc = 1
-	if "`c(username)'" == "rwang"     local pc = 2
-	//if "`c(username)'" == "ortsang"     local pc = 3
 	if "`c(username)'" == "keicz"     local pc = 3
-	if "`c(username)'" == "robinwang"     local pc = 4
-	if "`c(username)'" == "crystalo"     local pc = 5
-	if "`c(username)'" == "1qxie"     local pc = 22
+	if "`c(username)'" == "ruobingwang"     local pc = 4
 	
-	if `pc' == 0 global root "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Data/MICS"
-	if `pc' == 1 global root "C:/Users/XWeng/OneDrive - WBG/MEASURE UHC DATA - Sven Neelsen's files"
-	if `pc' == 2 global root "D:/MEASURE UHC DATA"
-	//if `pc' == 3 global root "/Users/ortsang/OneDrive - City University of New York/working/WB"
 	if `pc' == 3 global root "D:/Drives/OneDrive - Cuny GradCenter/working/"
-	if `pc' == 4 global root "/Users/robinwang/Documents/MEASURE UHC DATA"
-    if `pc' == 5 global root "/Users/crystalo/Downloads"
-    if `pc' == 22 global root "/Users/1qxie/Desktop/HEFPI data"
+	if `pc' == 4 global root "/Users/ruobingwang/Documents/MEASURE UHC DATA"
     
 	
 * Define path for data sources
     global SOURCE "${root}/RAW DATA"
 		if `pc' == 4 global SOURCE "/Volumes/Seagate Bas/HEFPI DATA/RAW DATA/"
-		if `pc' == 22 global SOURCE "${root}/Raw data"
 
 * Define path for output data
-	if `pc' == 0 global OUT "${root}/FINAL"
-	if `pc' == 1 global OUT "${root}/STATA/DATA/SC/ADePT READY/MICS/New"
-	if `pc' == 2 global OUT "${root}/STATA/DATA/SC/FINAL"
 	if `pc' == 3 global OUT "${root}/etc/output"
 	if `pc' == 4 global OUT "${root}/STATA/DATA/SC/FINAL"
-	if `pc' == 5 global OUT "${root}/STATA/DATA/SC/FINAL"
-	if `pc' == 22 global OUT "${root}/Final data"
 
 * Define path for INTERMEDIATE
-	if `pc' == 0 global INTER "${root}/INTER"
-	if `pc' == 1 global INTER "${root}/STATA/DATA/SC/ADePT READY/MICS/Inter"
-	if `pc' == 2 global INTER "${root}/STATA/DATA/SC/INTER"
 	if `pc' == 3 global INTER "${root}/etc/inter"
 	if `pc' == 4 global INTER "${root}/STATA/DATA/SC/INTER"
-    if `pc' == 5 global INTER "${root}/STATA/DATA/SC/INTER"
-    if `pc' == 22 global INTER "${root}/Inter"
 	
 * Define path for do-files
-	if `pc' == 0 global DO "/Users/zetianyuwang/Documents/PT_Data Whale/HEFPI/Code_github/MICS6"
-	if `pc' == 1 global DO "${root}/STATA/DO/SC/06_Prepare_MICS6/MICS6_DW"
-	if `pc' == 2 global DO "${root}/MICS6"
-	//if `pc' == 3 global DO "/Users/ortsang/Documents/Github/MICS6"
 	if `pc' == 3 global DO "D:/Drives/Github_Ortsang/MICS6"
-	if `pc' == 4 global DO "/Users/robinwang/Documents/MEASURE UHC DATA/MICS6"
-    if `pc' == 5 global DO "/Users/crystalo/Documents/GitHub/MICS6"
-    if `pc' == 22 global DO "${root}/MICS6-Uzbekistan2021-Haiyu"
+	if `pc' == 4 global DO "${root}/STATA/DO/MICS6"
 	
 * Define the country names (in globals) by recode version
-	global newMICS6countries "Algeria2018 Cuba2019 SaoTomeAndPrincipe2019 Kosovo2019 CentralAfricanRepublic2018 Nepal2019 StateofPalestine2019 Guinea-Bissau2018 Serbia2019 Turkmenistan2019 Tonga2019 Thailand2019 NorthMacedonia2018 Belarus2019 Chad2019 CostaRica2018 Ghana2017 Congodr2017 Bangladesh2019 Togo2017 Montenegro2018 Kiribati2018 Zimbabwe2019 Madagascar2018 LaoPDR2017 SierraLeone2017 Iraq2017 KyrgyzRepublic2018 Mongolia2018 Suriname2018 Gambia2018 Tunisia2018 Lesotho2018 Georgia2018 Samoa2019 TurksCaicosIslands2019 Tuvalu2019 Honduras2019 DominicanRepublic2019 Vietnam2020 Malawi2019"
-	global newMICS6countries "Vietnam2020"
-	global newMICS6countries "Fiji2021"
-	global newMICS6countries "Nigeria2021"
-	global newMICS6countries "Uzbekistan2021"
-
+	global newMICS6countries "Algeria2018 Cuba2019 SaoTomeAndPrincipe2019 Kosovo2019 CentralAfricanRepublic2018 Nepal2019 StateofPalestine2019 Guinea-Bissau2018 Serbia2019 Turkmenistan2019 Tonga2019 Thailand2019 NorthMacedonia2018 Belarus2019 Chad2019 CostaRica2018 Ghana2017 Congodr2017 Bangladesh2019 Togo2017 Montenegro2018 Kiribati2018 Zimbabwe2019 Madagascar2018 LaoPDR2017 SierraLeone2017 Iraq2017 KyrgyzRepublic2018 Mongolia2018 Suriname2018 Gambia2018 Tunisia2018 Lesotho2018 Georgia2018 Samoa2019 TurksCaicosIslands2019 Tuvalu2019 Honduras2019 DominicanRepublic2019 Vietnam2020 Malawi2019 Fiji2021 Nigeria2021 Uzbekistan2021"
+	global newMICS6countries "Thailand2022"
+	pause on
+	
 foreach name in $newMICS6countries {
 	clear 
 	tempfile wm ch ch_itn bh
@@ -86,7 +55,7 @@ foreach name in $newMICS6countries {
 ***** Domains using WOMEN DATA*
 *******************************
 
-	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'wm.dta", clear	
+	use "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'wm.dta", clear	
 
 * Prepare
 	gen country_name = "`name'"
@@ -115,7 +84,7 @@ foreach name in $newMICS6countries {
 ***** Domains using CHILD DATA*
 *******************************
 
-	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'ch.dta", clear	
+	use "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'ch.dta", clear	
 * Prepare
 	gen country_name = "`name'"
 			
@@ -138,10 +107,10 @@ foreach name in $newMICS6countries {
 ***** Domains using ITN DATA*
 *******************************	
 
-	capture confirm file "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta"
+	capture confirm file "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'tn.dta"
 	if !_rc {
 	
-		use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'tn.dta", clear	
+		use "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'tn.dta", clear	
 	
 * Prepare
 		gen country_name = "`name'"
@@ -168,10 +137,10 @@ foreach name in $newMICS6countries {
 ***** Domains using BIRTH DATA    *
 ***********************************
 	
-	capture confirm file "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'bh.dta"
+	capture confirm file "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'bh.dta"
 	if !_rc{					
 		
-	use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'bh.dta", clear
+	use "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'bh.dta", clear
 		global name = "`name'"
 	do "${DO}/10_child_mortality.do"
 	}
@@ -237,7 +206,7 @@ foreach name in $newMICS6countries {
 ***********************************
 
 * Merge individual level data with household listing
-	mmerge hh1 hh2 hl1 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hl.dta"
+	mmerge hh1 hh2 hl1 using "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'hl.dta"
 	drop _merge
 
 * Housekeeping
@@ -272,14 +241,14 @@ foreach name in $newMICS6countries {
 		tempfile pre_hh
 		save `pre_hh', replace
 
-		use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", replace
+		use "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'hh.dta", replace
 		merge 1:m hh1 hh2 using `pre_hh'
 
 		drop if _merge != 3 /*as the base is now HH.dta, must ensure _merge == 1 is screened out*/
 		drop _merge		
 	}
 	if ${trigger_change_structure} == 0 {
-	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", nolabel
+	mmerge hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'hh.dta", nolabel
 	drop if _merge == 2
 	drop _merge
 	}

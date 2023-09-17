@@ -1,6 +1,7 @@
 ******************************
 *** Antenatal care *********** 
 ******************************   
+pause anc
 
 * c_anc: 4+ antenatal care visits of births in last 2 years
 		gen c_anc = .
@@ -302,7 +303,7 @@
 * c_anc_tet: pregnant women vaccinated against tetanus during pregnancy of births in last 2 years
 		gen c_anc_tet = .
 
-		if !(inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019","Serbia2019") | inlist(country_name,"Kosovo2019","NorthMacedonia2018","Cuba2019","Tonga2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019","Argentina2019","Honduras2019","Uzbekistan2021")) {
+		if !(inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Tunisia2018","Georgia2018","Montenegro2018","Belarus2019","Turkmenistan2019","StateofPalestine2019","Serbia2019") | inlist(country_name,"Kosovo2019","NorthMacedonia2018","Cuba2019","Tonga2019","Samoa2019","TurksCaicosIslands2019","Tuvalu2019","Argentina2019","Honduras2019") | inlist(country_name,"Uzbekistan2021")) {
 		     replace c_anc_tet = 0 if mn7 != .				// immunization question
 		     
 			 replace c_anc_tet = 1 if c_anc_tet == 0 & inlist(mn8,2,8) & inrange(mn12,5,7)		// No/DK injections during pregrancy for last child but 5+ before (woman is then protected for the childbearing years period)
@@ -333,7 +334,7 @@
 * c_anc_tet_q: pregnant women vaccinated against tetanus during pregnancy among ANC users of births in last 2 years
 		gen c_anc_tet_q = .
 		
-		if ~inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","StateofPalestine2019","Serbia2019","Kosovo2019","Chad2019","Uzbekistan2021") {
+		if !(inlist(country_name,"KyrgyzRepublic2018","Mongolia2018","Georgia2018","Montenegro2018","Belarus2019","StateofPalestine2019","Serbia2019","Kosovo2019","Chad2019") | inlist(country_name,"Uzbekistan2021")) {
 
 			replace c_anc_tet_q = 0 if c_anc_any == 1						// among ANC users
 			replace c_anc_tet_q = 1 if c_anc_tet_q == 0  & c_anc_tet == 1

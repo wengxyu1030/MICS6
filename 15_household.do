@@ -18,14 +18,15 @@ hh_headedu_raw
 hh_headage_raw
 hh_headsex_raw
 */
+pause hh
 
 	if ${trigger_change_structure} == 0 {
 		levelsof country_name, local(name) clean
 		preserve
-		use "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'hh.dta", clear
+		use "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'hh.dta", clear
 		local varnames "hc1a ws1 ws11"
 		desc `varnames', replace	
-		cd "${SOURCE}/MICS/MICS6-`name'"
+		cd "${SOURCE}/MICS/MICS6/MICS6-`name'"
 		
 		levelsof vallab, local(vallabelnames) clean
 		di "`vallabelnames'"

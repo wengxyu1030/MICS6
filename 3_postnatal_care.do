@@ -9,6 +9,7 @@ c_pnc_eff2
 c_pnc_eff2_q
 
 */
+pause pnc
 
 
 // c_pnc_any : mother OR child receive PNC in first six weeks by skilled health worker

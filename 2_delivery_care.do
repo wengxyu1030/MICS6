@@ -14,6 +14,7 @@ c_sba_eff1_q
 c_sba_eff2
 c_sba_eff2_q
 */
+pause delivery
 
 * c_hospdel: Child born in hospital of births in last 2 years
 		gen c_hospdel = .

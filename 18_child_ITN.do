@@ -7,6 +7,7 @@
 * 1) check the maximum value for tnln and use it as a maximum value for your "forvalues" of `t' and `j'
 * 2) check the tn15_* to find out the maximum amount of person recorded under each bednet and use it to determine the number of time you are going to replicate your "forvalues"
 
+pause itn
 
 	// Malawi2019: tn5 - 11-18 
 	// tnln - 1~10
@@ -44,7 +45,7 @@ if inlist(country_name,"Malawi2019") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Malawi2019/MICS6-Malawi2019ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Malawi2019/MICS6-Malawi2019ch.dta", keepusing(hh1 hh2 ln cage)
 	
 			tab _merge
 			drop if _ == 1
@@ -107,7 +108,7 @@ if inlist(country_name,"SaoTomeAndPrincipe2019") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-SaoTomeAndPrincipe2019/MICS6-SaoTomeAndPrincipe2019ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-SaoTomeAndPrincipe2019/MICS6-SaoTomeAndPrincipe2019ch.dta", keepusing(hh1 hh2 ln cage)
 	
 			tab _merge
 			drop if _ == 1
@@ -171,7 +172,7 @@ if inlist(country_name,"CentralAfricanRepublic2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-CentralAfricanRepublic2018/MICS6-CentralAfricanRepublic2018ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-CentralAfricanRepublic2018/MICS6-CentralAfricanRepublic2018ch.dta", keepusing(hh1 hh2 ln cage)
 	
 			tab _merge
 			drop if _ == 1
@@ -230,7 +231,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Guinea-Bissau2018/MICS6-Guinea-Bissau2018ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Guinea-Bissau2018/MICS6-Guinea-Bissau2018ch.dta", keepusing(hh1 hh2 ln cage)
 	
 			tab _merge
 			drop if _ == 1
@@ -288,7 +289,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-LaoPDR2017/MICS6-LaoPDR2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-LaoPDR2017/MICS6-LaoPDR2017ch.dta", keepusing(hh1 hh2 ln cage)
 			
 			tab _merge
 			drop if _ == 1
@@ -360,7 +361,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2)
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-SierraLeone2017/MICS6-SierraLeone2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-SierraLeone2017/MICS6-SierraLeone2017ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -430,7 +431,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2)
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Gambia2018/MICS6-Gambia2018ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Gambia2018/MICS6-Gambia2018ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -505,7 +506,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2)
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Madagascar2018/MICS6-Madagascar2018ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Madagascar2018/MICS6-Madagascar2018ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -564,7 +565,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Zimbabwe2019/MICS6-Zimbabwe2019ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Zimbabwe2019/MICS6-Zimbabwe2019ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -621,7 +622,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Congodr2017/MICS6-Congodr2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Congodr2017/MICS6-Congodr2017ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -678,7 +679,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Ghana2017/MICS6-Ghana2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Ghana2017/MICS6-Ghana2017ch.dta", keepusing(hh1 hh2 ln cage)
 			
 			tab _merge
 			drop if _ == 1
@@ -737,7 +738,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Togo2017/MICS6-Togo2017ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Togo2017/MICS6-Togo2017ch.dta", keepusing(hh1 hh2 ln cage)
 	
 			tab _merge
 			drop if _ == 1
@@ -821,7 +822,7 @@ if inlist(country_name,"Guinea-Bissau2018") {
 			collapse (sum) tn15_*, by(hh1 hh2)
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Kiribati2018/MICS6-Kiribati2018ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Kiribati2018/MICS6-Kiribati2018ch.dta", keepusing(hh1 hh2 ln cage)
 			tab _merge
 			drop if _ == 1
 			drop _merge
@@ -877,7 +878,7 @@ if inlist(country_name,"Chad2019") {
 			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
 			sort hh1 hh2
 			
-			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6-Chad2019/MICS6-Chad2019ch.dta", keepusing(hh1 hh2 ln cage)
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Chad2019/MICS6-Chad2019ch.dta", keepusing(hh1 hh2 ln cage)
 	
 			tab _merge
 			drop if _ == 1

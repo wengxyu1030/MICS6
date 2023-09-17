@@ -11,6 +11,8 @@ mor_ali
 hm_birthorder
 c_magebrt
 */
+pause mortality
+
 local name "$name"
 * mor_dob: child date of birth
 	gen mor_dob = bh4c					
@@ -65,7 +67,7 @@ local name "$name"
 	
 	/*May 2022 DW : use bh6 and age_wm to generate c_magebrt*/
 * c_magebrt
-	mmerge hh1 hh2 ln using "${SOURCE}/MICS/MICS6-`name'/MICS6-`name'wm.dta", ukeep(wb4)
+	mmerge hh1 hh2 ln using "${SOURCE}/MICS/MICS6/MICS6-`name'/MICS6-`name'wm.dta", ukeep(wb4)
 	drop if _merge == 2
 	drop _merge	
 	replace wb4 = . if wb4 > 50
