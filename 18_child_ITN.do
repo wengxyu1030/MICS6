@@ -8,6 +8,7 @@
 * 2) check the tn15_* to find out the maximum amount of person recorded under each bednet and use it to determine the number of time you are going to replicate your "forvalues"
 
 pause itn
+/*Check treated net details if TN file is available*/
 
 	// Malawi2019: tn5 - 11-18 
 	// tnln - 1~10

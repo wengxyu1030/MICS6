@@ -14,7 +14,27 @@ c_sba_eff1_q
 c_sba_eff2
 c_sba_eff2_q
 */
+
+
 pause delivery
+/*
+tab mn20
+tab mn20,nol
+
+tab mn36 
+tab mn37n
+tab mn37u
+
+tab mn23
+tab mn24
+
+*mn19 skilled birth attendance
+
+tab mn21
+
+sum pn3u pn3n
+
+*/
 
 * c_hospdel: Child born in hospital of births in last 2 years
 		gen c_hospdel = .
@@ -44,7 +64,8 @@ pause delivery
 			country_name == "Tuvalu2019"|
 			country_name == "Argentina2019"|
 			country_name == "CentralAfricanRepublic2018" |
-			country_name == "Fiji2021"{;
+			country_name == "Fiji2021" | 
+			country_name == "Thailand2022" {;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31)		// 1 for private/public hospital
@@ -238,6 +259,10 @@ pause delivery
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
 			replace c_facdel = 1 if inlist(mn20,36)	    // 1 for private health facility
 		}
+		if inlist(country_name,"Thailand2022") {
+			replace c_facdel = 0 if mn20 != .
+			replace c_facdel = 1 if inrange(mn20,21,36)
+		}
 		replace c_facdel = . if bl2 != 1 | ~inrange(wb4,15,49)						// missing for births > 24 months ago
 // Not taking into account "Others"
     
@@ -284,7 +309,8 @@ pause delivery
 			country_name == "Turkmenistan2019" |
 			country_name == "Honduras2019"|
 			country_name == "Nigeria2021"|
-			country_name == "Uzbekistan2021" {;
+			country_name == "Uzbekistan2021" |
+			country_name == "Thailand2022" {;
 	    #delimit cr	
 				global mn19 "mn19a mn19b mn19c"
 			}
@@ -345,7 +371,7 @@ pause delivery
 * Helper: stayed in facility for 24 hours after birth
 		gen onedayfac = .
 
-		if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018","Serbia2019","TurksCaicosIslands2019") {
+		if !(inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Guinea-Bissau2018","Algeria2018","Tonga2019","NorthMacedonia2018") | inlist(country_name,"Serbia2019","TurksCaicosIslands2019","Thailand2022")) {
 			replace onedayfac = 0 if bl2 == 1
 			replace onedayfac = 1 if pn3u == 1 & inrange(pn3n,24,90)
 			replace onedayfac = 1 if pn3u == 2 & inrange(pn3n,1,7)

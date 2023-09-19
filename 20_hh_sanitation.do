@@ -7,6 +7,9 @@ hh_san_facilities
 */
 
 pause sanitation
+/*
+sum ws1 ws4 ws2 ws3 ws11 ws15
+*/
 
 * hh_watersource: HH access to drinking water from an improved source, collection time < 30min round trip
 		gen hh_watersource = .

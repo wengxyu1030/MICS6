@@ -19,6 +19,11 @@ hh_headage_raw
 hh_headsex_raw
 */
 pause hh
+/*
+sum ws1 ws11 helevel hhage hhsex hh48 hh6 windex5 wscore hh7
+sum hc1a
+
+*/
 
 	if ${trigger_change_structure} == 0 {
 		levelsof country_name, local(name) clean

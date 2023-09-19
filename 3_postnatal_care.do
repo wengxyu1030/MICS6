@@ -10,12 +10,34 @@ c_pnc_eff2_q
 
 */
 pause pnc
+/*
+tab pn4
+tab pn5
+tab pn8
+tab pn9
 
+//baby AND mother checked within 24h of birth (after leaving facility OR after birth attendant left)
+pn13u
+pn13n
+pn14`x'
+pn22u
+pn22n
+pn23`x'
+ 
+* only for children with PNC info
+pn3u
+pn3n
+
+pn25a pn25b pn25c
+	}
+
+	
+*/
 
 // c_pnc_any : mother OR child receive PNC in first six weeks by skilled health worker
 	gen c_pnc_any = .	
 	
-	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019"，"TurksCaicosIslands2019") {
+	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019"，"TurksCaicosIslands2019","Thailand2022") {
 		replace c_pnc_any = 0 if bl2 == 1
 		* pnc for SBA facility births
 		replace c_pnc_any = 1 if c_sba == 1 & (pn4 == 1 | pn5 == 1)     // baby OR mother checked within six weeks of birth and before leaving facility by skilled provider
@@ -95,7 +117,7 @@ pause pnc
 	
 	gen c_pnc_eff = .
 	
-	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019","TurksCaicosIslands2019","Tuvalu2019","Argentina2019") {
+	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019","TurksCaicosIslands2019","Tuvalu2019","Argentina2019","Thailand2022") {
 		replace c_pnc_eff = 0 if bl2 == 1
 		* pnc for SBA facility births
 		replace c_pnc_eff = 1 if c_sba == 1 & pn4 == 1 & pn5 == 1  // baby AND mother checked within 24h of birth and before leaving facility by skilled provider
@@ -147,7 +169,7 @@ pause pnc
 // c_pnc_eff2: mother AND child in first 24h by skilled health worker and cord check, temperature check and breastfeeding counselling within first two days
 	gen c_pnc_eff2 = c_pnc_eff
 
-	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019","Tuvalu2019","Argentina2019") {
+	if ~inlist(country_name,"Georgia2018","Thailand2019","Turkmenistan2019","Serbia2019","Tuvalu2019","Argentina2019","Thailand2022") {
 		replace c_pnc_eff2 = 0 if pn25a == 2 | pn25b == 2| pn25c == 2
 		replace c_pnc_eff2 = . if c_pnc_eff == . | inrange(pn25a,8,9) | inrange(pn25b,8,9) | inrange(pn25c,8,9)  
 	}
