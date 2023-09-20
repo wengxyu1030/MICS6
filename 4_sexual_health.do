@@ -11,7 +11,7 @@
 
 pause sexualhealth
 /*
-//availabilitys
+//availability
 sum sb7 sb3 
 
 * cp4* check report
@@ -60,7 +60,8 @@ sum db2 db4
 			country_name == "Togo2017"|
 			country_name == "CentralAfricanRepublic2018"|
 			country_name == "SaoTomeAndPrincipe2019" |
-			country_name == "Malawi2019" {;
+			country_name == "Malawi2019" |
+			country_name == "Guyana2019" {;
 	    #delimit cr 
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4k"
 			}

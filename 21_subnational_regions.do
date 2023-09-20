@@ -441,3 +441,18 @@ tab hh_region_num
 			replace gl_adm1_code = 39698 if  hh7 == 14	
         }
 
+		if inlist(country_name,"Guyana2019") {
+		    replace gl_adm0_code = 107
+			replace hh_region_num = hh7
+			
+			replace gl_adm1_code = 1398 if  hh7 == 1
+           	replace gl_adm1_code = 1404 if  hh7 == 2
+			replace gl_adm1_code = 1402 if  hh7 == 3
+			replace gl_adm1_code = 1400 if  hh7 == 4
+			replace gl_adm1_code = 1403 if  hh7 == 5
+			replace gl_adm1_code = 1403 if  hh7 == 6
+			replace gl_adm1_code = 1399 if  hh7 == 7
+			replace gl_adm1_code = 1405 if  hh7 == 8
+			replace gl_adm1_code = 1407 if  hh7 == 9	
+			replace gl_adm1_code = 1406 if  hh7 == 10
+        }
