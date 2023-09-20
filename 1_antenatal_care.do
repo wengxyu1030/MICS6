@@ -95,7 +95,8 @@ pause anc
 			country_name == "Fiji2021" |
 			country_name == "Nigeria2021"|
 			country_name == "Uzbekistan2021" |
-			country_name == "Thailand2022"{;
+			country_name == "Thailand2022" | 
+			country_name == "Afghanistan2022" {;
 	    #delimit cr 			
 			replace c_anc_ear = 1 if mn4au == 1 & mn4an < 13				// 1st ANC in first trimester of pregnancy (in weeks)
 			replace c_anc_ear = 1 if mn4au == 2 & mn4an < 4				// 1st ANC in first trimester of pregnancy (in months)
@@ -159,7 +160,7 @@ pause anc
 			//Antenatal care does not involve agente de saude comunitaria, unlike post natal care
 
 			//SaoTomeAndPrincipe2019: survey report only listed Medico / enfermeira / parteira. Parteira tradicional / agente de sante communautaira have no observations in respective variables.s
-			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019","NorthMacedonia2018","SaoTomeAndPrincipe2019") | inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Vietnam2020","Malawi2019","Fiji2021") {
+			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","Cuba2019","NorthMacedonia2018","SaoTomeAndPrincipe2019") | inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Vietnam2020","Malawi2019","Fiji2021","Afghanistan2022") {
 				global mn3 "mn3a mn3b"
 			}
 			if inlist(country_name,"Bangladesh2019") {	
