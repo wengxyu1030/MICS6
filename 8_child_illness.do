@@ -20,9 +20,28 @@ c_treatARI
 c_illtreat
 */
 pause ill
+/*
+sum ca1 ca16 ca17 ca18 ca14 
+
+*ORS
+sum ca7* // or other, depending on survey
+
+*Diarrhea Med
+sum ca7* // could also be ca12/ca73 
+sum ca13*
+
+*c_diarrhea_pro
+sum ca6*
+
+sum ca3 ca4 ca14
+
+*ARI
+sum ca21* ca16 ca17 ca18
+
+*/
 
 
-	if ~inlist(country_name,"Montenegro2018","Thailand2019","Turkmenistan2019","Serbia2019","Kosovo2019","NorthMacedonia2018") {	
+	if ~inlist(country_name,"Montenegro2018","Thailand2019","Turkmenistan2019","Serbia2019","Kosovo2019","NorthMacedonia2018","Thailand2022") {	
 
 * c_diarrhea: Child under 5 with diarrhea
 		gen c_diarrhea = .

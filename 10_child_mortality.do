@@ -12,6 +12,10 @@ hm_birthorder
 c_magebrt
 */
 pause mortality
+/*
+
+sum bh4c ln bh5 bh6 bh9c bh9f bh7 bhln wdoi wdob bh3 birthint wmweight 
+*/
 
 local name "$name"
 * mor_dob: child date of birth
@@ -74,9 +78,6 @@ local name "$name"
 	replace bh6 = . if bh6 > 50
 	
 	gen c_magebrt = wb4 - bh6
-	
-	
-	
 	
 	
 	

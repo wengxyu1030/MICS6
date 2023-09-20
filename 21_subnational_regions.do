@@ -20,6 +20,10 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
 */
 
 pause regions
+/*
+tab hh_region_num
+*/
+
 
 		gen gl_adm0_code = .
 		gen gl_adm1_code = . 

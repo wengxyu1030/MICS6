@@ -11,6 +11,14 @@
 /// c_fullimm
 /// c_vaczero
 pause vac
+/*
+sum im6my im26 im2 im5 im11
+
+//im6~ 
+// im2 im26 im11
+
+
+*/
 
 /*  For polio:
     If the info is available from the vaccination card, code for polio1-3
@@ -48,7 +56,7 @@ pause vac
 		}		
 
        //  need to combine with FORM FOR VACCINATION RECORDS AT HEALTH FACILITY	   
-		if inlist(country_name,"Suriname2018","Gambia2018","Zimbabwe2019","Kiribati2018", "CostaRica2018","Thailand2019","StateofPalestine2019","Honduras2019") | inlist("DominicanRepublic2019","Malawi2019") {
+		if inlist(country_name,"Suriname2018","Gambia2018","Zimbabwe2019","Kiribati2018", "CostaRica2018","Thailand2019","StateofPalestine2019","Honduras2019") | inlist("DominicanRepublic2019","Malawi2019","Thailand2022") {
 			replace c_measles = 1 if c_measles == 0 & (inrange(im6m1y,2000,6666) | inlist(im6m1d,44,66))			// measles/MMR from card
 			replace c_measles = 1 if c_measles == 0 & im26 == 1				// measles/MMR from memory
 			replace c_measles = . if ((inrange(im5,1,3) & (inrange(im6m1y,6667,9999) | inrange(im6m1d,97,98))) | (im11 == 1 & inlist(im26,8,9)) | (inlist(im2,8,9) & inlist(im11,8,9)))	// missing if measles DK/missing for card and memory
@@ -185,7 +193,8 @@ pause vac
 			country_name == "SaoTomeAndPrincipe2019" |
 			country_name == "DominicanRepublic2019" |
 			country_name == "Malawi2019" |
-			country_name == "Nigeria2021"{;
+			country_name == "Nigeria2021" |
+			country_name == "Thailand2022" {;
 	    #delimit cr		
 		    replace c_bcg = 1 if c_bcg == 0 & (inrange(im6by,2000,6666) | inlist(im6bd,44,66))
 			replace c_bcg = 1 if c_bcg == 0 & im14 == 1                             // BCG from memory
@@ -292,7 +301,11 @@ pause vac
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im29 == 1 & inrange(im30,`x',7)               // dpt1-3 from memory
 				replace c_dpt`x' = . if ((inrange(im5,1,3) & (inrange(im6dtp`x'y,6667,9999) & inrange(im6dtp`x'd,97,98))) | (im11 == 1 & (inlist(im29,8,9) | inlist(im30,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if DPT1-3 DK/missing for card and memory
 			}			
-			
+			if inlist(country_name,"Thailand2022") {
+			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6dh`x'y,2000,6666) | inlist(im6dh`x'd,44,66))
+				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im29 == 1 & inrange(im30,`x',7)               // dpt1-3 from memory
+				replace c_dpt`x' = . if ((inrange(im5,1,3) & (inrange(im6dh`x'y,6667,9999) & inrange(im6dh`x'd,97,98))) | (im11 == 1 & (inlist(im29,8,9) | inlist(im30,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if DPT1-3 DK/missing for card and memory
+			}						
 			if inlist(country_name,"NorthMacedonia2018") {
 			    replace c_dpt`x' = 1 if c_dpt`x' == 0 & (inrange(im6dtp`x'y,2000,6666) | inlist(im6dtp`x'd,44,66)) // with response, marked on card, mother reported
 				replace c_dpt`x' = 1 if c_dpt`x' == 0 & im20 == 1 &inrange(im21,`x',7)   // dpt1-3 from memory
@@ -358,7 +371,7 @@ pause vac
 			replace c_polio`x' = 0 if inrange(cage,15,23) & im2 != . 
 			
 			// RW 10.17 Review, remove Cuba2019 from list, due to Cuba's unique vaccination regime that incorporated 8 rounds of injection according to survey raw data. The majority of observations had 6-8 completed shots of polio. See im6p`x'y. Action: Created a loop that coped with this with x = 4 5 to 8
-			if inlist(country_name,"LaoPDR2017","Suriname2018","Zimbabwe2019","NorthMacedonia2018","Cuba2019","Honduras2019","Malawi2019") {
+			if inlist(country_name,"LaoPDR2017","Suriname2018","Zimbabwe2019","NorthMacedonia2018","Cuba2019","Honduras2019","Malawi2019","Thailand2022") {
 			    replace c_polio`x' = 1 if c_polio`x' == 0 & (inrange(im6p`x'y,2000,6666) | inlist(im6p`x'd,44,66))
 				replace c_polio`x' = 1 if c_polio`x' == 0 & im16 == 1 & inrange(im18,`x',7)          // polio1-3 from memory
 				replace c_polio`x' = . if ((inrange(im5,1,3) & (inrange(im6p`x'y,6667,9999) | inrange(im6p`x'd,97,98))) | (im11 == 1 & (inlist(im16,8,9) | inlist(im18,8,9)))|(inlist(im2,8,9) & inlist(im11,8,9))) // missing if Polio1-3 DK/missing for card and memory

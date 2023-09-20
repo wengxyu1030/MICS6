@@ -10,6 +10,24 @@
 /// w_married
 
 pause sexualhealth
+/*
+//availabilitys
+sum sb7 sb3 
+
+* cp4* check report
+tab mn35
+tab un12f
+
+sum un14u un14n un7 un4 un8n un8n un4
+tab un12b
+tab un12c
+tab un12d
+tab un12e
+
+sum ma1 ma7 ma8y ma11 ma7
+sum db2 db4
+
+*/
 
 * w_condom_conc: Condom use of at-risk women age 18-49
 		cap gen sb7 = .		// creates empty sexual intercourse variables in surveys which do not have the module (to make code run smoothly) 
@@ -52,8 +70,8 @@ pause sexualhealth
 			if inlist(country_name,"Kiribati2018") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4n cp4p"
 			}
-			if inlist(country_name,"Thailand2019") {
-				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4n cp4j cp4o"
+			if inlist(country_name,"Thailand2019","Thailand2022") {
+				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j cp4n cp4o"
 			}
 			if inlist(country_name,"Tonga2019","Honduras2019","DominicanRepublic2019","Uzbekistan2021") {
 				global cp4 "cp4a cp4b cp4c cp4d cp4e cp4f cp4g cp4h cp4i cp4j"
@@ -137,7 +155,7 @@ pause sexualhealth
 		replace infec = 0 if inrange(wb4,15,49) & mstatus == 1 
 		replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & ((un14u == 3 & un14n > 6) | un14u == 4 | inrange(un14n,93,95) | un12b == "B" | un12c == "C" | un12d == "D" | un12e == "E" | un7 == 3 | un8n == 94)
 
-		if !(inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","Belarus2019","CostaRica2018","Thailand2019","Serbia2019","Cuba2019","Argentina2019") | inlist(country_name,"Nigeria2021")) {		
+		if !(inlist(country_name,"Georgia2018","Tunisia2018","Montenegro2018","Belarus2019","CostaRica2018","Thailand2019","Serbia2019","Cuba2019","Argentina2019") | inlist(country_name,"Nigeria2021","Thailand2022")) {		
 			replace infec = 1 if infec == 0 & cp1 != 1 & pregPPA != 1 & cp3 != 1 & wm6y-bh4y_last > 5 & inlist(ma1,1,2) & (ma7 == 1 & (wm6y - ma8y > 5 | wb4 - ma11 > 5))
 		}  
 

@@ -6,6 +6,10 @@
 /// c_stu_was_sev
 /// c_motherln
 pause anthro
+/*
+sum an11 an8 haz2 hazflag waz2 wazflag whz2 whzflag
+
+*/
 
 if inlist(country_name,"Belarus2019","Vietnam2020","Nigeria2021") {
 	gen c_height = .

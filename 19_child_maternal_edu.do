@@ -3,6 +3,11 @@
 /// c_mateduclvl_raw
 /// c_mateduc
 	pause edu
+	
+/*
+sum melevel hm_educ wm3
+
+*/
 
 		local name "$name"
 		
