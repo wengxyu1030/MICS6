@@ -39,7 +39,7 @@ sum db2 db4
 * w_CPR: Use of modern contraceptive methods of women age 15(!)-49 married or living in union
 		gen w_CPR = .
 		
-		if ~inlist(country_name,"Zimbabwe2019") {
+		if ~inlist(country_name,"Zimbabwe2019","Afghanistan2022") {
 			replace w_CPR = 0 if inrange(wb4,15,49) & mstatus == 1            	     // women age 15-49 married or in union
 		
 
@@ -268,7 +268,7 @@ sum db2 db4
         }
 		
 		
-		if inlist(country_name,"Zimbabwe2019") {
+		if inlist(country_name,"Zimbabwe2019","Afghanistan2022") {
 			foreach var in w_unmet_fp w_need_fp w_metany_fp w_metmod_fp w_metany_fp_q {
 				cap gen `var'=.
 			}

@@ -21,7 +21,8 @@ If we can't match to the GAUL because the internal boundaries have changed, let'
 
 pause regions
 /*
-tab hh_region_num
+tab hh_region_num,sort
+tab hh_region_lab,sort
 */
 
 
@@ -456,3 +457,46 @@ tab hh_region_num
 			replace gl_adm1_code = 1407 if  hh7 == 9	
 			replace gl_adm1_code = 1406 if  hh7 == 10
         }
+
+		
+		if inlist(country_name,"Afghanistan2022") {
+		    replace gl_adm0_code = 1
+			replace hh_region_num = hh7
+			
+			replace gl_adm1_code = 287 if  hh7 == 14
+           	replace gl_adm1_code = 285 if  hh7 == 27
+			replace gl_adm1_code = 296 if  hh7 == 13
+			replace gl_adm1_code = 281 if  hh7 == 30
+			replace gl_adm1_code = 292 if  hh7 == 6
+			replace gl_adm1_code = 303 if  hh7 == 26
+			replace gl_adm1_code = 291 if  hh7 == 5
+			replace gl_adm1_code = 294 if  hh7 == 16
+			replace gl_adm1_code = 295 if  hh7 == 12	
+			replace gl_adm1_code = 282 if  hh7 == 32
+			replace gl_adm1_code = 288 if  hh7 == 15 //Kunarha/Kunar
+			replace gl_adm1_code = 283 if  hh7 == 28
+			replace gl_adm1_code = 302 if  hh7 == 4 // Maidan Wardak / Wardak
+			replace gl_adm1_code = 284 if  hh7 == 1
+			replace gl_adm1_code = 290 if  hh7 == 7
+			replace gl_adm1_code = 99880 if  hh7 == 3
+			replace gl_adm1_code = 293 if  hh7 == 34
+			replace gl_adm1_code = 99881 if  hh7 == 25
+			replace gl_adm1_code = 289 if  hh7 == 19
+			replace gl_adm1_code = 279 if  hh7 == 11 // 279 Ghazni
+			replace gl_adm1_code = 299 if  hh7 == 22 // 299 Sar-e-Pul
+			replace gl_adm1_code = 276 if  hh7 == 10
+			replace gl_adm1_code = 278 if  hh7 == 29
+			replace gl_adm1_code = 277 if  hh7 == 33
+			replace gl_adm1_code = 280 if  hh7 == 23
+			replace gl_adm1_code = 99879 if  hh7 == 8
+			replace gl_adm1_code = 286 if  hh7 == 2
+			replace gl_adm1_code = 272 if  hh7 == 17
+			replace gl_adm1_code = 300 if  hh7 == 18
+			replace gl_adm1_code = 298 if  hh7 == 20
+			replace gl_adm1_code = 99878 if  hh7 == 24
+			replace gl_adm1_code = 273 if  hh7 == 31
+			replace gl_adm1_code = 275 if  hh7 == 21
+			replace gl_adm1_code = 274 if  hh7 == 9
+        }
+		
+		
