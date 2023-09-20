@@ -5,10 +5,82 @@
 * Child under 5 - use of insecticide-treated bed nets (ITN)
 // For any new country, replicate the structure.
 * 1) check the maximum value for tnln and use it as a maximum value for your "forvalues" of `t' and `j'
-* 2) check the tn15_* to find out the maximum amount of person recorded under each bednet and use it to determine the number of time you are going to replicate your "forvalues"
+* 2) check the tn15_* to find out the maximum amount of person recorded under each bednet and use it to determine the number of time you are going to replicate your "forvalues"; the maximum value from the highest value from tn15_* vars is going to serve as the guide as maximum replication number.
 
 pause itn
-/*Check treated net details if TN file is available*/
+/*
+//Check treated net details if TN file is available
+sum tnln
+sum tn15*
+*/
+
+
+
+	// Guyana2019: 
+	// tnln - 1~10
+	// max value of tnln - 10; tn15_1-14; tn15_2-19; tn15_3-21; tn15_4-13 ---> max 21
+if inlist(country_name,"Guyana2019") {
+			keep if inrange(tn5,10,18)
+			replace tn15_1 = . if tn15_1==90
+			replace tn15_2 = . if tn15_2==90
+			replace tn15_3 = . if tn15_3==90
+			replace tn15_4 = . if tn15_4==90
+			
+			by hh1 hh2, sort: gen rank_bednet = _n 
+
+			replace tnln = rank_bednet
+			drop rank_bednet
+
+			forvalues t = 5 9 to 37 {
+				gen tn15_`t' = tn15_1 if tnln == `t' - 3 * (`t'- 1) / 4
+			}
+			forvalues t = 6 10 to 38 {
+				gen tn15_`t' = tn15_2 if tnln == `t' - 3 * (`t'- 2) / 4 - 1
+			}
+			forvalues t = 7 11 to 39 {
+				gen tn15_`t' = tn15_3 if tnln == `t' - 3 * (`t'- 3) / 4 - 2
+			}
+			forvalues t = 8 12 to 40 {
+				gen tn15_`t' = tn15_4 if tnln == `t' - 3 * (`t'- 4) / 4 - 3
+			}
+
+			order tn15_*, sequential
+			
+			forval j = 2/10 {
+				replace tn15_1 = . if tnln == `j'
+				replace tn15_2 = . if tnln == `j'
+				replace tn15_3 = . if tnln == `j'
+				replace tn15_4 = . if tnln == `j'
+			} 
+
+			collapse (sum) tn15_*, by(hh1 hh2) // collapse to household level
+			sort hh1 hh2
+			
+			merge 1:m hh1 hh2 using "${SOURCE}/MICS/MICS6/MICS6-Guyana2019/MICS6-Guyana2019ch.dta", keepusing(hh1 hh2 ln cage)
+	
+			tab _merge
+			drop if _ == 1
+			drop _merge
+		
+			sort hh1 hh2
+			keep hh1 hh2 ln cage tn*
+
+			foreach v of varlist tn15_* {
+				replace `v' = `v' - ln
+			}
+			foreach v of varlist tn15_* {
+				replace `v' = . if `v' != 0
+			}
+			foreach v of varlist tn15_* {
+				replace `v' = 1 if `v' == 0
+			}
+
+			egen c_ITN = rowtotal(tn15_*)
+			replace c_ITN = . if cage == .
+			
+			gen country_name = "Guyana2019"
+		}
+
 
 	// Malawi2019: tn5 - 11-18 
 	// tnln - 1~10

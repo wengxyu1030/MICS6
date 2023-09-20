@@ -101,7 +101,8 @@ sum ca21* ca16 ca17 ca18
 			country_name == "Honduras2019" |
 			country_name == "Malawi2019" |
 			country_name == "Nigeria2021"|
-			country_name == "Uzbekistan2021"{;
+			country_name == "Uzbekistan2021" | 
+			country_name == "Guyana2019" {;
 	    #delimit cr 
 			replace c_treatdiarrhea = 0 if ca1 == 1						// children with diarrhea in last 2 weeks
 			replace c_treatdiarrhea = 1 if c_treatdiarrhea == 0 & (ca7a == 1 | ca7b == 1)	// received ORS
@@ -223,7 +224,7 @@ sum ca21* ca16 ca17 ca18
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7a == 1 | ca7c == 1)
 			replace c_diarrhea_med = . if inlist(ca7a,8,9) | inlist(ca7c,8,9)      // OR treatment/consultation variable missing
 		}
-		if inlist(country_name,"DominicanRepublic2019") {
+		if inlist(country_name,"DominicanRepublic2019","Guyana2019") {
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca12 == 1)
 			replace c_diarrhea_med = . if inlist(ca12,8,9)      // OR treatment/consultation variable missing
 		}
@@ -405,6 +406,9 @@ sum ca21* ca16 ca17 ca18
 		if inlist(country_name,"Uzbekistan2021") {
 			global ca6 "ca6a ca6f ca6g ca6h ca6i ca6j ca6o ca6w"
 		}
+		if inlist(country_name,"Guyana2019") {
+			global ca6 "ca6a ca6b ca6c ca6d ca6e ca6h ca6i ca6j ca6m ca6o ca6w"
+		}
 		
 		foreach var in $ca6 {
 		    replace `var' = "" if `var' == " "
@@ -462,7 +466,7 @@ sum ca21* ca16 ca17 ca18
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7d == 1)
 			replace c_diarrheaact = . if ca7a == 9 | ca7d == 9 
     }
-		if inlist(country_name,"Nepal2019","StateofPalestine2019") {
+		if inlist(country_name,"Nepal2019","StateofPalestine2019","Guyana2019") {
 			replace c_diarrheaact = 1 if c_diarrheaact == 0 & (ca7a == 1 | ca7b == 1| ca7d == 1)
 		}
 		if inlist(country_name,"Tonga2019"){
@@ -648,7 +652,9 @@ sum ca21* ca16 ca17 ca18
 		if inlist(country_name,"Uzbekistan2021") {
 			global ca21 "ca21a ca21f ca21g ca21h ca21i ca21j ca21o ca21w"
 		}
-		
+		if inlist(country_name,"Guyana2019") {
+		    global ca21 "ca21a ca21b ca21c ca21d ca21e ca21h ca21i ca21j ca21w ca21m ca21o"
+		}			
 	    foreach var in $ca21 {
 		    replace `var' = "" if `var' == " "
 		    replace c_treatARI = 1 if c_treatARI == 0 & `var' != "" & `var' != "?" 
@@ -766,7 +772,9 @@ sum ca21* ca16 ca17 ca18
 		if inlist(country_name,"Uzbekistan2021") {
 			global ca621 "ca6a ca6f ca6g ca6h ca6i ca6j ca6o ca6w ca21a ca21f ca21g ca21h ca21i ca21j ca21o ca21w"
 		}
-		
+		if inlist(country_name,"Guyana2019") {
+		    global ca621 "ca6a ca6b ca6c ca6d ca6e ca6h ca6i ca6j ca6w ca6m ca6o ca21a ca21b ca21c ca21d ca21e ca21h ca21i ca21j ca21w ca21m ca21o"
+		}			
 		foreach var in $ca621 {
 				replace `var' = "" if `var' == " "
 				replace c_illtreat = 1 if c_illtreat == 0 & `var' != "" & `var' != "?" 

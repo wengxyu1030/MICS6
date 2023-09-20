@@ -14,7 +14,9 @@ pause anc
 	sum mn4u mn4n
 	
 	*mn3 - skilled provider
+	*check iron supplements manually
 	
+	// check against mn2
 	tab mn6a
 	tab mn6b 
 	tab mn6c
@@ -23,6 +25,7 @@ pause anc
 	tab mn8
 	tab mn9
 	tab mn12
+	
 */
 
 * c_anc: 4+ antenatal care visits of births in last 2 years
@@ -177,7 +180,9 @@ pause anc
 			if inlist(country_name,"Nigeria2021") {	
 				global mn3 "mn3a mn3b mn3c mn3g"
 			}
-			
+			if inlist(country_name,"Guyana2019") {	
+				global mn3 "mn3a mn3b mn3c mn3e"
+			}			
 
 			foreach var in $mn3 {
 				replace `var' = "" if `var' == " "

@@ -65,7 +65,8 @@ sum pn3u pn3n
 			country_name == "Argentina2019"|
 			country_name == "CentralAfricanRepublic2018" |
 			country_name == "Fiji2021" | 
-			country_name == "Thailand2022" {;
+			country_name == "Thailand2022" |
+			country_name == "Guyana2019" {;
 	    #delimit cr		
 			replace c_hospdel = 0 if mn20 != .
 			replace c_hospdel = 1 if inlist(mn20,21,31)		// 1 for private/public hospital
@@ -183,7 +184,7 @@ sum pn3u pn3n
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
 			replace c_facdel = 1 if inrange(mn20,31,32)	    // 1 for private health facility
 		}
-		if inlist(country_name,"TurksCaicosIslands2019") {
+		if inlist(country_name,"TurksCaicosIslands2019","Guyana2019") {
 			replace c_facdel = 0 if mn20 != .
 			replace c_facdel = 1 if inrange(mn20,21,26)		// 1 for public health facility
 			replace c_facdel = 1 if mn20 == 31	    // 1 for private health facility
@@ -324,7 +325,7 @@ sum pn3u pn3n
 			if inlist(country_name,"Tunisia2018","Lesotho2018","Zimbabwe2019","Guinea-Bissau2018","StateofPalestine2019","Kosovo2019","NorthMacedonia2018","Cuba2019","SaoTomeAndPrincipe2019")|inlist(country_name,"Samoa2019","TurksCaicosIslands2019","Malawi2019","Vietnam2020","Fiji2021"){
 				global mn19 "mn19a mn19b"
 			}
-			if inlist(country_name,"Bangladesh2019") {	
+			if inlist(country_name,"Bangladesh2019","Guyana2019") {	
 				global mn19 "mn19a mn19b mn19c mn19d mn19e"
 			}
 			if inlist(country_name,"Congodr2017") {	
