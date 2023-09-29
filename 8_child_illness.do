@@ -218,8 +218,8 @@ sum ca21* ca16 ca17 ca18
 			replace c_diarrhea_med = . if inlist(ca12,8,9)   // OR treatment/consultation variable missing
 		}
 		if inlist(country_name,"Tuvalu2019") {
-			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7d == 1 | ca73 == 1)
-			replace c_diarrhea_med = . if inlist(ca7c,8,9) | inlist(ca7d,8,9) | inlist(ca7e,8,9)      // OR treatment/consultation variable missing
+			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7c == 1 | ca7d == 1 )
+			replace c_diarrhea_med = . if inlist(ca7c,8,9) | inlist(ca7d,8,9)      // OR treatment/consultation variable missing
 		}
 		if inlist(country_name,"Vietnam2020") {
 			replace c_diarrhea_med = 1 if c_diarrhea_med == 0 &  (ca7a == 1 | ca7c == 1)
